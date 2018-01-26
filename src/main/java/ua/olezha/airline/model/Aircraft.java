@@ -2,7 +2,15 @@ package ua.olezha.airline.model;
 
 import lombok.Data;
 
-// TODO: 3 levels of the hierarchy
+import javax.persistence.*;
+
+// https://marcin-chwedczuk.github.io/mapping-inheritance-in-hibernate
 @Data
-public class Aircraft {
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Aircraft {
+
+    @Id
+    @GeneratedValue
+    private Long id;
 }
