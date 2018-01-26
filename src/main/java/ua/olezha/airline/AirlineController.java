@@ -1,13 +1,19 @@
 package ua.olezha.airline;
 
 import asg.cliche.Command;
+import asg.cliche.Param;
+import lombok.Data;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.olezha.airline.model.Aircraft;
 import ua.olezha.airline.service.AircraftService;
 
+import java.util.Collections;
 import java.util.List;
 
+@Slf4j
 @Component
 public class AirlineController {
 
@@ -18,28 +24,70 @@ public class AirlineController {
         this.aircraftService = aircraftService;
     }
 
+    @Command
+    public void addAircraft(
+            @Param(name = "type [WideBodyAirliner|Commuterliner|Helicopter]")
+                    String type,
+            @Param(name = "seating capacity")
+                    int seatingCapacity,
+            @Param(name = "carrying capacity (kg)")
+                    int carryingCapacityKg,
+            @Param(name = "flight range (km)")
+                    int flightRangeKm,
+            @Param(name = "fuel consumption (liters per hour)")
+                    int fuelConsumptionLitersPerHour)
+            throws IllegalAccessException, InstantiationException {
+        try {
+            Class<?> aircraftClass = Class.forName("ua.olezha.airline.model." + type);
+            Aircraft aircraft = (Aircraft) aircraftClass.newInstance();
+            aircraft.setSeatingCapacity(seatingCapacity);
+            aircraft.setCarryingCapacityKg(carryingCapacityKg);
+            aircraft.setFlightRangeKm(flightRangeKm);
+            aircraft.setFuelConsumptionLitersPerHour(fuelConsumptionLitersPerHour);
+            aircraftService.addAircraft(aircraft);
+        } catch (ClassNotFoundException | ClassCastException e) {
+            log.info("{} is an unknown type of aircraft", type);
+        }
+    }
+
+    @Command
+    public List<Aircraft> showAllAircraft() {
+        return aircraftService.allAircraftInTheAirline();
+    }
+
     // Total capacity of all the aircraft in the airline
     @Command
     public int totalCapacity() {
-        return 0;
+        return aircraftService.totalCapacityOfAllTheAircraftInTheAirline();
     }
 
     // Carrying capacity of all the aircraft in the airline
     @Command
     public int carryingCapacity() {
-        return 0;
+        return aircraftService.carryingCapacityOfAllTheAircraftInTheAirline();
     }
 
-    // TODO: ASC|DESC
     // List of aircraft of the company sorted by flight range
     @Command
     public List<Aircraft> aircraftSortedByFlightRange() {
-        return null;
+        return aircraftService.sortTheAircraftsByFlightRangeFromSmallerToLarger();
+    }
+
+    @Command
+    public List<Aircraft> aircraftSortedByFlightRange(@Param(name = "direction [ASC|DESC]") String direction) {
+        List<Aircraft> aircraftList = aircraftService.sortTheAircraftsByFlightRangeFromSmallerToLarger();
+        if ("DESC".equalsIgnoreCase(direction))
+            Collections.reverse(aircraftList);
+        return aircraftList;
     }
 
     @Command
     public List<Aircraft> airplanesCorrespondingToAGivenRangeOfFuelConsumptionParameters(
-            int from, int to) {
-        return null;
+            @Param(name = "from (liters per hour)")
+                    int fromLitersPerHour,
+            @Param(name = "to (liters per hour)")
+                    int toLitersPerHour) {
+        return aircraftService.findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParametersLitersPerHour(
+                fromLitersPerHour, toLitersPerHour);
     }
 }

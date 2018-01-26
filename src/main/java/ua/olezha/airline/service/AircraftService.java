@@ -6,10 +6,13 @@ import java.util.List;
 
 public interface AircraftService {
 
+    void addAircraft(Aircraft aircraft);
+
+    List<Aircraft> allAircraftInTheAirline();
+
     // TODO: what das total capacity mean
     int totalCapacityOfAllTheAircraftInTheAirline();
 
-    // TODO: what das carrying capacity mean
     int carryingCapacityOfAllTheAircraftInTheAirline();
 
     List<Aircraft> sortTheAircraftsByFlightRangeFromSmallerToLarger();

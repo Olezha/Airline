@@ -1,10 +1,12 @@
 package ua.olezha.airline.model;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 
 @Data
+@ToString(callSuper=true)
 @Entity
-public class Biplane extends Airplane {
+public class WideBodyAirliner extends Airplane {
 }
