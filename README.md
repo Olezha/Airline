@@ -4,7 +4,7 @@
 ```sh
 git clone git@github.com:Olezha/Airline.git
 cd Airline
-mvn install
+mvn clean install
 java -jar target/airline-1.0-SNAPSHOT.jar
 ```
 

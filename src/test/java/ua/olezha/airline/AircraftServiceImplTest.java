@@ -1,6 +1,5 @@
 package ua.olezha.airline;
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -17,7 +16,6 @@ import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
-@Slf4j
 public class AircraftServiceImplTest {
 
     private Company company;
@@ -45,10 +43,10 @@ public class AircraftServiceImplTest {
     public void getAllAircraftInTheAirlineSuccessfully() throws Exception {
         aircraftService.addAircraft(new Helicopter());
         aircraftService.addAircraft(new WideBodyAirliner());
-        assertThat(company.getAircraftList().size(), is(2));
+        assertThat(aircraftService.allAircraftInTheAirline().size(), is(2));
         aircraftService.addAircraft(new Commuterliner());
         aircraftService.addAircraft(new Commuterliner());
-        assertThat(company.getAircraftList().size(), is(4));
+        assertThat(aircraftService.allAircraftInTheAirline().size(), is(4));
     }
 
     @Test
@@ -108,8 +106,7 @@ public class AircraftServiceImplTest {
                 aircraftService.sortTheAircraftsByFlightRangeFromSmallerToLarger();
         assertTrue(
                 aircraftListSortedByFlightRangeFromSmallerToLarger.get(0).getFlightRangeKm()
-                        <
-                        aircraftListSortedByFlightRangeFromSmallerToLarger.get(1).getFlightRangeKm());
+                        < aircraftListSortedByFlightRangeFromSmallerToLarger.get(1).getFlightRangeKm());
     }
 
     @Test
@@ -135,7 +132,8 @@ public class AircraftServiceImplTest {
 
         List<Aircraft> aircraftListCorrespondingToTheSpecifiedRangeOfFuelConsumptionParameters =
                 aircraftService.findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParametersLitersPerHour(1000, 4000);
-        assertTrue(aircraftListCorrespondingToTheSpecifiedRangeOfFuelConsumptionParameters.size() == 1);
+        assertThat(aircraftListCorrespondingToTheSpecifiedRangeOfFuelConsumptionParameters.size(),
+                is(1));
         assertThat(aircraftListCorrespondingToTheSpecifiedRangeOfFuelConsumptionParameters.get(0),
                 is(helicopter));
     }
