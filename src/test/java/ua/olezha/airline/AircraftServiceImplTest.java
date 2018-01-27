@@ -3,7 +3,11 @@ package ua.olezha.airline;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import ua.olezha.airline.model.*;
+import ua.olezha.airline.model.aircraft.Aircraft;
+import ua.olezha.airline.model.aircraft.Commuterliner;
+import ua.olezha.airline.model.aircraft.Helicopter;
+import ua.olezha.airline.model.aircraft.WideBodyAirliner;
+import ua.olezha.airline.model.company.Company;
 import ua.olezha.airline.repository.AircraftRepository;
 import ua.olezha.airline.repository.CompanyRepository;
 import ua.olezha.airline.service.AircraftService;
@@ -36,7 +40,7 @@ public class AircraftServiceImplTest {
     @Test
     public void addAircraftSuccessfully() throws Exception {
         aircraftService.addAircraft(new Commuterliner());
-        assertNotNull(company.getAircraftList().get(0));
+        assertThat(company.getAircraftList().size(), is(1));
     }
 
     @Test
@@ -51,17 +55,22 @@ public class AircraftServiceImplTest {
 
     @Test
     public void testTotalCapacityOfAllTheAircraftInTheAirline() throws Exception {
+        int seatingCapacity = 0;
         Helicopter helicopter = new Helicopter();
         helicopter.setSeatingCapacity(18);
+        seatingCapacity += helicopter.getSeatingCapacity();
         aircraftService.addAircraft(helicopter);
         Commuterliner commuterliner = new Commuterliner();
         commuterliner.setSeatingCapacity(80);
+        seatingCapacity += commuterliner.getSeatingCapacity();
         aircraftService.addAircraft(commuterliner);
         WideBodyAirliner wideBodyAirliner = new WideBodyAirliner();
         wideBodyAirliner.setSeatingCapacity(450);
+        seatingCapacity += wideBodyAirliner.getSeatingCapacity();
         aircraftService.addAircraft(wideBodyAirliner);
         Helicopter helicopter2 = new Helicopter();
         helicopter2.setSeatingCapacity(8);
+        seatingCapacity += helicopter2.getSeatingCapacity();
         aircraftService.addAircraft(helicopter2);
 
         when(aircraftRepositoryMock.totalCapacityOfAllTheAircraftInTheAirline())
@@ -70,17 +79,19 @@ public class AircraftServiceImplTest {
                         .mapToInt(Aircraft::getSeatingCapacity).sum()
                 );
 
-        assertThat(aircraftService.totalCapacityOfAllTheAircraftInTheAirline(),
-                is(556));
+        assertThat(aircraftService.totalCapacityOfAllTheAircraftInTheAirline(), is(seatingCapacity));
     }
 
     @Test
     public void testCarryingCapacityOfAllTheAircraftInTheAirline() throws Exception {
+        int carryingCapacity = 0;
         Helicopter helicopter = new Helicopter();
         helicopter.setCarryingCapacityKg(5000);
+        carryingCapacity += helicopter.getCarryingCapacityKg();
         aircraftService.addAircraft(helicopter);
         WideBodyAirliner wideBodyAirliner = new WideBodyAirliner();
         wideBodyAirliner.setCarryingCapacityKg(180000);
+        carryingCapacity += wideBodyAirliner.getCarryingCapacityKg();
         aircraftService.addAircraft(wideBodyAirliner);
 
         when(aircraftRepositoryMock.carryingCapacityOfAllTheAircraftInTheAirline())
@@ -90,7 +101,7 @@ public class AircraftServiceImplTest {
                 );
 
         assertThat(aircraftService.carryingCapacityOfAllTheAircraftInTheAirline(),
-                is(185000));
+                is(carryingCapacity));
     }
 
     @Test

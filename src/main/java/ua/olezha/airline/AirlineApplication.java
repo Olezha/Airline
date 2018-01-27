@@ -15,7 +15,7 @@ public class AirlineApplication {
                 SpringApplication.run(AirlineApplication.class, args);
 
         ShellFactory
-                .createConsoleShell("", "Airline",
+                .createConsoleShell("airline ", "Airline (usage: type ?l for list all commands)",
                         context.getBean(AirlineController.class))
                 .commandLoop();
     }

@@ -1,6 +1,6 @@
 package ua.olezha.airline.service;
 
-import ua.olezha.airline.model.Aircraft;
+import ua.olezha.airline.model.aircraft.Aircraft;
 
 import java.util.List;
 

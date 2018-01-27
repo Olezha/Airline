@@ -5,7 +5,7 @@ import asg.cliche.Param;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ua.olezha.airline.model.Aircraft;
+import ua.olezha.airline.model.aircraft.Aircraft;
 import ua.olezha.airline.service.AircraftService;
 
 import java.util.Collections;
@@ -36,7 +36,7 @@ public class AirlineController {
                     int fuelConsumptionLitersPerHour)
             throws IllegalAccessException, InstantiationException {
         try {
-            Class<?> aircraftClass = Class.forName("ua.olezha.airline.model." + type);
+            Class<?> aircraftClass = Class.forName("ua.olezha.airline.model.aircraft." + type);
             Aircraft aircraft = (Aircraft) aircraftClass.newInstance();
             aircraft.setSeatingCapacity(seatingCapacity);
             aircraft.setCarryingCapacityKg(carryingCapacityKg);
@@ -87,5 +87,23 @@ public class AirlineController {
                     int toLitersPerHour) {
         return aircraftService.findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParametersLitersPerHour(
                 fromLitersPerHour, toLitersPerHour);
+    }
+
+    @Command
+    public void mock() throws InstantiationException, IllegalAccessException {
+        addAircraft("Commuterliner", 10, 2000, 10000, 150);
+        addAircraft("Helicopter", 18, 800, 3050, 350);
+        addAircraft("WideBodyAirliner", 200, 18000, 14300, 555);
+        addAircraft("Commuterliner", 150, 5550, 1000, 990);
+        addAircraft("Helicopter", 4, 2110, 2300, 120);
+        addAircraft("WideBodyAirliner", 777, 400, 19500, 1150);
+        addAircraft("Commuterliner", 101, 2014, 1675, 350);
+        addAircraft("Helicopter", 9, 900, 1900, 120);
+        addAircraft("WideBodyAirliner", 1020, 12000, 10100, 1600);
+        addAircraft("WideBodyAirliner", 555, 14500, 9900, 2500);
+        addAircraft("Commuterliner", 19, 4500, 5675, 1001);
+        addAircraft("Helicopter", 24, 2600, 900, 630);
+        addAircraft("WideBodyAirliner", 8, 8950, 12500, 1340);
+        addAircraft("Commuterliner", 189, 1600, 19000, 2250);
     }
 }

@@ -1,4 +1,4 @@
-package ua.olezha.airline.model;
+package ua.olezha.airline.model.aircraft;
 
 import lombok.Data;
 

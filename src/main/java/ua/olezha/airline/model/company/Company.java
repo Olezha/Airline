@@ -1,6 +1,7 @@
-package ua.olezha.airline.model;
+package ua.olezha.airline.model.company;
 
 import lombok.Data;
+import ua.olezha.airline.model.aircraft.Aircraft;
 
 import javax.persistence.*;
 import java.util.ArrayList;
