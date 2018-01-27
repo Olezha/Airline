@@ -1,6 +1,5 @@
 package ua.olezha.airline;
 
-import asg.cliche.CLIException;
 import asg.cliche.ShellFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,9 +7,6 @@ import org.springframework.context.ApplicationContext;
 
 import java.io.IOException;
 
-// TODO: Unit tests
-// TODO: README.md
-// TODO: maven install command
 @SpringBootApplication
 public class AirlineApplication {
 

@@ -2,8 +2,6 @@ package ua.olezha.airline;
 
 import asg.cliche.Command;
 import asg.cliche.Param;
-import lombok.Data;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,15 +24,15 @@ public class AirlineController {
 
     @Command
     public void addAircraft(
-            @Param(name = "type [WideBodyAirliner|Commuterliner|Helicopter]")
+            @Param(name = "Type [WideBodyAirliner|Commuterliner|Helicopter]")
                     String type,
-            @Param(name = "seating capacity")
+            @Param(name = "Seating capacity")
                     int seatingCapacity,
-            @Param(name = "carrying capacity (kg)")
+            @Param(name = "Carrying capacity (kg)")
                     int carryingCapacityKg,
-            @Param(name = "flight range (km)")
+            @Param(name = "Flight range (km)")
                     int flightRangeKm,
-            @Param(name = "fuel consumption (liters per hour)")
+            @Param(name = "Fuel consumption (liters per hour)")
                     int fuelConsumptionLitersPerHour)
             throws IllegalAccessException, InstantiationException {
         try {
@@ -74,7 +72,7 @@ public class AirlineController {
     }
 
     @Command
-    public List<Aircraft> aircraftSortedByFlightRange(@Param(name = "direction [ASC|DESC]") String direction) {
+    public List<Aircraft> aircraftSortedByFlightRange(@Param(name = "Direction [ASC|DESC]") String direction) {
         List<Aircraft> aircraftList = aircraftService.sortTheAircraftsByFlightRangeFromSmallerToLarger();
         if ("DESC".equalsIgnoreCase(direction))
             Collections.reverse(aircraftList);
@@ -83,9 +81,9 @@ public class AirlineController {
 
     @Command
     public List<Aircraft> airplanesCorrespondingToAGivenRangeOfFuelConsumptionParameters(
-            @Param(name = "from (liters per hour)")
+            @Param(name = "From (liters per hour)")
                     int fromLitersPerHour,
-            @Param(name = "to (liters per hour)")
+            @Param(name = "To (liters per hour)")
                     int toLitersPerHour) {
         return aircraftService.findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParametersLitersPerHour(
                 fromLitersPerHour, toLitersPerHour);

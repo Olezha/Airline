@@ -10,7 +10,7 @@ public interface AircraftService {
 
     List<Aircraft> allAircraftInTheAirline();
 
-    // TODO: what das total capacity mean
+    // TODO: Q: what das total capacity mean
     int totalCapacityOfAllTheAircraftInTheAirline();
 
     int carryingCapacityOfAllTheAircraftInTheAirline();

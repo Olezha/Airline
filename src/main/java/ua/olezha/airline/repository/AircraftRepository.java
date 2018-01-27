@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 public interface AircraftRepository
         extends JpaRepository<Aircraft, Long> {
+
     @Query(value =
             "SELECT COALESCE(a, 0) + COALESCE(b, 0) + COALESCE(c, 0) " +
                     "FROM " +

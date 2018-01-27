@@ -4,10 +4,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-/**
- * Mapping class inheritance
- * (https://marcin-chwedczuk.github.io/mapping-inheritance-in-hibernate)
- */
 @Data
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
