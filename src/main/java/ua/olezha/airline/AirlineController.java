@@ -24,16 +24,11 @@ public class AirlineController {
 
     @Command
     public void addAircraft(
-            @Param(name = "Type [WideBodyAirliner|Commuterliner|Helicopter]")
-                    String type,
-            @Param(name = "Seating capacity")
-                    int seatingCapacity,
-            @Param(name = "Carrying capacity (kg)")
-                    int carryingCapacityKg,
-            @Param(name = "Flight range (km)")
-                    int flightRangeKm,
-            @Param(name = "Fuel consumption (liters per hour)")
-                    int fuelConsumptionLitersPerHour) {
+            @Param(name = "Type [WideBodyAirliner|Commuterliner|Helicopter]") String type,
+            @Param(name = "Seating capacity") int seatingCapacity,
+            @Param(name = "Carrying capacity (kg)") int carryingCapacityKg,
+            @Param(name = "Flight range (km)") int flightRangeKm,
+            @Param(name = "Fuel consumption (liters per hour)") int fuelConsumptionLitersPerHour) {
             try {
                 Aircraft aircraft = aircraftService.aircraftFactory(type);
                 aircraft.setSeatingCapacity(seatingCapacity);
@@ -79,16 +74,14 @@ public class AirlineController {
 
     @Command
     public List<Aircraft> airplanesCorrespondingToAGivenRangeOfFuelConsumptionParameters(
-            @Param(name = "From (liters per hour)")
-                    int fromLitersPerHour,
-            @Param(name = "To (liters per hour)")
-                    int toLitersPerHour) {
+            @Param(name = "From (liters per hour)") int fromLitersPerHour,
+            @Param(name = "To (liters per hour)") int toLitersPerHour) {
         return aircraftService.findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParameters(
                 fromLitersPerHour, toLitersPerHour);
     }
 
     @Command
-    public void mock() throws InstantiationException, IllegalAccessException {
+    public void mock() {
         addAircraft("Commuterliner", 10, 2000, 10000, 150);
         addAircraft("Helicopter", 18, 800, 3050, 350);
         addAircraft("WideBodyAirliner", 200, 18000, 14300, 555);
