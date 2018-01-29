@@ -8,5 +8,5 @@ import javax.persistence.Entity;
 @ToString(callSuper=true)
 @EqualsAndHashCode(callSuper = true)
 @Entity
-abstract class Airplane extends Aircraft {
+public abstract class Airplane extends Aircraft {
 }

@@ -3,10 +3,7 @@ package ua.olezha.airline;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import ua.olezha.airline.model.aircraft.Aircraft;
-import ua.olezha.airline.model.aircraft.Commuterliner;
-import ua.olezha.airline.model.aircraft.Helicopter;
-import ua.olezha.airline.model.aircraft.WideBodyAirliner;
+import ua.olezha.airline.model.aircraft.*;
 import ua.olezha.airline.model.company.Company;
 import ua.olezha.airline.repository.AircraftRepository;
 import ua.olezha.airline.repository.CompanyRepository;
@@ -151,18 +148,21 @@ public class AircraftServiceImplTest {
 
     @Test
     public void aircraftFactorySuccessfully() throws Exception {
-        Aircraft commuterliner = aircraftService.aircraftFactory("Commuterliner");
-        Aircraft helicopter = aircraftService.aircraftFactory("Helicopter");
         Aircraft wideBodyAirliner = aircraftService.aircraftFactory("WideBodyAirliner");
+        assertThat(wideBodyAirliner, instanceOf(Aircraft.class));
+        assertThat(wideBodyAirliner, instanceOf(Airplane.class));
+        assertThat(wideBodyAirliner, instanceOf(WideBodyAirliner.class));
+        assertThat(aircraftService.aircraftFactory("Commuterliner"), instanceOf(Commuterliner.class));
+        assertThat(aircraftService.aircraftFactory("Helicopter"), instanceOf(Helicopter.class));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void aircraftFactoryFailedWithAirplane() throws Exception {
-        Aircraft narrowBodyAirliner = aircraftService.aircraftFactory("Airplane");
+        aircraftService.aircraftFactory("Airplane");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void aircraftFactoryFailedWithNarrowBodyAirliner() throws Exception {
-        Aircraft narrowBodyAirliner = aircraftService.aircraftFactory("NarrowBodyAirliner");
+        aircraftService.aircraftFactory("NarrowBodyAirliner");
     }
 }
