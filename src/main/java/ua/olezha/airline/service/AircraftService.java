@@ -17,6 +17,8 @@ public interface AircraftService {
 
     List<Aircraft> sortTheAircraftByFlightRangeFromSmallerToLarger();
 
-    List<Aircraft> findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParametersLitersPerHour(
-            int from, int to);
+    List<Aircraft> findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParameters(
+            int fromLitersPerHour, int toLitersPerHour);
+
+    Aircraft aircraftFactory(String type);
 }

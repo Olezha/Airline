@@ -142,10 +142,27 @@ public class AircraftServiceImplTest {
                 );
 
         List<Aircraft> aircraftListCorrespondingToTheSpecifiedRangeOfFuelConsumptionParameters =
-                aircraftService.findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParametersLitersPerHour(1000, 4000);
+                aircraftService.findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParameters(1000, 4000);
         assertThat(aircraftListCorrespondingToTheSpecifiedRangeOfFuelConsumptionParameters.size(),
                 is(1));
         assertThat(aircraftListCorrespondingToTheSpecifiedRangeOfFuelConsumptionParameters.get(0),
                 is(helicopter));
+    }
+
+    @Test
+    public void aircraftFactorySuccessfully() throws Exception {
+        Aircraft commuterliner = aircraftService.aircraftFactory("Commuterliner");
+        Aircraft helicopter = aircraftService.aircraftFactory("Helicopter");
+        Aircraft wideBodyAirliner = aircraftService.aircraftFactory("WideBodyAirliner");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void aircraftFactoryFailedWithAirplane() throws Exception {
+        Aircraft narrowBodyAirliner = aircraftService.aircraftFactory("Airplane");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void aircraftFactoryFailedWithNarrowBodyAirliner() throws Exception {
+        Aircraft narrowBodyAirliner = aircraftService.aircraftFactory("NarrowBodyAirliner");
     }
 }

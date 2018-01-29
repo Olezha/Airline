@@ -33,19 +33,17 @@ public class AirlineController {
             @Param(name = "Flight range (km)")
                     int flightRangeKm,
             @Param(name = "Fuel consumption (liters per hour)")
-                    int fuelConsumptionLitersPerHour)
-            throws IllegalAccessException, InstantiationException {
-        try {
-            Class<?> aircraftClass = Class.forName("ua.olezha.airline.model.aircraft." + type);
-            Aircraft aircraft = (Aircraft) aircraftClass.newInstance();
-            aircraft.setSeatingCapacity(seatingCapacity);
-            aircraft.setCarryingCapacityKg(carryingCapacityKg);
-            aircraft.setFlightRangeKm(flightRangeKm);
-            aircraft.setFuelConsumptionLitersPerHour(fuelConsumptionLitersPerHour);
-            aircraftService.addAircraft(aircraft);
-        } catch (ClassNotFoundException | ClassCastException e) {
-            log.info("{} is an unknown type of aircraft", type);
-        }
+                    int fuelConsumptionLitersPerHour) {
+            try {
+                Aircraft aircraft = aircraftService.aircraftFactory(type);
+                aircraft.setSeatingCapacity(seatingCapacity);
+                aircraft.setCarryingCapacityKg(carryingCapacityKg);
+                aircraft.setFlightRangeKm(flightRangeKm);
+                aircraft.setFuelConsumptionLitersPerHour(fuelConsumptionLitersPerHour);
+                aircraftService.addAircraft(aircraft);
+            } catch (IllegalArgumentException e) {
+                log.info(e.getLocalizedMessage());
+            }
     }
 
     @Command
@@ -85,7 +83,7 @@ public class AirlineController {
                     int fromLitersPerHour,
             @Param(name = "To (liters per hour)")
                     int toLitersPerHour) {
-        return aircraftService.findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParametersLitersPerHour(
+        return aircraftService.findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParameters(
                 fromLitersPerHour, toLitersPerHour);
     }
 

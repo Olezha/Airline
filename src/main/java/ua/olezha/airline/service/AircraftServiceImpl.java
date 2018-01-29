@@ -3,6 +3,7 @@ package ua.olezha.airline.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import ua.olezha.airline.model.aircraft.Aircraft;
 import ua.olezha.airline.model.company.Company;
 import ua.olezha.airline.repository.AircraftRepository;
@@ -65,8 +66,18 @@ public class AircraftServiceImpl implements AircraftService {
     }
 
     @Override
-    public List<Aircraft> findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParametersLitersPerHour(
+    public List<Aircraft> findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParameters(
             int fromLitersPerHour, int toLitersPerHour) {
         return aircraftRepository.findByFuelConsumptionLitersPerHourBetween(fromLitersPerHour, toLitersPerHour);
+    }
+
+    @Override
+    public Aircraft aircraftFactory(String type) {
+        try {
+            Class<?> aircraftClass = Class.forName("ua.olezha.airline.model.aircraft." + type);
+            return  (Aircraft) aircraftClass.newInstance();
+        } catch (ClassNotFoundException | ClassCastException | InstantiationException| IllegalAccessException e) {
+            throw new IllegalArgumentException(type + " is an unknown type of aircraft");
+        }
     }
 }
