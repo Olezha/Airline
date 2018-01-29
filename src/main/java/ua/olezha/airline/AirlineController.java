@@ -68,12 +68,12 @@ public class AirlineController {
     // List of aircraft of the company sorted by flight range
     @Command
     public List<Aircraft> aircraftSortedByFlightRange() {
-        return aircraftService.sortTheAircraftsByFlightRangeFromSmallerToLarger();
+        return aircraftService.sortTheAircraftByFlightRangeFromSmallerToLarger();
     }
 
     @Command
     public List<Aircraft> aircraftSortedByFlightRange(@Param(name = "Direction [ASC|DESC]") String direction) {
-        List<Aircraft> aircraftList = aircraftService.sortTheAircraftsByFlightRangeFromSmallerToLarger();
+        List<Aircraft> aircraftList = aircraftService.sortTheAircraftByFlightRangeFromSmallerToLarger();
         if ("DESC".equalsIgnoreCase(direction))
             Collections.reverse(aircraftList);
         return aircraftList;

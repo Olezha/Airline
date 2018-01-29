@@ -15,7 +15,7 @@ public interface AircraftService {
 
     int carryingCapacityOfAllTheAircraftInTheAirline();
 
-    List<Aircraft> sortTheAircraftsByFlightRangeFromSmallerToLarger();
+    List<Aircraft> sortTheAircraftByFlightRangeFromSmallerToLarger();
 
     List<Aircraft> findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParametersLitersPerHour(
             int from, int to);

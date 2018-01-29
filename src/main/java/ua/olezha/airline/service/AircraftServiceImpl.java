@@ -57,7 +57,7 @@ public class AircraftServiceImpl implements AircraftService {
     }
 
     @Override
-    public List<Aircraft> sortTheAircraftsByFlightRangeFromSmallerToLarger() {
+    public List<Aircraft> sortTheAircraftByFlightRangeFromSmallerToLarger() {
         return allAircraftInTheAirline()
                 .stream()
                 .sorted(comparing(Aircraft::getFlightRangeKm, nullsFirst(naturalOrder())))

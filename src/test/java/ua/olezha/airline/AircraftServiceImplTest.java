@@ -105,7 +105,7 @@ public class AircraftServiceImplTest {
     }
 
     @Test
-    public void testSortTheAircraftsByFlightRangeFromSmallerToLarger() throws Exception {
+    public void testSortTheAircraftByFlightRangeFromSmallerToLarger() throws Exception {
         Helicopter helicopter = new Helicopter();
         helicopter.setFlightRangeKm(800);
         aircraftService.addAircraft(helicopter);
@@ -114,7 +114,7 @@ public class AircraftServiceImplTest {
         aircraftService.addAircraft(wideBodyAirliner);
 
         List<Aircraft> aircraftListSortedByFlightRangeFromSmallerToLarger =
-                aircraftService.sortTheAircraftsByFlightRangeFromSmallerToLarger();
+                aircraftService.sortTheAircraftByFlightRangeFromSmallerToLarger();
         assertTrue(
                 aircraftListSortedByFlightRangeFromSmallerToLarger.get(0).getFlightRangeKm()
                         < aircraftListSortedByFlightRangeFromSmallerToLarger.get(1).getFlightRangeKm());
