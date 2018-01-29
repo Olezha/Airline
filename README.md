@@ -12,7 +12,7 @@ java -jar target/airline-1.0.jar
 ## Usage 
 Enter ```?list``` to list all commands
 ```sh
-Airline (usage: type ?l for list all commands)
+Airline (usage: ?l for list all commands)
 airline > ?list
 abbrev	name	params
 aa	add-aircraft	(Type [WideBodyAirliner|Commuterliner|Helicopter], Seating capacity, Carrying capacity (kg), Flight range (km), Fuel consumption (liters per hour))
@@ -28,7 +28,7 @@ airline > |
 
 Here's the sample session:
 ```sh
-Airline (usage: type ?l for list all commands)
+Airline (usage: ?l for list all commands)
 airline > m
 airline > saa
 Commuterliner(super=Airplane(super=Aircraft(id=1, seatingCapacity=10, carryingCapacityKg=2000, flightRangeKm=10000, fuelConsumptionLitersPerHour=150)))
