@@ -12,7 +12,7 @@ java -jar target/airline-1.0.jar
 ## Usage 
 Enter ```help``` to list all commands
 ```sh
-Airline (help - display help about available commands
+Airline (to display available commands type help)
 airline>help
 AVAILABLE COMMANDS
 
@@ -38,7 +38,7 @@ airline>|
 
 Here's the sample session:
 ```sh
-Airline (help - display help about available commands
+Airline (to display available commands type help)
 airline>show
 airline>mock
 airline>show

@@ -18,7 +18,7 @@ public class AirlineShellController {
     @Autowired
     public AirlineShellController(AircraftService aircraftService) {
         this.aircraftService = aircraftService;
-        System.out.println("Airline (help - display help about available commands");
+        System.out.println("Airline (to display available commands type help)");
     }
 
     @ShellMethod(value = "Add aircraft", key = "add", prefix="-")
