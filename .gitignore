@@ -3,3 +3,4 @@ target/
 *.iml
 /airline/
 derby.log
+spring-shell.log
