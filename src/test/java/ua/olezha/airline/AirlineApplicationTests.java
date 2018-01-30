@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Import;
 import org.springframework.shell.Shell;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.olezha.airline.model.aircraft.Aircraft;
 
@@ -21,6 +22,7 @@ import static org.hamcrest.CoreMatchers.is;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@ActiveProfiles("test")
 @Import(AirlineApplicationRunner.class)
 public class AirlineApplicationTests implements ApplicationRunner {
 

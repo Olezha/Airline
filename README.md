@@ -1,5 +1,5 @@
 # Airline - company that stores airplanes [![Build Status](https://travis-ci.org/Olezha/Airline.svg?branch=master)](https://travis-ci.org/Olezha/Airline)
-Console application (education)
+Console application
 
 ## Instructions for launching
 After cloning the repository,
