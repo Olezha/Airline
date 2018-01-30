@@ -78,6 +78,14 @@ public class AirlineShellController {
                 fromLitersPerHour, toLitersPerHour);
     }
 
+    @ShellMethod(value = "Delete", prefix="-")
+    public void delete(boolean all) {
+        if (!all)
+            throw new UnsupportedOperationException();
+        else
+            aircraftService.deleteAll();
+    }
+
     @ShellMethod("Simulate objects")
     public void mock() {
         addAircraft("Commuterliner", 10, 2000, 10000, 150);

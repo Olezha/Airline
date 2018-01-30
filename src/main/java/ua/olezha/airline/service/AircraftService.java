@@ -21,4 +21,6 @@ public interface AircraftService {
             int fromLitersPerHour, int toLitersPerHour);
 
     Aircraft aircraftFactory(String type);
+
+    void deleteAll();
 }

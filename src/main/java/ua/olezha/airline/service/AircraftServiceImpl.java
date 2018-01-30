@@ -79,4 +79,9 @@ public class AircraftServiceImpl implements AircraftService {
             throw new IllegalArgumentException(type + " is an unknown type of aircraft");
         }
     }
+
+    @Override
+    public void deleteAll() {
+        aircraftRepository.deleteAll();
+    }
 }

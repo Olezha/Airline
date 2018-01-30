@@ -46,9 +46,9 @@ public class AirlineApplicationTests implements ApplicationRunner {
                 is(1));
     }
 
-    @Ignore
     @Test
     public void deleteAllSuccessfully() {
+        shell.evaluate(() -> "add Commuterliner 0 1 2 3");
         shell.evaluate(() -> "delete -all");
         Assert.assertThat(((List) shell.evaluate(() -> "show")).size(),
                 is(0));
