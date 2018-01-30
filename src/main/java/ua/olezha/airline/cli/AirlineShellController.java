@@ -1,96 +1,85 @@
-package ua.olezha.airline;
+package ua.olezha.airline.cli;
 
-import asg.cliche.Command;
-import asg.cliche.Param;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.shell.standard.ShellComponent;
+import org.springframework.shell.standard.ShellMethod;
+import org.springframework.shell.standard.ShellOption;
 import ua.olezha.airline.model.aircraft.Aircraft;
 import ua.olezha.airline.service.AircraftService;
 
 import java.util.Collections;
 import java.util.List;
 
-@Slf4j
-@Component
-public class AirlineController {
+@ShellComponent()
+public class AirlineShellController {
 
     private final AircraftService aircraftService;
 
     @Autowired
-    public AirlineController(AircraftService aircraftService) {
+    public AirlineShellController(AircraftService aircraftService) {
         this.aircraftService = aircraftService;
+        System.out.println("Airline (to display available commands type help)");
     }
 
-    @Command
+    @ShellMethod(value = "Add aircraft", key = "add", prefix="-")
     public void addAircraft(
-            @Param(name = "Type [WideBodyAirliner|Commuterliner|Helicopter]")
-                    String type,
-            @Param(name = "Seating capacity")
-                    int seatingCapacity,
-            @Param(name = "Carrying capacity (kg)")
-                    int carryingCapacityKg,
-            @Param(name = "Flight range (km)")
-                    int flightRangeKm,
-            @Param(name = "Fuel consumption (liters per hour)")
-                    int fuelConsumptionLitersPerHour)
-            throws IllegalAccessException, InstantiationException {
+            @ShellOption(help = "Type [WideBodyAirliner|Commuterliner|Helicopter]")
+            String type,
+            @ShellOption(help = "Seating capacity", defaultValue = "0")
+            int seatingCapacity,
+            @ShellOption(help = "Carrying capacity (kg)", defaultValue = "0")
+            int carryingCapacityKg,
+            @ShellOption(help = "Flight range (km)", defaultValue = "0")
+            int flightRangeKm,
+            @ShellOption(help = "Fuel consumption (liters per hour)", defaultValue = "0")
+            int fuelConsumptionLitersPerHour) {
         try {
-            Class<?> aircraftClass = Class.forName("ua.olezha.airline.model.aircraft." + type);
-            Aircraft aircraft = (Aircraft) aircraftClass.newInstance();
+            Aircraft aircraft = aircraftService.aircraftFactory(type);
             aircraft.setSeatingCapacity(seatingCapacity);
             aircraft.setCarryingCapacityKg(carryingCapacityKg);
             aircraft.setFlightRangeKm(flightRangeKm);
             aircraft.setFuelConsumptionLitersPerHour(fuelConsumptionLitersPerHour);
             aircraftService.addAircraft(aircraft);
-        } catch (ClassNotFoundException | ClassCastException e) {
-            log.info("{} is an unknown type of aircraft", type);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getLocalizedMessage());
         }
     }
 
-    @Command
+    @ShellMethod(value = "Show all aircraft", key = "show")
     public List<Aircraft> showAllAircraft() {
         return aircraftService.allAircraftInTheAirline();
     }
 
-    // Total capacity of all the aircraft in the airline
-    @Command
+    @ShellMethod(value = "Total capacity of all the aircraft in the airline", key = "tc")
     public int totalCapacity() {
         return aircraftService.totalCapacityOfAllTheAircraftInTheAirline();
     }
 
-    // Carrying capacity of all the aircraft in the airline
-    @Command
+    @ShellMethod(value = "Carrying capacity of all the aircraft in the airline", key = "cc")
     public int carryingCapacity() {
         return aircraftService.carryingCapacityOfAllTheAircraftInTheAirline();
     }
 
-    // List of aircraft of the company sorted by flight range
-    @Command
-    public List<Aircraft> aircraftSortedByFlightRange() {
-        return aircraftService.sortTheAircraftByFlightRangeFromSmallerToLarger();
-    }
-
-    @Command
-    public List<Aircraft> aircraftSortedByFlightRange(@Param(name = "Direction [ASC|DESC]") String direction) {
+    @ShellMethod(value = "List of aircraft of the company sorted by flight range", key = "sort", prefix="-")
+    public List<Aircraft> aircraftSortedByFlightRange(boolean desc) {
         List<Aircraft> aircraftList = aircraftService.sortTheAircraftByFlightRangeFromSmallerToLarger();
-        if ("DESC".equalsIgnoreCase(direction))
+        if (desc)
             Collections.reverse(aircraftList);
         return aircraftList;
     }
 
-    @Command
+    @ShellMethod(value = "Airplanes corresponding to a given range of fuel consumption parameters", key = "fuel", prefix="-")
     public List<Aircraft> airplanesCorrespondingToAGivenRangeOfFuelConsumptionParameters(
-            @Param(name = "From (liters per hour)")
-                    int fromLitersPerHour,
-            @Param(name = "To (liters per hour)")
-                    int toLitersPerHour) {
-        return aircraftService.findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParametersLitersPerHour(
+            @ShellOption(help = "From (liters per hour)")
+            int fromLitersPerHour,
+            @ShellOption(help = "To (liters per hour)")
+            int toLitersPerHour) {
+        return aircraftService.findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParameters(
                 fromLitersPerHour, toLitersPerHour);
     }
 
-    @Command
-    public void mock() throws InstantiationException, IllegalAccessException {
+    @ShellMethod("Simulate objects")
+    public void mock() {
         addAircraft("Commuterliner", 10, 2000, 10000, 150);
         addAircraft("Helicopter", 18, 800, 3050, 350);
         addAircraft("WideBodyAirliner", 200, 18000, 14300, 555);

@@ -65,8 +65,18 @@ public class AircraftServiceImpl implements AircraftService {
     }
 
     @Override
-    public List<Aircraft> findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParametersLitersPerHour(
+    public List<Aircraft> findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParameters(
             int fromLitersPerHour, int toLitersPerHour) {
         return aircraftRepository.findByFuelConsumptionLitersPerHourBetween(fromLitersPerHour, toLitersPerHour);
+    }
+
+    @Override
+    public Aircraft aircraftFactory(String type) {
+        try {
+            Class<?> aircraftClass = Class.forName("ua.olezha.airline.model.aircraft." + type);
+            return  (Aircraft) aircraftClass.newInstance();
+        } catch (ClassNotFoundException | ClassCastException | InstantiationException| IllegalAccessException e) {
+            throw new IllegalArgumentException(type + " is an unknown type of aircraft");
+        }
     }
 }

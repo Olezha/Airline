@@ -3,10 +3,7 @@ package ua.olezha.airline;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import ua.olezha.airline.model.aircraft.Aircraft;
-import ua.olezha.airline.model.aircraft.Commuterliner;
-import ua.olezha.airline.model.aircraft.Helicopter;
-import ua.olezha.airline.model.aircraft.WideBodyAirliner;
+import ua.olezha.airline.model.aircraft.*;
 import ua.olezha.airline.model.company.Company;
 import ua.olezha.airline.repository.AircraftRepository;
 import ua.olezha.airline.repository.CompanyRepository;
@@ -20,7 +17,7 @@ import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
-public class AircraftServiceImplTest {
+public class AircraftServiceImplTests {
 
     private Company company;
     private AircraftService aircraftService;
@@ -38,13 +35,13 @@ public class AircraftServiceImplTest {
     }
 
     @Test
-    public void addAircraftSuccessfully() throws Exception {
+    public void addAircraftSuccessfully() {
         aircraftService.addAircraft(new Commuterliner());
         assertThat(company.getAircraftList().size(), is(1));
     }
 
     @Test
-    public void getAllAircraftInTheAirlineSuccessfully() throws Exception {
+    public void getAllAircraftInTheAirlineSuccessfully() {
         aircraftService.addAircraft(new Helicopter());
         aircraftService.addAircraft(new WideBodyAirliner());
         assertThat(aircraftService.allAircraftInTheAirline().size(), is(2));
@@ -54,7 +51,7 @@ public class AircraftServiceImplTest {
     }
 
     @Test
-    public void testTotalCapacityOfAllTheAircraftInTheAirline() throws Exception {
+    public void testTotalCapacityOfAllTheAircraftInTheAirline() {
         int seatingCapacity = 0;
         Helicopter helicopter = new Helicopter();
         helicopter.setSeatingCapacity(18);
@@ -83,7 +80,7 @@ public class AircraftServiceImplTest {
     }
 
     @Test
-    public void testCarryingCapacityOfAllTheAircraftInTheAirline() throws Exception {
+    public void testCarryingCapacityOfAllTheAircraftInTheAirline() {
         int carryingCapacity = 0;
         Helicopter helicopter = new Helicopter();
         helicopter.setCarryingCapacityKg(5000);
@@ -105,7 +102,7 @@ public class AircraftServiceImplTest {
     }
 
     @Test
-    public void testSortTheAircraftByFlightRangeFromSmallerToLarger() throws Exception {
+    public void testSortTheAircraftByFlightRangeFromSmallerToLarger() {
         Helicopter helicopter = new Helicopter();
         helicopter.setFlightRangeKm(800);
         aircraftService.addAircraft(helicopter);
@@ -121,7 +118,7 @@ public class AircraftServiceImplTest {
     }
 
     @Test
-    public void findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParametersLitersPerHourSuccessfully() throws Exception {
+    public void findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParametersLitersPerHourSuccessfully() {
         Helicopter helicopter = new Helicopter();
         helicopter.setFuelConsumptionLitersPerHour(1100);
         aircraftService.addAircraft(helicopter);
@@ -142,10 +139,30 @@ public class AircraftServiceImplTest {
                 );
 
         List<Aircraft> aircraftListCorrespondingToTheSpecifiedRangeOfFuelConsumptionParameters =
-                aircraftService.findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParametersLitersPerHour(1000, 4000);
+                aircraftService.findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParameters(1000, 4000);
         assertThat(aircraftListCorrespondingToTheSpecifiedRangeOfFuelConsumptionParameters.size(),
                 is(1));
         assertThat(aircraftListCorrespondingToTheSpecifiedRangeOfFuelConsumptionParameters.get(0),
                 is(helicopter));
+    }
+
+    @Test
+    public void aircraftFactorySuccessfully() {
+        Aircraft wideBodyAirliner = aircraftService.aircraftFactory("WideBodyAirliner");
+        assertThat(wideBodyAirliner, instanceOf(Aircraft.class));
+        assertThat(wideBodyAirliner, instanceOf(Airplane.class));
+        assertThat(wideBodyAirliner, instanceOf(WideBodyAirliner.class));
+        assertThat(aircraftService.aircraftFactory("Commuterliner"), instanceOf(Commuterliner.class));
+        assertThat(aircraftService.aircraftFactory("Helicopter"), instanceOf(Helicopter.class));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void aircraftFactoryFailedWithAirplane() {
+        aircraftService.aircraftFactory("Airplane");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void aircraftFactoryFailedWithNarrowBodyAirliner() {
+        aircraftService.aircraftFactory("NarrowBodyAirliner");
     }
 }

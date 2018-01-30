@@ -10,13 +10,15 @@ public interface AircraftService {
 
     List<Aircraft> allAircraftInTheAirline();
 
-    // TODO: Q: what das total capacity mean
+    // Passenger capacity
     int totalCapacityOfAllTheAircraftInTheAirline();
 
     int carryingCapacityOfAllTheAircraftInTheAirline();
 
     List<Aircraft> sortTheAircraftByFlightRangeFromSmallerToLarger();
 
-    List<Aircraft> findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParametersLitersPerHour(
-            int from, int to);
+    List<Aircraft> findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParameters(
+            int fromLitersPerHour, int toLitersPerHour);
+
+    Aircraft aircraftFactory(String type);
 }
