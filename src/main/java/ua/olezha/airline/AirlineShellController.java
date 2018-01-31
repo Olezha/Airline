@@ -31,6 +31,7 @@ public class AirlineShellController {
             // TODO: ConversionFailedException
             @ShellOption(help = "Type [WIDE_BODY_AIRLINER|COMMUTERLINER|HELICOPTER]")
             AircraftType aircraftType,
+            // TODO: Valid
             @ShellOption(help = "Seating capacity", defaultValue = "0")
             int seatingCapacity,
             @ShellOption(help = "Carrying capacity (kg)", defaultValue = "0")

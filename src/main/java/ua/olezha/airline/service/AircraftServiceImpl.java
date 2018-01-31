@@ -11,6 +11,8 @@ import ua.olezha.airline.repository.CompanyRepository;
 
 import javax.annotation.PostConstruct;
 import static java.util.Comparator.*;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -92,39 +94,28 @@ public class AircraftServiceImpl implements AircraftService {
          * Aircraft aircraft = new Aircraft() {};
          * org.springframework.dao.InvalidDataAccessApiUsageException: Not an entity: AircraftServiceImpl$1;
          */
-        Commuterliner commuterliner = new Commuterliner();
-        Helicopter helicopter = new Helicopter();
-        WideBodyAirliner wideBodyAirliner = new WideBodyAirliner();
 
-        if (seatingCapacity != -1) {
-            commuterliner.setSeatingCapacity(seatingCapacity);
-            helicopter.setSeatingCapacity(seatingCapacity);
-            wideBodyAirliner.setSeatingCapacity(seatingCapacity);
-        }
-        if (carryingCapacityKg != -1) {
-            commuterliner.setCarryingCapacityKg(carryingCapacityKg);
-            helicopter.setCarryingCapacityKg(carryingCapacityKg);
-            wideBodyAirliner.setCarryingCapacityKg(carryingCapacityKg);
-        }
-        if (flightRangeKm != -1) {
-            commuterliner.setFlightRangeKm(flightRangeKm);
-            helicopter.setFlightRangeKm(flightRangeKm);
-            wideBodyAirliner.setFlightRangeKm(flightRangeKm);
-        }
-        if (fuelConsumptionLitersPerHour != -1) {
-            commuterliner.setFuelConsumptionLitersPerHour(fuelConsumptionLitersPerHour);
-            helicopter.setFuelConsumptionLitersPerHour(fuelConsumptionLitersPerHour);
-            wideBodyAirliner.setFuelConsumptionLitersPerHour(fuelConsumptionLitersPerHour);
-        }
+        List<Aircraft> aircraftList = new ArrayList<>();
+        
+        for (AircraftType aircraftType : AircraftType.values()) {
+            try {
+                Aircraft aircraft = (Aircraft) aircraftType.getAircraftClass().newInstance();
 
-        Example<Aircraft> commuterlinerExample = Example.of(commuterliner);
-        List<Aircraft> aircraftList = aircraftRepository.findAll(commuterlinerExample);
+                if (seatingCapacity != -1)
+                    aircraft.setSeatingCapacity(seatingCapacity);
+                if (carryingCapacityKg != -1)
+                    aircraft.setCarryingCapacityKg(carryingCapacityKg);
+                if (flightRangeKm != -1)
+                    aircraft.setFlightRangeKm(flightRangeKm);
+                if (fuelConsumptionLitersPerHour != -1)
+                    aircraft.setFuelConsumptionLitersPerHour(fuelConsumptionLitersPerHour);
 
-        Example<Aircraft> helicopterExample = Example.of(helicopter);
-        aircraftList.addAll(aircraftRepository.findAll(helicopterExample));
-
-        Example<Aircraft> wideBodyAirlinerExample = Example.of(wideBodyAirliner);
-        aircraftList.addAll(aircraftRepository.findAll(wideBodyAirlinerExample));
+                Example<Aircraft> aircraftExample = Example.of(aircraft);
+                aircraftList.addAll(aircraftRepository.findAll(aircraftExample));
+            } catch (InstantiationException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
 
         return aircraftList;
     }
