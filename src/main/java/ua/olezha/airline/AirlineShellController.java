@@ -31,7 +31,6 @@ public class AirlineShellController {
             // TODO: ConversionFailedException
             @ShellOption(help = "Type [WIDE_BODY_AIRLINER|COMMUTERLINER|HELICOPTER]")
             AircraftType aircraftType,
-            // TODO: Valid
             @ShellOption(help = "Seating capacity", defaultValue = "0")
             int seatingCapacity,
             @ShellOption(help = "Carrying capacity (kg)", defaultValue = "0")
@@ -120,7 +119,7 @@ public class AirlineShellController {
 
     @SuppressWarnings("unused")
     @ShellMethod(value = "Search", prefix="-")
-    private List<Aircraft> search(
+    private List<Aircraft> search(// TODO: Valid *
             @ShellOption(help = "Seating capacity", defaultValue = "-1")
                     int seatingCapacity,
             @ShellOption(help = "Carrying capacity (kg)", defaultValue = "-1")

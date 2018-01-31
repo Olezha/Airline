@@ -96,7 +96,7 @@ public class AircraftServiceImpl implements AircraftService {
          */
 
         List<Aircraft> aircraftList = new ArrayList<>();
-        
+
         for (AircraftType aircraftType : AircraftType.values()) {
             try {
                 Aircraft aircraft = (Aircraft) aircraftType.getAircraftClass().newInstance();
