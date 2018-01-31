@@ -2,7 +2,6 @@ package ua.olezha.airline.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.olezha.airline.model.aircraft.Aircraft;
@@ -93,12 +92,10 @@ public class AircraftServiceImpl implements AircraftService {
     @Override
     public List<Aircraft> search(
             int seatingCapacity, int carryingCapacityKg, int flightRangeKm, int fuelConsumptionLitersPerHour) {
-        /**
+        /*
          * Aircraft aircraft = new Aircraft() {};
-         * doesn't work
-         * org.springframework.dao.InvalidDataAccessApiUsageException: Not an entity
+         * org.springframework.dao.InvalidDataAccessApiUsageException: Not an entity: AircraftServiceImpl$1;
          */
-
         Commuterliner commuterliner = new Commuterliner();
         Helicopter helicopter = new Helicopter();
         WideBodyAirliner wideBodyAirliner = new WideBodyAirliner();
@@ -124,16 +121,13 @@ public class AircraftServiceImpl implements AircraftService {
             wideBodyAirliner.setFuelConsumptionLitersPerHour(fuelConsumptionLitersPerHour);
         }
 
-        ExampleMatcher aircraftExampleMatcher = ExampleMatcher.matching()
-                .withIgnoreNullValues();
-
-        Example<Aircraft> commuterlinerExample = Example.of(commuterliner, aircraftExampleMatcher);
+        Example<Aircraft> commuterlinerExample = Example.of(commuterliner);
         List<Aircraft> aircraftList = aircraftRepository.findAll(commuterlinerExample);
 
-        Example<Aircraft> helicopterExample = Example.of(helicopter, aircraftExampleMatcher);
+        Example<Aircraft> helicopterExample = Example.of(helicopter);
         aircraftList.addAll(aircraftRepository.findAll(helicopterExample));
 
-        Example<Aircraft> wideBodyAirlinerExample = Example.of(wideBodyAirliner, aircraftExampleMatcher);
+        Example<Aircraft> wideBodyAirlinerExample = Example.of(wideBodyAirliner);
         aircraftList.addAll(aircraftRepository.findAll(wideBodyAirlinerExample));
 
         return aircraftList;
