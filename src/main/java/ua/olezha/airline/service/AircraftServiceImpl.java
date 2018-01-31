@@ -41,7 +41,7 @@ public class AircraftServiceImpl implements AircraftService {
     public void addAircraft(Aircraft aircraft) {
         aircraftRepository.save(aircraft);
         Company company = companyRepository.getOne(1L);
-        company.getAircraftList().add(aircraft);
+        company.addAircraft(aircraft);
         companyRepository.save(company);
     }
 
