@@ -56,15 +56,19 @@ Commuterliner(super=Airplane(super=Aircraft(id=11, seatingCapacity=19, carryingC
 Helicopter(super=Aircraft(id=12, seatingCapacity=24, carryingCapacityKg=2600, flightRangeKm=900, fuelConsumptionLitersPerHour=630))
 WideBodyAirliner(super=Airplane(super=Aircraft(id=13, seatingCapacity=8, carryingCapacityKg=8950, flightRangeKm=12500, fuelConsumptionLitersPerHour=1340)))
 Commuterliner(super=Airplane(super=Aircraft(id=14, seatingCapacity=189, carryingCapacityKg=1600, flightRangeKm=19000, fuelConsumptionLitersPerHour=2250)))
+airline>
 airline>tc
 3084
+airline>
 airline>cc
 75924
+airline>
 airline>fuel 800 1400
 WideBodyAirliner(super=Airplane(super=Aircraft(id=6, seatingCapacity=777, carryingCapacityKg=400, flightRangeKm=19500, fuelConsumptionLitersPerHour=1150)))
 WideBodyAirliner(super=Airplane(super=Aircraft(id=13, seatingCapacity=8, carryingCapacityKg=8950, flightRangeKm=12500, fuelConsumptionLitersPerHour=1340)))
 Commuterliner(super=Airplane(super=Aircraft(id=4, seatingCapacity=150, carryingCapacityKg=5550, flightRangeKm=1000, fuelConsumptionLitersPerHour=990)))
 Commuterliner(super=Airplane(super=Aircraft(id=11, seatingCapacity=19, carryingCapacityKg=4500, flightRangeKm=5675, fuelConsumptionLitersPerHour=1001)))
+airline>
 airline>sort
 Helicopter(super=Aircraft(id=12, seatingCapacity=24, carryingCapacityKg=2600, flightRangeKm=900, fuelConsumptionLitersPerHour=630))
 Commuterliner(super=Airplane(super=Aircraft(id=4, seatingCapacity=150, carryingCapacityKg=5550, flightRangeKm=1000, fuelConsumptionLitersPerHour=990)))
@@ -80,6 +84,7 @@ WideBodyAirliner(super=Airplane(super=Aircraft(id=13, seatingCapacity=8, carryin
 WideBodyAirliner(super=Airplane(super=Aircraft(id=3, seatingCapacity=200, carryingCapacityKg=18000, flightRangeKm=14300, fuelConsumptionLitersPerHour=555)))
 Commuterliner(super=Airplane(super=Aircraft(id=14, seatingCapacity=189, carryingCapacityKg=1600, flightRangeKm=19000, fuelConsumptionLitersPerHour=2250)))
 WideBodyAirliner(super=Airplane(super=Aircraft(id=6, seatingCapacity=777, carryingCapacityKg=400, flightRangeKm=19500, fuelConsumptionLitersPerHour=1150)))
+airline>
 airline>sort -desc
 WideBodyAirliner(super=Airplane(super=Aircraft(id=6, seatingCapacity=777, carryingCapacityKg=400, flightRangeKm=19500, fuelConsumptionLitersPerHour=1150)))
 Commuterliner(super=Airplane(super=Aircraft(id=14, seatingCapacity=189, carryingCapacityKg=1600, flightRangeKm=19000, fuelConsumptionLitersPerHour=2250)))
@@ -95,9 +100,12 @@ Helicopter(super=Aircraft(id=8, seatingCapacity=9, carryingCapacityKg=900, fligh
 Commuterliner(super=Airplane(super=Aircraft(id=7, seatingCapacity=101, carryingCapacityKg=2014, flightRangeKm=1675, fuelConsumptionLitersPerHour=350)))
 Commuterliner(super=Airplane(super=Aircraft(id=4, seatingCapacity=150, carryingCapacityKg=5550, flightRangeKm=1000, fuelConsumptionLitersPerHour=990)))
 Helicopter(super=Aircraft(id=12, seatingCapacity=24, carryingCapacityKg=2600, flightRangeKm=900, fuelConsumptionLitersPerHour=630))
+airline>
 airline>add Helicopter 1 2 3 4
+airline>
 airline>fuel 0 10
 Helicopter(super=Aircraft(id=15, seatingCapacity=1, carryingCapacityKg=2, flightRangeKm=3, fuelConsumptionLitersPerHour=4))
+airline>
 airline>help add
 
 
@@ -130,10 +138,13 @@ OPTIONS
 
 
 
+airline>
 airline>add Helicopter -seating-capacity 8
+airline>
 airline>fuel 0 10
 Helicopter(super=Aircraft(id=15, seatingCapacity=1, carryingCapacityKg=2, flightRangeKm=3, fuelConsumptionLitersPerHour=4))
 Helicopter(super=Aircraft(id=16, seatingCapacity=8, carryingCapacityKg=0, flightRangeKm=0, fuelConsumptionLitersPerHour=0))
+airline>
 airline>exit
 
 Process finished with exit code 0
