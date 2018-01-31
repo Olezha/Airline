@@ -26,7 +26,7 @@ public class AirlineShellController {
     }
 
     @ShellMethod(value = "Add aircraft", key = "add", prefix="-")
-    public void addAircraft(
+    private void addAircraft(
             @ShellOption(help = "Type [WideBodyAirliner|Commuterliner|Helicopter]")
             String type,
             @ShellOption(help = "Seating capacity", defaultValue = "0")
@@ -49,31 +49,36 @@ public class AirlineShellController {
         }
     }
 
+    @SuppressWarnings("unused")
     @ShellMethod(value = "Show all aircraft", key = "show")
-    public List<Aircraft> showAllAircraft() {
+    private List<Aircraft> showAllAircraft() {
         return aircraftService.allAircraftInTheAirline();
     }
 
+    @SuppressWarnings("unused")
     @ShellMethod(value = "Total capacity of all the aircraft in the airline", key = "tc")
-    public int totalCapacity() {
+    private int totalCapacity() {
         return aircraftService.totalCapacityOfAllTheAircraftInTheAirline();
     }
 
+    @SuppressWarnings("unused")
     @ShellMethod(value = "Carrying capacity of all the aircraft in the airline", key = "cc")
-    public int carryingCapacity() {
+    private int carryingCapacity() {
         return aircraftService.carryingCapacityOfAllTheAircraftInTheAirline();
     }
 
+    @SuppressWarnings("unused")
     @ShellMethod(value = "List of aircraft of the company sorted by flight range", key = "sort", prefix="-")
-    public List<Aircraft> aircraftSortedByFlightRange(boolean desc) {
+    private List<Aircraft> aircraftSortedByFlightRange(boolean desc) {
         List<Aircraft> aircraftList = aircraftService.sortTheAircraftByFlightRangeFromSmallerToLarger();
         if (desc)
             Collections.reverse(aircraftList);
         return aircraftList;
     }
 
+    @SuppressWarnings("unused")
     @ShellMethod(value = "Airplanes corresponding to a given range of fuel consumption parameters", key = "fuel", prefix="-")
-    public List<Aircraft> airplanesCorrespondingToAGivenRangeOfFuelConsumptionParameters(
+    private List<Aircraft> airplanesCorrespondingToAGivenRangeOfFuelConsumptionParameters(
             @ShellOption(help = "From (liters per hour)")
             int fromLitersPerHour,
             @ShellOption(help = "To (liters per hour)")
@@ -82,16 +87,18 @@ public class AirlineShellController {
                 fromLitersPerHour, toLitersPerHour);
     }
 
+    @SuppressWarnings("unused")
     @ShellMethod(value = "Delete", prefix="-")
-    public void delete(boolean all) {
+    private void delete(boolean all) {
         if (!all)
-            throw new UnsupportedOperationException();
+            System.out.println("Unsupported operation");
         else
             aircraftService.deleteAll();
     }
 
+    @SuppressWarnings("unused")
     @ShellMethod("Simulate objects")
-    public void mock() {
+    private void mock() {
         addAircraft("Commuterliner", 10, 2000, 10000, 150);
         addAircraft("Helicopter", 18, 800, 3050, 350);
         addAircraft("WideBodyAirliner", 200, 18000, 14300, 555);
@@ -108,8 +115,9 @@ public class AirlineShellController {
         addAircraft("Commuterliner", 189, 1600, 19000, 2250);
     }
 
+    @SuppressWarnings("unused")
     @ShellMethod(value = "Search", prefix="-")
-    public List<Aircraft> search(
+    private List<Aircraft> search(
             @ShellOption(help = "Seating capacity", defaultValue = "-1")
                     int seatingCapacity,
             @ShellOption(help = "Carrying capacity (kg)", defaultValue = "-1")
