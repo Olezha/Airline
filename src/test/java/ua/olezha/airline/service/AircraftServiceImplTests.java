@@ -146,23 +146,13 @@ public class AircraftServiceImplTests {
 
     @Test
     public void aircraftFactorySuccessfully() {
-        Aircraft wideBodyAirliner = aircraftService.aircraftFactory("WideBodyAirliner");
+        Aircraft wideBodyAirliner = aircraftService.aircraftFactory(AircraftType.WIDE_BODY_AIRLINER);
         assertThat(wideBodyAirliner, instanceOf(Aircraft.class));
         assertThat(wideBodyAirliner, instanceOf(Airplane.class));
         assertThat(wideBodyAirliner, instanceOf(WideBodyAirliner.class));
-        assertThat(aircraftService.aircraftFactory("Commuterliner"),
+        assertThat(aircraftService.aircraftFactory(AircraftType.COMMUTERLINER),
                 instanceOf(Commuterliner.class));
-        assertThat(aircraftService.aircraftFactory("Helicopter"),
+        assertThat(aircraftService.aircraftFactory(AircraftType.HELICOPTER),
                 instanceOf(Helicopter.class));
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void aircraftFactoryFailedWithAirplane() {
-        aircraftService.aircraftFactory("Airplane");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void aircraftFactoryFailedWithNarrowBodyAirliner() {
-        aircraftService.aircraftFactory("NarrowBodyAirliner");
     }
 }

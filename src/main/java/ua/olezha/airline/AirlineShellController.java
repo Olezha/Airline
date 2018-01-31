@@ -9,6 +9,7 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 import org.springframework.stereotype.Component;
 import ua.olezha.airline.model.aircraft.Aircraft;
+import ua.olezha.airline.model.aircraft.AircraftType;
 import ua.olezha.airline.service.AircraftService;
 
 import java.util.Collections;
@@ -27,8 +28,9 @@ public class AirlineShellController {
 
     @ShellMethod(value = "Add aircraft", key = "add", prefix="-")
     private void addAircraft(
-            @ShellOption(help = "Type [WideBodyAirliner|Commuterliner|Helicopter]")
-            String type,
+            // TODO: ConversionFailedException
+            @ShellOption(help = "Type [WIDE_BODY_AIRLINER|COMMUTERLINER|HELICOPTER]")
+            AircraftType aircraftType,
             @ShellOption(help = "Seating capacity", defaultValue = "0")
             int seatingCapacity,
             @ShellOption(help = "Carrying capacity (kg)", defaultValue = "0")
@@ -38,7 +40,7 @@ public class AirlineShellController {
             @ShellOption(help = "Fuel consumption (liters per hour)", defaultValue = "0")
             int fuelConsumptionLitersPerHour) {
         try {
-            Aircraft aircraft = aircraftService.aircraftFactory(type);
+            Aircraft aircraft = aircraftService.aircraftFactory(aircraftType);
             aircraft.setSeatingCapacity(seatingCapacity);
             aircraft.setCarryingCapacityKg(carryingCapacityKg);
             aircraft.setFlightRangeKm(flightRangeKm);
@@ -99,20 +101,20 @@ public class AirlineShellController {
     @SuppressWarnings("unused")
     @ShellMethod("Simulate objects")
     private void mock() {
-        addAircraft("Commuterliner", 10, 2000, 10000, 150);
-        addAircraft("Helicopter", 18, 800, 3050, 350);
-        addAircraft("WideBodyAirliner", 200, 18000, 14300, 555);
-        addAircraft("Commuterliner", 150, 5550, 1000, 990);
-        addAircraft("Helicopter", 4, 2110, 2300, 120);
-        addAircraft("WideBodyAirliner", 777, 400, 19500, 1150);
-        addAircraft("Commuterliner", 101, 2014, 1675, 350);
-        addAircraft("Helicopter", 9, 900, 1900, 120);
-        addAircraft("WideBodyAirliner", 1020, 12000, 10100, 1600);
-        addAircraft("WideBodyAirliner", 555, 14500, 9900, 2500);
-        addAircraft("Commuterliner", 19, 4500, 5675, 1001);
-        addAircraft("Helicopter", 24, 2600, 900, 630);
-        addAircraft("WideBodyAirliner", 8, 8950, 12500, 1340);
-        addAircraft("Commuterliner", 189, 1600, 19000, 2250);
+        addAircraft(AircraftType.COMMUTERLINER, 10, 2000, 10000, 150);
+        addAircraft(AircraftType.HELICOPTER, 18, 800, 3050, 350);
+        addAircraft(AircraftType.WIDE_BODY_AIRLINER, 200, 18000, 14300, 555);
+        addAircraft(AircraftType.COMMUTERLINER, 150, 5550, 1000, 990);
+        addAircraft(AircraftType.HELICOPTER, 4, 2110, 2300, 120);
+        addAircraft(AircraftType.WIDE_BODY_AIRLINER, 777, 400, 19500, 1150);
+        addAircraft(AircraftType.COMMUTERLINER, 101, 2014, 1675, 350);
+        addAircraft(AircraftType.HELICOPTER, 9, 900, 1900, 120);
+        addAircraft(AircraftType.WIDE_BODY_AIRLINER, 1020, 12000, 10100, 1600);
+        addAircraft(AircraftType.WIDE_BODY_AIRLINER, 555, 14500, 9900, 2500);
+        addAircraft(AircraftType.COMMUTERLINER, 19, 4500, 5675, 1001);
+        addAircraft(AircraftType.HELICOPTER, 24, 2600, 900, 630);
+        addAircraft(AircraftType.WIDE_BODY_AIRLINER, 8, 8950, 12500, 1340);
+        addAircraft(AircraftType.COMMUTERLINER, 189, 1600, 19000, 2250);
     }
 
     @SuppressWarnings("unused")

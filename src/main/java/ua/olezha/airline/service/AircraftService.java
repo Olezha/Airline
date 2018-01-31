@@ -1,6 +1,7 @@
 package ua.olezha.airline.service;
 
 import ua.olezha.airline.model.aircraft.Aircraft;
+import ua.olezha.airline.model.aircraft.AircraftType;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public interface AircraftService {
     List<Aircraft> findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParameters(
             int fromLitersPerHour, int toLitersPerHour);
 
-    Aircraft aircraftFactory(String type);
+    Aircraft aircraftFactory(AircraftType aircraftType);
 
     void deleteAll();
 

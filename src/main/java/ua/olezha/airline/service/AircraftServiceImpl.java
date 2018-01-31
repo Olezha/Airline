@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.olezha.airline.model.aircraft.Aircraft;
-import ua.olezha.airline.model.aircraft.Commuterliner;
-import ua.olezha.airline.model.aircraft.Helicopter;
-import ua.olezha.airline.model.aircraft.WideBodyAirliner;
+import ua.olezha.airline.model.aircraft.*;
 import ua.olezha.airline.model.company.Company;
 import ua.olezha.airline.repository.AircraftRepository;
 import ua.olezha.airline.repository.CompanyRepository;
@@ -75,12 +72,11 @@ public class AircraftServiceImpl implements AircraftService {
     }
 
     @Override
-    public Aircraft aircraftFactory(String type) {
+    public Aircraft aircraftFactory(AircraftType aircraftType) {
         try {
-            Class<?> aircraftClass = Class.forName("ua.olezha.airline.model.aircraft." + type);
-            return  (Aircraft) aircraftClass.newInstance();
-        } catch (ClassNotFoundException | ClassCastException | InstantiationException| IllegalAccessException e) {
-            throw new IllegalArgumentException(type + " is an unknown type of aircraft");
+            return  (Aircraft) aircraftType.getAircraftClass().newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new IllegalArgumentException(aircraftType + " is an unknown type of aircraft");
         }
     }
 
