@@ -5,7 +5,7 @@ Console application
 After cloning the repository,
 run the following commands on the root folder of the repository
 
-Optional: to switch to an `entry task` stage run ```git checkout c89cc42dcbb56e653b7e9fd9db0a72b4b08f07c2```
+Optional: to switch to an `entry task` stage run ```git checkout c89cc42```
 ```sh
 mvn clean install
 java -jar target/airline-1.0.jar
@@ -103,7 +103,7 @@ Commuterliner(super=Airplane(super=Aircraft(id=7, seatingCapacity=101, carryingC
 Commuterliner(super=Airplane(super=Aircraft(id=4, seatingCapacity=150, carryingCapacityKg=5550, flightRangeKm=1000, fuelConsumptionLitersPerHour=990)))
 Helicopter(super=Aircraft(id=12, seatingCapacity=24, carryingCapacityKg=2600, flightRangeKm=900, fuelConsumptionLitersPerHour=630))
 airline>
-airline>add Helicopter 1 2 3 4
+airline>add HELICOPTER 1 2 3 4
 airline>
 airline>fuel 0 10
 Helicopter(super=Aircraft(id=15, seatingCapacity=1, carryingCapacityKg=2, flightRangeKm=3, fuelConsumptionLitersPerHour=4))
@@ -141,7 +141,7 @@ OPTIONS
 
 
 airline>
-airline>add Helicopter -seating-capacity 8
+airline>add HELICOPTER -seating-capacity 8
 airline>
 airline>fuel 0 10
 Helicopter(super=Aircraft(id=15, seatingCapacity=1, carryingCapacityKg=2, flightRangeKm=3, fuelConsumptionLitersPerHour=4))
