@@ -107,6 +107,19 @@ public class AirlineShellController {
         addAircraft("WideBodyAirliner", 8, 8950, 12500, 1340);
         addAircraft("Commuterliner", 189, 1600, 19000, 2250);
     }
+
+    @ShellMethod(value = "Search", prefix="-")
+    public List<Aircraft> search(
+            @ShellOption(help = "Seating capacity", defaultValue = "-1")
+                    int seatingCapacity,
+            @ShellOption(help = "Carrying capacity (kg)", defaultValue = "-1")
+                    int carryingCapacityKg,
+            @ShellOption(help = "Flight range (km)", defaultValue = "-1")
+                    int flightRangeKm,
+            @ShellOption(help = "Fuel consumption (liters per hour)", defaultValue = "-1")
+                    int fuelConsumptionLitersPerHour) {
+        return aircraftService.search(seatingCapacity, carryingCapacityKg, flightRangeKm, fuelConsumptionLitersPerHour);
+    }
 }
 
 @Component

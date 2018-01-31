@@ -23,4 +23,7 @@ public interface AircraftService {
     Aircraft aircraftFactory(String type);
 
     void deleteAll();
+
+    List<Aircraft> search(
+            int seatingCapacity, int carryingCapacityKg, int flightRangeKm, int fuelConsumptionLitersPerHour);
 }

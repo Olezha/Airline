@@ -1,7 +1,6 @@
 package ua.olezha.airline;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +38,7 @@ public class AirlineApplicationTests implements ApplicationRunner {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void addAircraftSuccessfully() {
         int firstAircraftListSize = ((List<Aircraft>) shell.evaluate(() -> "show")).size();
         assertThat(shell.evaluate(() -> "add Commuterliner")).isNull();
@@ -54,7 +54,6 @@ public class AirlineApplicationTests implements ApplicationRunner {
                 is(0));
     }
 
-    @Ignore
     @Test
     public void searchByAnyParametersSuccessfully() {
         shell.evaluate(() -> "delete -all");
@@ -67,7 +66,7 @@ public class AirlineApplicationTests implements ApplicationRunner {
         shell.evaluate(() -> "add WideBodyAirliner 5 6 7 8");
 
         assertThat(((List) shell.evaluate(() -> "search -seating-capacity 4")).size()).isEqualTo(1);
-        assertThat(((List) shell.evaluate(() -> "search -carrying-capacity-kg 8")).size()).isEqualTo(1);
+        assertThat(((List) shell.evaluate(() -> "search -carrying-capacity-kg 6")).size()).isEqualTo(1);
         assertThat(((List) shell.evaluate(() -> "search -flight-range-km 5")).size()).isEqualTo(1);
         assertThat(((List) shell.evaluate(() -> "search -fuel-consumption-liters-per-hour 3")).size()).isEqualTo(1);
     }

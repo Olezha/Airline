@@ -2,6 +2,7 @@ package ua.olezha.airline.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.QueryByExampleExecutor;
 import org.springframework.stereotype.Repository;
 import ua.olezha.airline.model.aircraft.Aircraft;
 
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface AircraftRepository
-        extends JpaRepository<Aircraft, Long> {
+        extends JpaRepository<Aircraft, Long>, QueryByExampleExecutor<Aircraft> {
 
     @Query(value =
             "SELECT COALESCE(a, 0) + COALESCE(b, 0) + COALESCE(c, 0) " +
