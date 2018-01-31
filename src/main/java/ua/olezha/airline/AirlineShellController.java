@@ -1,9 +1,13 @@
-package ua.olezha.airline.cli;
+package ua.olezha.airline;
 
+import org.jline.utils.AttributedString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
+import org.springframework.stereotype.Component;
 import ua.olezha.airline.model.aircraft.Aircraft;
 import ua.olezha.airline.service.AircraftService;
 
@@ -102,5 +106,15 @@ public class AirlineShellController {
         addAircraft("Helicopter", 24, 2600, 900, 630);
         addAircraft("WideBodyAirliner", 8, 8950, 12500, 1340);
         addAircraft("Commuterliner", 189, 1600, 19000, 2250);
+    }
+}
+
+@Component
+@Order(Ordered.HIGHEST_PRECEDENCE)
+class PromptProvider implements org.springframework.shell.jline.PromptProvider {
+
+    @Override
+    public AttributedString getPrompt() {
+        return AttributedString.fromAnsi("airline>");
     }
 }

@@ -1,14 +1,11 @@
-package ua.olezha.airline;
+package ua.olezha.airline.service;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 import ua.olezha.airline.model.aircraft.*;
 import ua.olezha.airline.model.company.Company;
 import ua.olezha.airline.repository.AircraftRepository;
 import ua.olezha.airline.repository.CompanyRepository;
-import ua.olezha.airline.service.AircraftService;
-import ua.olezha.airline.service.AircraftServiceImpl;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,9 +24,9 @@ public class AircraftServiceImplTests {
     public void setUp() {
         company = new Company();
         CompanyRepository companyRepositoryMock =
-                Mockito.mock(CompanyRepository.class);
+                mock(CompanyRepository.class);
         when(companyRepositoryMock.getOne(1L)).thenReturn(company);
-        aircraftRepositoryMock = Mockito.mock(AircraftRepository.class);
+        aircraftRepositoryMock = mock(AircraftRepository.class);
         aircraftService = new AircraftServiceImpl(
                 aircraftRepositoryMock, companyRepositoryMock);
     }
@@ -76,7 +73,8 @@ public class AircraftServiceImplTests {
                         .mapToInt(Aircraft::getSeatingCapacity).sum()
                 );
 
-        assertThat(aircraftService.totalCapacityOfAllTheAircraftInTheAirline(), is(seatingCapacity));
+        assertThat(aircraftService.totalCapacityOfAllTheAircraftInTheAirline(),
+                is(seatingCapacity));
     }
 
     @Test
@@ -152,8 +150,10 @@ public class AircraftServiceImplTests {
         assertThat(wideBodyAirliner, instanceOf(Aircraft.class));
         assertThat(wideBodyAirliner, instanceOf(Airplane.class));
         assertThat(wideBodyAirliner, instanceOf(WideBodyAirliner.class));
-        assertThat(aircraftService.aircraftFactory("Commuterliner"), instanceOf(Commuterliner.class));
-        assertThat(aircraftService.aircraftFactory("Helicopter"), instanceOf(Helicopter.class));
+        assertThat(aircraftService.aircraftFactory("Commuterliner"),
+                instanceOf(Commuterliner.class));
+        assertThat(aircraftService.aircraftFactory("Helicopter"),
+                instanceOf(Helicopter.class));
     }
 
     @Test(expected = IllegalArgumentException.class)
