@@ -5,8 +5,8 @@ Console application
 After cloning the repository,
 run the following commands on the root folder of the repository
 ```sh
-mvn clean install
 git checkout c89cc42dcbb56e653b7e9fd9db0a72b4b08f07c2
+mvn clean install
 java -jar target/airline-1.0.jar
 ```
 
