@@ -143,6 +143,27 @@ public class AirlineApplicationTests implements ApplicationRunner {
         assertThat(((List) shell.evaluate(() -> "search -flight-range-km 5")).size()).isEqualTo(1);
         assertThat(((List) shell.evaluate(() -> "search -fuel-consumption-liters-per-hour 3")).size()).isEqualTo(1);
     }
+
+    @Test
+    public void entitiesToStringTest() {
+        shell.evaluate(() -> "mock");
+        List<Aircraft> aircraftList = (List<Aircraft>) shell.evaluate(() -> "sort -desc");
+        for (Aircraft aircraft : aircraftList) {
+            assertThat(aircraft.toString()).isNotBlank();
+        }
+    }
+
+    @Test
+    public void entitiesNotEqualsTest() {
+        shell.evaluate(() -> "mock");
+        List<Aircraft> aircraftList = (List<Aircraft>) shell.evaluate(() -> "sort -desc");
+        Aircraft lastAircraft = null;
+        for (Aircraft aircraft : aircraftList) {
+            if (lastAircraft != null)
+                assertThat(lastAircraft.equals(aircraft)).isFalse();
+            lastAircraft = aircraft;
+        }
+    }
 }
 
 @TestConfiguration
