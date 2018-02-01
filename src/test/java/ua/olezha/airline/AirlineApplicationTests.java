@@ -13,6 +13,7 @@ import org.springframework.shell.Shell;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.olezha.airline.model.aircraft.Aircraft;
+import ua.olezha.airline.model.company.Company;
 import ua.olezha.airline.repository.CompanyRepository;
 
 import java.util.List;
@@ -78,6 +79,13 @@ public class AirlineApplicationTests implements ApplicationRunner {
         assertThat(((List) shell.evaluate(() -> "search -carrying-capacity-kg 6")).size()).isEqualTo(1);
         assertThat(((List) shell.evaluate(() -> "search -flight-range-km 5")).size()).isEqualTo(1);
         assertThat(((List) shell.evaluate(() -> "search -fuel-consumption-liters-per-hour 3")).size()).isEqualTo(1);
+    }
+
+    @Test
+    public void companyTestCoverage() {
+        Company company = companyRepository.findOne(1L);
+        // TODO: Oo
+        Assert.assertNotEquals(company, companyRepository.findOne(1L));
     }
 }
 
