@@ -156,15 +156,13 @@ public class AirlineApplicationTests implements ApplicationRunner {
 
     @Test
     @SuppressWarnings("unchecked")
-    public void entitiesNotEqualsAndHashCodeTest() {
+    public void entitiesNotEqualsTest() {
         shell.evaluate(() -> "mock");
         List<Aircraft> aircraftList = (List<Aircraft>) shell.evaluate(() -> "sort -desc");
         Aircraft lastAircraft = null;
         for (Aircraft aircraft : aircraftList) {
-            if (lastAircraft != null) {
-                assertThat(lastAircraft.hashCode()).isNotEqualTo(aircraft.hashCode());
+            if (lastAircraft != null)
                 assertThat(lastAircraft.equals(aircraft)).isFalse();
-            }
             lastAircraft = aircraft;
         }
     }
