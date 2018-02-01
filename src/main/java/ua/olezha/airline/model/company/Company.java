@@ -1,6 +1,8 @@
 package ua.olezha.airline.model.company;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Setter;
 import ua.olezha.airline.model.aircraft.Aircraft;
 
 import javax.persistence.*;
@@ -20,15 +22,11 @@ public class Company {
     @JoinTable(
             joinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "aircraft_id", referencedColumnName = "id"))
+    @Setter(AccessLevel.NONE)
     private List<Aircraft> aircraftList = new ArrayList<>();
 
     public void addAircraft(Aircraft aircraft) {
         aircraftList.add(aircraft);
-    }
-
-    @SuppressWarnings("unused")
-    private void setAircraftList(List<Aircraft> aircraftList) {
-        this.aircraftList = aircraftList;
     }
 
     public List<Aircraft> getAircraftList() {

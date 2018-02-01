@@ -80,13 +80,6 @@ public class AirlineApplicationTests implements ApplicationRunner {
         assertThat(((List) shell.evaluate(() -> "search -flight-range-km 5")).size()).isEqualTo(1);
         assertThat(((List) shell.evaluate(() -> "search -fuel-consumption-liters-per-hour 3")).size()).isEqualTo(1);
     }
-
-    @Test
-    public void companyTestCoverage() {
-        Company company = companyRepository.findOne(1L);
-        // TODO: Oo
-        Assert.assertNotEquals(company, companyRepository.findOne(1L));
-    }
 }
 
 @TestConfiguration
