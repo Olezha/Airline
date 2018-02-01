@@ -1,6 +1,7 @@
 package ua.olezha.airline;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import org.springframework.shell.Shell;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.olezha.airline.model.aircraft.Aircraft;
-import ua.olezha.airline.model.company.Company;
 import ua.olezha.airline.repository.CompanyRepository;
 
 import java.util.List;
@@ -37,6 +37,11 @@ public class AirlineApplicationTests implements ApplicationRunner {
     public void run(ApplicationArguments applicationArguments) throws Exception {
     }
 
+    @Before
+    public void before() {
+        shell.evaluate(() -> "delete -all");
+    }
+
     @Test
     public void shellHelpTest() {
         assertThat(shell.evaluate(() -> "help")).isNotNull();
@@ -57,6 +62,66 @@ public class AirlineApplicationTests implements ApplicationRunner {
     }
 
     @Test
+    public void totalCapacityTest() {
+        assertThat(shell.evaluate(() -> "tc")).isEqualTo(0);
+        shell.evaluate(() -> "mock");
+        assertThat(shell.evaluate(() -> "tc")).isEqualTo(3084);
+    }
+
+    @Test
+    public void carryingCapacityTest() {
+        assertThat(shell.evaluate(() -> "cc")).isEqualTo(0);
+        shell.evaluate(() -> "mock");
+        assertThat(shell.evaluate(() -> "cc")).isEqualTo(75924);
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void aircraftSortedByFlightRangeTest() {
+        shell.evaluate(() -> "mock");
+        List<Aircraft> aircraftList = (List<Aircraft>) shell.evaluate(() -> "sort");
+        Aircraft lastAircraft = null;
+        for (Aircraft aircraft : aircraftList) {
+            if (lastAircraft != null)
+                assertThat(aircraft.getFlightRangeKm())
+                        .isGreaterThan(lastAircraft.getFlightRangeKm());
+            lastAircraft = aircraft;
+        }
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void aircraftSortedByFlightRangeDescTest() {
+        shell.evaluate(() -> "mock");
+        List<Aircraft> aircraftList = (List<Aircraft>) shell.evaluate(() -> "sort -desc");
+        Aircraft lastAircraft = null;
+        for (Aircraft aircraft : aircraftList) {
+            if (lastAircraft != null)
+                assertThat(lastAircraft.getFlightRangeKm())
+                        .isGreaterThan(aircraft.getFlightRangeKm());
+            lastAircraft = aircraft;
+        }
+    }
+
+    @Test
+    public void airplanesCorrespondingToAGivenRangeOfFuelConsumptionParametersTest() {
+        assertThat(((List) shell.evaluate(() -> "fuel 0 999999")).size())
+                .isEqualTo(0);
+        shell.evaluate(() -> "add COMMUTERLINER 0 1 2 3");
+        assertThat(((List) shell.evaluate(() -> "fuel 3 3")).size())
+                .isEqualTo(1);
+    }
+
+    @Test
+    public void deleteWithoutAllFlagTest() {
+        shell.evaluate(() -> "mock");
+        int size = ((List) shell.evaluate(() -> "show")).size();
+        shell.evaluate(() -> "delete");
+        assertThat(((List) shell.evaluate(() -> "show")).size())
+                .isEqualTo(size);
+    }
+
+    @Test
     public void deleteAllSuccessfully() {
         shell.evaluate(() -> "add COMMUTERLINER 0 1 2 3");
         shell.evaluate(() -> "delete -all");
@@ -66,8 +131,6 @@ public class AirlineApplicationTests implements ApplicationRunner {
 
     @Test
     public void searchByAnyParametersSuccessfully() {
-        shell.evaluate(() -> "delete -all");
-
         shell.evaluate(() -> "add COMMUTERLINER 0 1 2 3");
         shell.evaluate(() -> "add HELICOPTER 1 2 3 4");
         shell.evaluate(() -> "add WIDE_BODY_AIRLINER 2 3 4 5");

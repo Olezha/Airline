@@ -39,16 +39,12 @@ public class AirlineShellController {
             int flightRangeKm,
             @ShellOption(help = "Fuel consumption (liters per hour)", defaultValue = "0")
             int fuelConsumptionLitersPerHour) {
-        try {
             Aircraft aircraft = aircraftService.aircraftFactory(aircraftType);
             aircraft.setSeatingCapacity(seatingCapacity);
             aircraft.setCarryingCapacityKg(carryingCapacityKg);
             aircraft.setFlightRangeKm(flightRangeKm);
             aircraft.setFuelConsumptionLitersPerHour(fuelConsumptionLitersPerHour);
             aircraftService.addAircraft(aircraft);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getLocalizedMessage());
-        }
     }
 
     @SuppressWarnings("unused")
