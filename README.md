@@ -1,7 +1,7 @@
-# Airline - company that stores airplanes [![Build Status](https://travis-ci.org/Olezha/Airline.svg?branch=master)](https://travis-ci.org/Olezha/Airline) [![codecov](https://codecov.io/gh/Olezha/Airline/branch/master/graph/badge.svg)](https://codecov.io/gh/Olezha/Airline) [![Dependency Status](https://www.versioneye.com/user/projects/5a72e8a80fb24f5752c0f584/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5a72e8a80fb24f5752c0f584)
+## Airline - company that stores airplanes [![Build Status](https://travis-ci.org/Olezha/Airline.svg?branch=master)](https://travis-ci.org/Olezha/Airline) [![codecov](https://codecov.io/gh/Olezha/Airline/branch/master/graph/badge.svg)](https://codecov.io/gh/Olezha/Airline) [![Dependency Status](https://www.versioneye.com/user/projects/5a72e8a80fb24f5752c0f584/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5a72e8a80fb24f5752c0f584)
 Console application
 
-## Instructions for launching
+### Instructions for launching
 After cloning the repository,
 run the following commands on the root folder of the repository
 
@@ -11,7 +11,7 @@ mvn clean install
 java -jar target/airline-1.0.jar
 ```
 
-## Usage 
+### Usage 
 Enter ```help``` to list all commands
 ```sh
 Airline (to display available commands type help)
