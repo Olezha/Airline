@@ -13,6 +13,7 @@ import org.springframework.shell.Shell;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.olezha.airline.model.aircraft.Aircraft;
+import ua.olezha.airline.repository.CompanyRepository;
 
 import java.util.List;
 
@@ -28,6 +29,9 @@ public class AirlineApplicationTests implements ApplicationRunner {
     @Autowired
     private Shell shell;
 
+    @Autowired
+    private CompanyRepository companyRepository;
+
     @Override
     public void run(ApplicationArguments applicationArguments) throws Exception {
     }
@@ -35,6 +39,11 @@ public class AirlineApplicationTests implements ApplicationRunner {
     @Test
     public void shellHelpTest() {
         assertThat(shell.evaluate(() -> "help")).isNotNull();
+    }
+
+    @Test
+    public void companyExistenceTest() {
+        Assert.assertNotNull(companyRepository.findOne(1L));
     }
 
     @Test
