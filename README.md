@@ -20,8 +20,10 @@ AVAILABLE COMMANDS
 Airline Shell Controller
         add: Add aircraft
         cc: Carrying capacity of all the aircraft in the airline
+        delete: Delete
         fuel: Airplanes corresponding to a given range of fuel consumption parameters
         mock: Simulate objects
+        search: Search
         show: Show all aircraft
         sort: List of aircraft of the company sorted by flight range
         tc: Total capacity of all the aircraft in the airline
@@ -31,7 +33,7 @@ Built-In Commands
         exit, quit: Exit the shell.
         help: Display help about available commands.
         script: Read and execute commands from a file.
-        stacktrace: Display the full stacktrace of the last error.
+        stacktrace: Display the full stacktrace of the last error
 
 
 airline>|
@@ -41,22 +43,42 @@ Here's the sample session:
 ```sh
 Airline (to display available commands type help)
 airline>show
+┌──┬────┬────────────────┬─────────────────────┬────────────────┬─────────────────────┐
+│ID│Type│Seating capacity│Carrying capacity, Kg│Flight range, Km│Fuel consumption, L/h│
+└──┴────┴────────────────┴─────────────────────┴────────────────┴─────────────────────┘
 airline>mock
 airline>show
-Commuterliner(super=Airplane(super=Aircraft(id=1, seatingCapacity=10, carryingCapacityKg=2000, flightRangeKm=10000, fuelConsumptionLitersPerHour=150)))
-Helicopter(super=Aircraft(id=2, seatingCapacity=18, carryingCapacityKg=800, flightRangeKm=3050, fuelConsumptionLitersPerHour=350))
-WideBodyAirliner(super=Airplane(super=Aircraft(id=3, seatingCapacity=200, carryingCapacityKg=18000, flightRangeKm=14300, fuelConsumptionLitersPerHour=555)))
-Commuterliner(super=Airplane(super=Aircraft(id=4, seatingCapacity=150, carryingCapacityKg=5550, flightRangeKm=1000, fuelConsumptionLitersPerHour=990)))
-Helicopter(super=Aircraft(id=5, seatingCapacity=4, carryingCapacityKg=2110, flightRangeKm=2300, fuelConsumptionLitersPerHour=120))
-WideBodyAirliner(super=Airplane(super=Aircraft(id=6, seatingCapacity=777, carryingCapacityKg=400, flightRangeKm=19500, fuelConsumptionLitersPerHour=1150)))
-Commuterliner(super=Airplane(super=Aircraft(id=7, seatingCapacity=101, carryingCapacityKg=2014, flightRangeKm=1675, fuelConsumptionLitersPerHour=350)))
-Helicopter(super=Aircraft(id=8, seatingCapacity=9, carryingCapacityKg=900, flightRangeKm=1900, fuelConsumptionLitersPerHour=120))
-WideBodyAirliner(super=Airplane(super=Aircraft(id=9, seatingCapacity=1020, carryingCapacityKg=12000, flightRangeKm=10100, fuelConsumptionLitersPerHour=1600)))
-WideBodyAirliner(super=Airplane(super=Aircraft(id=10, seatingCapacity=555, carryingCapacityKg=14500, flightRangeKm=9900, fuelConsumptionLitersPerHour=2500)))
-Commuterliner(super=Airplane(super=Aircraft(id=11, seatingCapacity=19, carryingCapacityKg=4500, flightRangeKm=5675, fuelConsumptionLitersPerHour=1001)))
-Helicopter(super=Aircraft(id=12, seatingCapacity=24, carryingCapacityKg=2600, flightRangeKm=900, fuelConsumptionLitersPerHour=630))
-WideBodyAirliner(super=Airplane(super=Aircraft(id=13, seatingCapacity=8, carryingCapacityKg=8950, flightRangeKm=12500, fuelConsumptionLitersPerHour=1340)))
-Commuterliner(super=Airplane(super=Aircraft(id=14, seatingCapacity=189, carryingCapacityKg=1600, flightRangeKm=19000, fuelConsumptionLitersPerHour=2250)))
+┌──┬────────────────┬────────────────┬─────────────────────┬────────────────┬─────────────────────┐
+│ID│Type            │Seating capacity│Carrying capacity, Kg│Flight range, Km│Fuel consumption, L/h│
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│17│WideBodyAirliner│200             │18000                │14300           │555                  │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│20│WideBodyAirliner│777             │400                  │19500           │1150                 │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│23│WideBodyAirliner│1020            │12000                │10100           │1600                 │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│24│WideBodyAirliner│555             │14500                │9900            │2500                 │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│27│WideBodyAirliner│8               │8950                 │12500           │1340                 │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│15│Commuterliner   │10              │2000                 │10000           │150                  │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│18│Commuterliner   │150             │5550                 │1000            │990                  │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│21│Commuterliner   │101             │2014                 │1675            │350                  │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│25│Commuterliner   │19              │4500                 │5675            │1001                 │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│28│Commuterliner   │189             │1600                 │19000           │2250                 │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│16│Helicopter      │18              │800                  │3050            │350                  │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│19│Helicopter      │4               │2110                 │2300            │120                  │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│22│Helicopter      │9               │900                  │1900            │120                  │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│26│Helicopter      │24              │2600                 │900             │630                  │
+└──┴────────────────┴────────────────┴─────────────────────┴────────────────┴─────────────────────┘
 airline>
 airline>tc
 3084
@@ -65,47 +87,92 @@ airline>cc
 75924
 airline>
 airline>fuel 800 1400
-WideBodyAirliner(super=Airplane(super=Aircraft(id=6, seatingCapacity=777, carryingCapacityKg=400, flightRangeKm=19500, fuelConsumptionLitersPerHour=1150)))
-WideBodyAirliner(super=Airplane(super=Aircraft(id=13, seatingCapacity=8, carryingCapacityKg=8950, flightRangeKm=12500, fuelConsumptionLitersPerHour=1340)))
-Commuterliner(super=Airplane(super=Aircraft(id=4, seatingCapacity=150, carryingCapacityKg=5550, flightRangeKm=1000, fuelConsumptionLitersPerHour=990)))
-Commuterliner(super=Airplane(super=Aircraft(id=11, seatingCapacity=19, carryingCapacityKg=4500, flightRangeKm=5675, fuelConsumptionLitersPerHour=1001)))
+┌──┬────────────────┬────────────────┬─────────────────────┬────────────────┬─────────────────────┐
+│ID│Type            │Seating capacity│Carrying capacity, Kg│Flight range, Km│Fuel consumption, L/h│
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│20│WideBodyAirliner│777             │400                  │19500           │1150                 │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│27│WideBodyAirliner│8               │8950                 │12500           │1340                 │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│18│Commuterliner   │150             │5550                 │1000            │990                  │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│25│Commuterliner   │19              │4500                 │5675            │1001                 │
+└──┴────────────────┴────────────────┴─────────────────────┴────────────────┴─────────────────────┘
 airline>
 airline>sort
-Helicopter(super=Aircraft(id=12, seatingCapacity=24, carryingCapacityKg=2600, flightRangeKm=900, fuelConsumptionLitersPerHour=630))
-Commuterliner(super=Airplane(super=Aircraft(id=4, seatingCapacity=150, carryingCapacityKg=5550, flightRangeKm=1000, fuelConsumptionLitersPerHour=990)))
-Commuterliner(super=Airplane(super=Aircraft(id=7, seatingCapacity=101, carryingCapacityKg=2014, flightRangeKm=1675, fuelConsumptionLitersPerHour=350)))
-Helicopter(super=Aircraft(id=8, seatingCapacity=9, carryingCapacityKg=900, flightRangeKm=1900, fuelConsumptionLitersPerHour=120))
-Helicopter(super=Aircraft(id=5, seatingCapacity=4, carryingCapacityKg=2110, flightRangeKm=2300, fuelConsumptionLitersPerHour=120))
-Helicopter(super=Aircraft(id=2, seatingCapacity=18, carryingCapacityKg=800, flightRangeKm=3050, fuelConsumptionLitersPerHour=350))
-Commuterliner(super=Airplane(super=Aircraft(id=11, seatingCapacity=19, carryingCapacityKg=4500, flightRangeKm=5675, fuelConsumptionLitersPerHour=1001)))
-WideBodyAirliner(super=Airplane(super=Aircraft(id=10, seatingCapacity=555, carryingCapacityKg=14500, flightRangeKm=9900, fuelConsumptionLitersPerHour=2500)))
-Commuterliner(super=Airplane(super=Aircraft(id=1, seatingCapacity=10, carryingCapacityKg=2000, flightRangeKm=10000, fuelConsumptionLitersPerHour=150)))
-WideBodyAirliner(super=Airplane(super=Aircraft(id=9, seatingCapacity=1020, carryingCapacityKg=12000, flightRangeKm=10100, fuelConsumptionLitersPerHour=1600)))
-WideBodyAirliner(super=Airplane(super=Aircraft(id=13, seatingCapacity=8, carryingCapacityKg=8950, flightRangeKm=12500, fuelConsumptionLitersPerHour=1340)))
-WideBodyAirliner(super=Airplane(super=Aircraft(id=3, seatingCapacity=200, carryingCapacityKg=18000, flightRangeKm=14300, fuelConsumptionLitersPerHour=555)))
-Commuterliner(super=Airplane(super=Aircraft(id=14, seatingCapacity=189, carryingCapacityKg=1600, flightRangeKm=19000, fuelConsumptionLitersPerHour=2250)))
-WideBodyAirliner(super=Airplane(super=Aircraft(id=6, seatingCapacity=777, carryingCapacityKg=400, flightRangeKm=19500, fuelConsumptionLitersPerHour=1150)))
+┌──┬────────────────┬────────────────┬─────────────────────┬────────────────┬─────────────────────┐
+│ID│Type            │Seating capacity│Carrying capacity, Kg│Flight range, Km│Fuel consumption, L/h│
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│26│Helicopter      │24              │2600                 │900             │630                  │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│18│Commuterliner   │150             │5550                 │1000            │990                  │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│21│Commuterliner   │101             │2014                 │1675            │350                  │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│22│Helicopter      │9               │900                  │1900            │120                  │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│19│Helicopter      │4               │2110                 │2300            │120                  │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│16│Helicopter      │18              │800                  │3050            │350                  │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│25│Commuterliner   │19              │4500                 │5675            │1001                 │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│24│WideBodyAirliner│555             │14500                │9900            │2500                 │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│15│Commuterliner   │10              │2000                 │10000           │150                  │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│23│WideBodyAirliner│1020            │12000                │10100           │1600                 │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│27│WideBodyAirliner│8               │8950                 │12500           │1340                 │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│17│WideBodyAirliner│200             │18000                │14300           │555                  │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│28│Commuterliner   │189             │1600                 │19000           │2250                 │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│20│WideBodyAirliner│777             │400                  │19500           │1150                 │
+└──┴────────────────┴────────────────┴─────────────────────┴────────────────┴─────────────────────┘
 airline>
 airline>sort -desc
-WideBodyAirliner(super=Airplane(super=Aircraft(id=6, seatingCapacity=777, carryingCapacityKg=400, flightRangeKm=19500, fuelConsumptionLitersPerHour=1150)))
-Commuterliner(super=Airplane(super=Aircraft(id=14, seatingCapacity=189, carryingCapacityKg=1600, flightRangeKm=19000, fuelConsumptionLitersPerHour=2250)))
-WideBodyAirliner(super=Airplane(super=Aircraft(id=3, seatingCapacity=200, carryingCapacityKg=18000, flightRangeKm=14300, fuelConsumptionLitersPerHour=555)))
-WideBodyAirliner(super=Airplane(super=Aircraft(id=13, seatingCapacity=8, carryingCapacityKg=8950, flightRangeKm=12500, fuelConsumptionLitersPerHour=1340)))
-WideBodyAirliner(super=Airplane(super=Aircraft(id=9, seatingCapacity=1020, carryingCapacityKg=12000, flightRangeKm=10100, fuelConsumptionLitersPerHour=1600)))
-Commuterliner(super=Airplane(super=Aircraft(id=1, seatingCapacity=10, carryingCapacityKg=2000, flightRangeKm=10000, fuelConsumptionLitersPerHour=150)))
-WideBodyAirliner(super=Airplane(super=Aircraft(id=10, seatingCapacity=555, carryingCapacityKg=14500, flightRangeKm=9900, fuelConsumptionLitersPerHour=2500)))
-Commuterliner(super=Airplane(super=Aircraft(id=11, seatingCapacity=19, carryingCapacityKg=4500, flightRangeKm=5675, fuelConsumptionLitersPerHour=1001)))
-Helicopter(super=Aircraft(id=2, seatingCapacity=18, carryingCapacityKg=800, flightRangeKm=3050, fuelConsumptionLitersPerHour=350))
-Helicopter(super=Aircraft(id=5, seatingCapacity=4, carryingCapacityKg=2110, flightRangeKm=2300, fuelConsumptionLitersPerHour=120))
-Helicopter(super=Aircraft(id=8, seatingCapacity=9, carryingCapacityKg=900, flightRangeKm=1900, fuelConsumptionLitersPerHour=120))
-Commuterliner(super=Airplane(super=Aircraft(id=7, seatingCapacity=101, carryingCapacityKg=2014, flightRangeKm=1675, fuelConsumptionLitersPerHour=350)))
-Commuterliner(super=Airplane(super=Aircraft(id=4, seatingCapacity=150, carryingCapacityKg=5550, flightRangeKm=1000, fuelConsumptionLitersPerHour=990)))
-Helicopter(super=Aircraft(id=12, seatingCapacity=24, carryingCapacityKg=2600, flightRangeKm=900, fuelConsumptionLitersPerHour=630))
+┌──┬────────────────┬────────────────┬─────────────────────┬────────────────┬─────────────────────┐
+│ID│Type            │Seating capacity│Carrying capacity, Kg│Flight range, Km│Fuel consumption, L/h│
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│20│WideBodyAirliner│777             │400                  │19500           │1150                 │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│28│Commuterliner   │189             │1600                 │19000           │2250                 │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│17│WideBodyAirliner│200             │18000                │14300           │555                  │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│27│WideBodyAirliner│8               │8950                 │12500           │1340                 │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│23│WideBodyAirliner│1020            │12000                │10100           │1600                 │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│15│Commuterliner   │10              │2000                 │10000           │150                  │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│24│WideBodyAirliner│555             │14500                │9900            │2500                 │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│25│Commuterliner   │19              │4500                 │5675            │1001                 │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│16│Helicopter      │18              │800                  │3050            │350                  │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│19│Helicopter      │4               │2110                 │2300            │120                  │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│22│Helicopter      │9               │900                  │1900            │120                  │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│21│Commuterliner   │101             │2014                 │1675            │350                  │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│18│Commuterliner   │150             │5550                 │1000            │990                  │
+├──┼────────────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│26│Helicopter      │24              │2600                 │900             │630                  │
+└──┴────────────────┴────────────────┴─────────────────────┴────────────────┴─────────────────────┘
 airline>
 airline>add HELICOPTER 1 2 3 4
 airline>
 airline>fuel 0 10
-Helicopter(super=Aircraft(id=15, seatingCapacity=1, carryingCapacityKg=2, flightRangeKm=3, fuelConsumptionLitersPerHour=4))
+┌──┬──────────┬────────────────┬─────────────────────┬────────────────┬─────────────────────┐
+│ID│Type      │Seating capacity│Carrying capacity, Kg│Flight range, Km│Fuel consumption, L/h│
+├──┼──────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│29│Helicopter│1               │2                    │3               │4                    │
+└──┴──────────┴────────────────┴─────────────────────┴────────────────┴─────────────────────┘
 airline>
 airline>help add
 
@@ -143,8 +210,13 @@ airline>
 airline>add HELICOPTER -seating-capacity 8
 airline>
 airline>fuel 0 10
-Helicopter(super=Aircraft(id=15, seatingCapacity=1, carryingCapacityKg=2, flightRangeKm=3, fuelConsumptionLitersPerHour=4))
-Helicopter(super=Aircraft(id=16, seatingCapacity=8, carryingCapacityKg=0, flightRangeKm=0, fuelConsumptionLitersPerHour=0))
+┌──┬──────────┬────────────────┬─────────────────────┬────────────────┬─────────────────────┐
+│ID│Type      │Seating capacity│Carrying capacity, Kg│Flight range, Km│Fuel consumption, L/h│
+├──┼──────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│29│Helicopter│1               │2                    │3               │4                    │
+├──┼──────────┼────────────────┼─────────────────────┼────────────────┼─────────────────────┤
+│30│Helicopter│8               │0                    │0               │0                    │
+└──┴──────────┴────────────────┴─────────────────────┴────────────────┴─────────────────────┘
 airline>
 airline>exit
 

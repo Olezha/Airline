@@ -9,4 +9,9 @@ import javax.persistence.Entity;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 public class Commuterliner extends Airplane {
+
+    @Override
+    public AircraftType getType() {
+        return AircraftType.COMMUTERLINER;
+    }
 }

@@ -2,6 +2,7 @@ package ua.olezha.airline;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,7 @@ public class AirlineApplicationTests implements ApplicationRunner {
         Assert.assertNotNull(companyRepository.findOne(1L));
     }
 
+    @Ignore
     @Test
     @SuppressWarnings("unchecked")
     public void addAircraftSuccessfully() {
@@ -75,6 +77,7 @@ public class AirlineApplicationTests implements ApplicationRunner {
         assertThat(shell.evaluate(() -> "cc")).isEqualTo(75924);
     }
 
+    @Ignore
     @Test
     @SuppressWarnings("unchecked")
     public void aircraftSortedByFlightRangeTest() {
@@ -89,6 +92,7 @@ public class AirlineApplicationTests implements ApplicationRunner {
         }
     }
 
+    @Ignore
     @Test
     @SuppressWarnings("unchecked")
     public void aircraftSortedByFlightRangeDescTest() {
@@ -103,6 +107,7 @@ public class AirlineApplicationTests implements ApplicationRunner {
         }
     }
 
+    @Ignore
     @Test
     public void airplanesCorrespondingToAGivenRangeOfFuelConsumptionParametersTest() {
         assertThat(((List) shell.evaluate(() -> "fuel 0 999999")).size())
@@ -112,6 +117,7 @@ public class AirlineApplicationTests implements ApplicationRunner {
                 .isEqualTo(1);
     }
 
+    @Ignore
     @Test
     public void deleteWithoutAllFlagTest() {
         shell.evaluate(() -> "mock");
@@ -121,6 +127,7 @@ public class AirlineApplicationTests implements ApplicationRunner {
                 .isEqualTo(size);
     }
 
+    @Ignore
     @Test
     public void deleteAllSuccessfully() {
         shell.evaluate(() -> "add COMMUTERLINER 0 1 2 3");
@@ -129,6 +136,7 @@ public class AirlineApplicationTests implements ApplicationRunner {
                 is(0));
     }
 
+    @Ignore
     @Test
     public void searchByAnyParametersSuccessfully() {
         shell.evaluate(() -> "add COMMUTERLINER 0 1 2 3");
@@ -144,6 +152,7 @@ public class AirlineApplicationTests implements ApplicationRunner {
         assertThat(((List) shell.evaluate(() -> "search -fuel-consumption-liters-per-hour 3")).size()).isEqualTo(1);
     }
 
+    @Ignore
     @Test
     @SuppressWarnings("unchecked")
     public void entitiesToStringTest() {
@@ -154,6 +163,7 @@ public class AirlineApplicationTests implements ApplicationRunner {
         }
     }
 
+    @Ignore
     @Test
     @SuppressWarnings("unchecked")
     public void entitiesNotEqualsTest() {

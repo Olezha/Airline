@@ -7,12 +7,14 @@ import org.springframework.core.annotation.Order;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
+import org.springframework.shell.table.*;
 import org.springframework.stereotype.Component;
 import ua.olezha.airline.model.aircraft.Aircraft;
 import ua.olezha.airline.model.aircraft.AircraftType;
 import ua.olezha.airline.service.AircraftService;
 
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 @ShellComponent()
@@ -49,7 +51,7 @@ public class AirlineShellController {
 
     @SuppressWarnings("unused")
     @ShellMethod(value = "Show all aircraft", key = "show")
-    private List<Aircraft> showAllAircraft() {
+    private String showAllAircraft() {
         return aircraftListToASCIITable(
                 aircraftService.allAircraftInTheAirline());
     }
@@ -68,7 +70,7 @@ public class AirlineShellController {
 
     @SuppressWarnings("unused")
     @ShellMethod(value = "List of aircraft of the company sorted by flight range", key = "sort", prefix="-")
-    private List<Aircraft> aircraftSortedByFlightRange(boolean desc) {
+    private String aircraftSortedByFlightRange(boolean desc) {
         List<Aircraft> aircraftList = aircraftService.sortTheAircraftByFlightRangeFromSmallerToLarger();
         if (desc)
             Collections.reverse(aircraftList);
@@ -77,7 +79,7 @@ public class AirlineShellController {
 
     @SuppressWarnings("unused")
     @ShellMethod(value = "Airplanes corresponding to a given range of fuel consumption parameters", key = "fuel", prefix="-")
-    private List<Aircraft> airplanesCorrespondingToAGivenRangeOfFuelConsumptionParameters(
+    private String airplanesCorrespondingToAGivenRangeOfFuelConsumptionParameters(
             @ShellOption(help = "From (liters per hour)")
             int fromLitersPerHour,
             @ShellOption(help = "To (liters per hour)")
@@ -117,7 +119,7 @@ public class AirlineShellController {
 
     @SuppressWarnings("unused")
     @ShellMethod(value = "Search", prefix="-")
-    private List<Aircraft> search(// TODO: Valid *
+    private String search(// TODO: Valid *
             @ShellOption(help = "Seating capacity", defaultValue = "-1")
                     int seatingCapacity,
             @ShellOption(help = "Carrying capacity (kg)", defaultValue = "-1")
@@ -130,13 +132,20 @@ public class AirlineShellController {
                 aircraftService.search(seatingCapacity, carryingCapacityKg, flightRangeKm, fuelConsumptionLitersPerHour));
     }
 
-    private List<Aircraft> aircraftListToASCIITable(List<Aircraft> aircraftList) {
-        /*
-         * TODO: ASCII Table
-         * change return type to String
-         * (https://stackoverflow.com/questions/15215326/how-can-i-create-table-using-ascii-in-a-console)
-         */
-        return aircraftList;
+    private String aircraftListToASCIITable(List<Aircraft> aircraftList) {
+        LinkedHashMap<String, Object> headers = new LinkedHashMap<>();
+        headers.put("id", "ID");
+        headers.put("type", "Type");
+        headers.put("seatingCapacity", "Seating capacity");
+        headers.put("carryingCapacityKg", "Carrying capacity, Kg");
+        headers.put("flightRangeKm", "Flight range, Km");
+        headers.put("fuelConsumptionLitersPerHour", "Fuel consumption, L/h");
+        TableBuilder tableBuilder = new TableBuilder(new BeanListTableModel(aircraftList, headers));
+        Table table = tableBuilder
+                .addHeaderBorder(BorderStyle.fancy_double)
+                .addFullBorder(BorderStyle.fancy_light)
+                .build();
+        return table.render(180);
     }
 }
 

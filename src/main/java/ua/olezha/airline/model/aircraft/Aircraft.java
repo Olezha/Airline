@@ -20,4 +20,6 @@ public abstract class Aircraft {
     private Integer flightRangeKm;
 
     private Integer fuelConsumptionLitersPerHour;
+
+    public abstract AircraftType getType();
 }

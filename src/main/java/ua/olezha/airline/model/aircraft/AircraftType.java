@@ -14,4 +14,8 @@ public enum AircraftType {
     public Class getAircraftClass() {
         return clazz;
     }
+
+    public String toString() {
+        return clazz.getSimpleName();
+    }
 }

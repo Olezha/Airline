@@ -9,4 +9,9 @@ import javax.persistence.Entity;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 public class Helicopter extends Aircraft {
+
+    @Override
+    public AircraftType getType() {
+        return AircraftType.HELICOPTER;
+    }
 }
