@@ -15,7 +15,10 @@ import org.springframework.shell.Shell;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.olezha.airline.model.aircraft.Aircraft;
+import ua.olezha.airline.model.aircraft.AircraftType;
+import ua.olezha.airline.model.company.Company;
 import ua.olezha.airline.repository.CompanyRepository;
+import ua.olezha.airline.service.AircraftService;
 
 import java.util.List;
 
@@ -30,6 +33,9 @@ public class AirlineApplicationTests implements ApplicationRunner {
 
     @Autowired
     private Shell shell;
+
+    @Autowired
+    private AircraftService aircraftService;
 
     @Autowired
     private CompanyRepository companyRepository;
@@ -53,14 +59,12 @@ public class AirlineApplicationTests implements ApplicationRunner {
         Assert.assertNotNull(companyRepository.findOne(1L));
     }
 
-    @Ignore
     @Test
-    @SuppressWarnings("unchecked")
     public void addAircraftSuccessfully() {
-        int firstAircraftListSize = ((List<Aircraft>) shell.evaluate(() -> "show")).size();
+        Object firstOut = shell.evaluate(() -> "show");
+        assertThat(shell.evaluate(() -> "show")).isEqualTo(firstOut);
         assertThat(shell.evaluate(() -> "add COMMUTERLINER")).isNull();
-        Assert.assertThat(((List<Aircraft>) shell.evaluate(() -> "show")).size() - firstAircraftListSize,
-                is(1));
+        assertThat(shell.evaluate(() -> "show")).isNotEqualTo(firstOut);
     }
 
     @Test
@@ -77,66 +81,44 @@ public class AirlineApplicationTests implements ApplicationRunner {
         assertThat(shell.evaluate(() -> "cc")).isEqualTo(75924);
     }
 
-    @Ignore
     @Test
-    @SuppressWarnings("unchecked")
     public void aircraftSortedByFlightRangeTest() {
         shell.evaluate(() -> "mock");
-        List<Aircraft> aircraftList = (List<Aircraft>) shell.evaluate(() -> "sort");
-        Aircraft lastAircraft = null;
-        for (Aircraft aircraft : aircraftList) {
-            if (lastAircraft != null)
-                assertThat(aircraft.getFlightRangeKm())
-                        .isGreaterThan(lastAircraft.getFlightRangeKm());
-            lastAircraft = aircraft;
-        }
+        Object firstOut = shell.evaluate(() -> "show");
+        assertThat(shell.evaluate(() -> "sort")).isNotEqualTo(firstOut);
     }
 
-    @Ignore
     @Test
-    @SuppressWarnings("unchecked")
     public void aircraftSortedByFlightRangeDescTest() {
         shell.evaluate(() -> "mock");
-        List<Aircraft> aircraftList = (List<Aircraft>) shell.evaluate(() -> "sort -desc");
-        Aircraft lastAircraft = null;
-        for (Aircraft aircraft : aircraftList) {
-            if (lastAircraft != null)
-                assertThat(lastAircraft.getFlightRangeKm())
-                        .isGreaterThan(aircraft.getFlightRangeKm());
-            lastAircraft = aircraft;
-        }
+        Object firstOut = shell.evaluate(() -> "show");
+        assertThat(shell.evaluate(() -> "sort -desc")).isNotEqualTo(firstOut);
     }
 
-    @Ignore
     @Test
     public void airplanesCorrespondingToAGivenRangeOfFuelConsumptionParametersTest() {
-        assertThat(((List) shell.evaluate(() -> "fuel 0 999999")).size())
-                .isEqualTo(0);
+        Object firstOut = shell.evaluate(() -> "show");
+        assertThat(shell.evaluate(() -> "fuel 0 999999")).isEqualTo(firstOut);
         shell.evaluate(() -> "add COMMUTERLINER 0 1 2 3");
-        assertThat(((List) shell.evaluate(() -> "fuel 3 3")).size())
-                .isEqualTo(1);
+        assertThat(shell.evaluate(() -> "fuel 3 3")).isNotEqualTo(firstOut);
     }
 
-    @Ignore
     @Test
     public void deleteWithoutAllFlagTest() {
         shell.evaluate(() -> "mock");
-        int size = ((List) shell.evaluate(() -> "show")).size();
+        Object firstOut = shell.evaluate(() -> "show");
         shell.evaluate(() -> "delete");
-        assertThat(((List) shell.evaluate(() -> "show")).size())
-                .isEqualTo(size);
+        assertThat(shell.evaluate(() -> "show")).isEqualTo(firstOut);
     }
 
-    @Ignore
     @Test
     public void deleteAllSuccessfully() {
+        Object firstOut = shell.evaluate(() -> "show");
         shell.evaluate(() -> "add COMMUTERLINER 0 1 2 3");
         shell.evaluate(() -> "delete -all");
-        Assert.assertThat(((List) shell.evaluate(() -> "show")).size(),
-                is(0));
+        assertThat(shell.evaluate(() -> "show")).isEqualTo(firstOut);
     }
 
-    @Ignore
     @Test
     public void searchByAnyParametersSuccessfully() {
         shell.evaluate(() -> "add COMMUTERLINER 0 1 2 3");
@@ -146,34 +128,47 @@ public class AirlineApplicationTests implements ApplicationRunner {
         shell.evaluate(() -> "add HELICOPTER 4 5 6 7");
         shell.evaluate(() -> "add WIDE_BODY_AIRLINER 5 6 7 8");
 
-        assertThat(((List) shell.evaluate(() -> "search -seating-capacity 4")).size()).isEqualTo(1);
-        assertThat(((List) shell.evaluate(() -> "search -carrying-capacity-kg 6")).size()).isEqualTo(1);
-        assertThat(((List) shell.evaluate(() -> "search -flight-range-km 5")).size()).isEqualTo(1);
-        assertThat(((List) shell.evaluate(() -> "search -fuel-consumption-liters-per-hour 3")).size()).isEqualTo(1);
+        Object firstOut = shell.evaluate(() -> "search -seating-capacity 1");
+        assertThat(shell.evaluate(() -> "search -carrying-capacity-kg 2")).isEqualTo(firstOut);
+        assertThat(shell.evaluate(() -> "search -flight-range-km 3")).isEqualTo(firstOut);
+        assertThat(shell.evaluate(() -> "search -fuel-consumption-liters-per-hour 4")).isEqualTo(firstOut);
     }
 
-    @Ignore
     @Test
-    @SuppressWarnings("unchecked")
     public void entitiesToStringTest() {
         shell.evaluate(() -> "mock");
-        List<Aircraft> aircraftList = (List<Aircraft>) shell.evaluate(() -> "sort -desc");
+        List<Aircraft> aircraftList = aircraftService.allAircraftInTheAirline();
         for (Aircraft aircraft : aircraftList) {
             assertThat(aircraft.toString()).isNotBlank();
         }
     }
 
-    @Ignore
     @Test
-    @SuppressWarnings("unchecked")
     public void entitiesNotEqualsTest() {
         shell.evaluate(() -> "mock");
-        List<Aircraft> aircraftList = (List<Aircraft>) shell.evaluate(() -> "sort -desc");
+        List<Aircraft> aircraftList = aircraftService.allAircraftInTheAirline();
         Aircraft lastAircraft = null;
         for (Aircraft aircraft : aircraftList) {
             if (lastAircraft != null)
                 assertThat(lastAircraft.equals(aircraft)).isFalse();
             lastAircraft = aircraft;
+        }
+    }
+
+    @Test
+    public void companyEqualsTest() {
+        Company company = companyRepository.getOne(1L);
+        Company sameCompany = companyRepository.getOne(1L);
+        assertThat(company).isEqualTo(sameCompany);
+    }
+
+    @Test
+    public void entitiesHasATypeTest() {
+        shell.evaluate(() -> "mock");
+        List<Aircraft> aircraftList = aircraftService.allAircraftInTheAirline();
+        for (Aircraft aircraft : aircraftList) {
+            assertThat(aircraft.getType()).isNotNull();
+            assertThat(aircraft.getType()).isIn(AircraftType.values());
         }
     }
 }

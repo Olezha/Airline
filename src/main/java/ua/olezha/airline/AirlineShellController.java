@@ -101,6 +101,7 @@ public class AirlineShellController {
     @SuppressWarnings("unused")
     @ShellMethod("Simulate objects")
     private void mock() {
+        // TODO: move anywhere from here
         addAircraft(AircraftType.COMMUTERLINER, 10, 2000, 10000, 150);
         addAircraft(AircraftType.HELICOPTER, 18, 800, 3050, 350);
         addAircraft(AircraftType.WIDE_BODY_AIRLINER, 200, 18000, 14300, 555);
@@ -142,8 +143,9 @@ public class AirlineShellController {
         headers.put("fuelConsumptionLitersPerHour", "Fuel consumption, L/h");
         TableBuilder tableBuilder = new TableBuilder(new BeanListTableModel(aircraftList, headers));
         Table table = tableBuilder
-                .addHeaderBorder(BorderStyle.fancy_double)
-                .addFullBorder(BorderStyle.fancy_light)
+                .addFullBorder(BorderStyle.fancy_light_double_dash)
+                .addHeaderBorder(BorderStyle.fancy_light)
+                .addOutlineBorder(BorderStyle.fancy_light)
                 .build();
         return table.render(180);
     }

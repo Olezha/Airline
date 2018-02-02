@@ -2,6 +2,7 @@ package ua.olezha.airline.model.company;
 
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Setter;
 import ua.olezha.airline.model.aircraft.Aircraft;
 
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@Data
+@Data @EqualsAndHashCode(exclude="aircraftList")
 @Entity
 public class Company {
 
