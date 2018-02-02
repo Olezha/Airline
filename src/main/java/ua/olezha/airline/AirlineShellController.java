@@ -14,6 +14,7 @@ import ua.olezha.airline.model.aircraft.Aircraft;
 import ua.olezha.airline.model.aircraft.AircraftType;
 import ua.olezha.airline.service.AircraftService;
 
+import javax.validation.constraints.Size;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -33,15 +34,15 @@ public class AirlineShellController {
     @ShellMethod(value = "Add aircraft", key = "add", prefix = "-")
     private void addAircraft(
             @ShellOption(help = "Type [WIDE_BODY_AIRLINER|COMMUTERLINER|HELICOPTER]")
-                    AircraftType aircraftType,
+            AircraftType aircraftType,
             @ShellOption(help = "Seating capacity", defaultValue = "0")
-                    int seatingCapacity,
+            int seatingCapacity,
             @ShellOption(help = "Carrying capacity (kg)", defaultValue = "0")
-                    int carryingCapacityKg,
+            int carryingCapacityKg,
             @ShellOption(help = "Flight range (km)", defaultValue = "0")
-                    int flightRangeKm,
+            int flightRangeKm,
             @ShellOption(help = "Fuel consumption (liters per hour)", defaultValue = "0")
-                    int fuelConsumptionLitersPerHour) {
+            int fuelConsumptionLitersPerHour) {
         if (aircraftType == null)
             return;
         Aircraft aircraft = aircraftService.aircraftFactory(aircraftType);
@@ -84,9 +85,9 @@ public class AirlineShellController {
     @ShellMethod(value = "Airplanes corresponding to a given range of fuel consumption parameters", key = "fuel", prefix = "-")
     private String airplanesCorrespondingToAGivenRangeOfFuelConsumptionParameters(
             @ShellOption(help = "From (liters per hour)")
-                    int fromLitersPerHour,
+            int fromLitersPerHour,
             @ShellOption(help = "To (liters per hour)")
-                    int toLitersPerHour) {
+            int toLitersPerHour) {
         return aircraftListToASCIITable(
                 aircraftService.findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParameters(
                         fromLitersPerHour, toLitersPerHour));
@@ -123,15 +124,19 @@ public class AirlineShellController {
 
     @SuppressWarnings("unused")
     @ShellMethod(value = "Search", prefix = "-")
-    private String search(// TODO: Valid *
+    private String search(
                           @ShellOption(help = "Seating capacity", defaultValue = "-1")
-                                  int seatingCapacity,
+                          @Size(min = -1)
+                          int seatingCapacity,
                           @ShellOption(help = "Carrying capacity (kg)", defaultValue = "-1")
-                                  int carryingCapacityKg,
+                          @Size(min = -1)
+                          int carryingCapacityKg,
                           @ShellOption(help = "Flight range (km)", defaultValue = "-1")
-                                  int flightRangeKm,
+                          @Size(min = -1)
+                          int flightRangeKm,
                           @ShellOption(help = "Fuel consumption (liters per hour)", defaultValue = "-1")
-                                  int fuelConsumptionLitersPerHour) {
+                          @Size(min = -1)
+                          int fuelConsumptionLitersPerHour) {
         return aircraftListToASCIITable(
                 aircraftService.search(seatingCapacity, carryingCapacityKg, flightRangeKm, fuelConsumptionLitersPerHour));
     }
