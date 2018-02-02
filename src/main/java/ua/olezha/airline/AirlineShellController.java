@@ -50,7 +50,8 @@ public class AirlineShellController {
     @SuppressWarnings("unused")
     @ShellMethod(value = "Show all aircraft", key = "show")
     private List<Aircraft> showAllAircraft() {
-        return aircraftService.allAircraftInTheAirline();
+        return aircraftListToASCIITable(
+                aircraftService.allAircraftInTheAirline());
     }
 
     @SuppressWarnings("unused")
@@ -71,7 +72,7 @@ public class AirlineShellController {
         List<Aircraft> aircraftList = aircraftService.sortTheAircraftByFlightRangeFromSmallerToLarger();
         if (desc)
             Collections.reverse(aircraftList);
-        return aircraftList;
+        return aircraftListToASCIITable(aircraftList);
     }
 
     @SuppressWarnings("unused")
@@ -81,8 +82,9 @@ public class AirlineShellController {
             int fromLitersPerHour,
             @ShellOption(help = "To (liters per hour)")
             int toLitersPerHour) {
-        return aircraftService.findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParameters(
-                fromLitersPerHour, toLitersPerHour);
+        return aircraftListToASCIITable(
+                aircraftService.findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParameters(
+                fromLitersPerHour, toLitersPerHour));
     }
 
     @SuppressWarnings("unused")
@@ -124,7 +126,17 @@ public class AirlineShellController {
                     int flightRangeKm,
             @ShellOption(help = "Fuel consumption (liters per hour)", defaultValue = "-1")
                     int fuelConsumptionLitersPerHour) {
-        return aircraftService.search(seatingCapacity, carryingCapacityKg, flightRangeKm, fuelConsumptionLitersPerHour);
+        return aircraftListToASCIITable(
+                aircraftService.search(seatingCapacity, carryingCapacityKg, flightRangeKm, fuelConsumptionLitersPerHour));
+    }
+
+    private List<Aircraft> aircraftListToASCIITable(List<Aircraft> aircraftList) {
+        /*
+         * TODO: ASCII Table
+         * change return type to String
+         * (https://stackoverflow.com/questions/15215326/how-can-i-create-table-using-ascii-in-a-console)
+         */
+        return aircraftList;
     }
 }
 
