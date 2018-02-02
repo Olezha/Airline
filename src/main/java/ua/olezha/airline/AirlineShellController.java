@@ -4,6 +4,7 @@ import org.jline.utils.AttributedString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
@@ -13,6 +14,7 @@ import ua.olezha.airline.model.aircraft.Aircraft;
 import ua.olezha.airline.model.aircraft.AircraftType;
 import ua.olezha.airline.service.AircraftService;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -28,25 +30,26 @@ public class AirlineShellController {
         System.out.println("Airline (to display available commands type help)");
     }
 
-    @ShellMethod(value = "Add aircraft", key = "add", prefix="-")
+    @ShellMethod(value = "Add aircraft", key = "add", prefix = "-")
     private void addAircraft(
-            // TODO: ConversionFailedException
             @ShellOption(help = "Type [WIDE_BODY_AIRLINER|COMMUTERLINER|HELICOPTER]")
-            AircraftType aircraftType,
+                    AircraftType aircraftType,
             @ShellOption(help = "Seating capacity", defaultValue = "0")
-            int seatingCapacity,
+                    int seatingCapacity,
             @ShellOption(help = "Carrying capacity (kg)", defaultValue = "0")
-            int carryingCapacityKg,
+                    int carryingCapacityKg,
             @ShellOption(help = "Flight range (km)", defaultValue = "0")
-            int flightRangeKm,
+                    int flightRangeKm,
             @ShellOption(help = "Fuel consumption (liters per hour)", defaultValue = "0")
-            int fuelConsumptionLitersPerHour) {
-            Aircraft aircraft = aircraftService.aircraftFactory(aircraftType);
-            aircraft.setSeatingCapacity(seatingCapacity);
-            aircraft.setCarryingCapacityKg(carryingCapacityKg);
-            aircraft.setFlightRangeKm(flightRangeKm);
-            aircraft.setFuelConsumptionLitersPerHour(fuelConsumptionLitersPerHour);
-            aircraftService.addAircraft(aircraft);
+                    int fuelConsumptionLitersPerHour) {
+        if (aircraftType == null)
+            return;
+        Aircraft aircraft = aircraftService.aircraftFactory(aircraftType);
+        aircraft.setSeatingCapacity(seatingCapacity);
+        aircraft.setCarryingCapacityKg(carryingCapacityKg);
+        aircraft.setFlightRangeKm(flightRangeKm);
+        aircraft.setFuelConsumptionLitersPerHour(fuelConsumptionLitersPerHour);
+        aircraftService.addAircraft(aircraft);
     }
 
     @SuppressWarnings("unused")
@@ -69,7 +72,7 @@ public class AirlineShellController {
     }
 
     @SuppressWarnings("unused")
-    @ShellMethod(value = "List of aircraft of the company sorted by flight range", key = "sort", prefix="-")
+    @ShellMethod(value = "List of aircraft of the company sorted by flight range", key = "sort", prefix = "-")
     private String aircraftSortedByFlightRange(boolean desc) {
         List<Aircraft> aircraftList = aircraftService.sortTheAircraftByFlightRangeFromSmallerToLarger();
         if (desc)
@@ -78,19 +81,19 @@ public class AirlineShellController {
     }
 
     @SuppressWarnings("unused")
-    @ShellMethod(value = "Airplanes corresponding to a given range of fuel consumption parameters", key = "fuel", prefix="-")
+    @ShellMethod(value = "Airplanes corresponding to a given range of fuel consumption parameters", key = "fuel", prefix = "-")
     private String airplanesCorrespondingToAGivenRangeOfFuelConsumptionParameters(
             @ShellOption(help = "From (liters per hour)")
-            int fromLitersPerHour,
+                    int fromLitersPerHour,
             @ShellOption(help = "To (liters per hour)")
-            int toLitersPerHour) {
+                    int toLitersPerHour) {
         return aircraftListToASCIITable(
                 aircraftService.findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParameters(
-                fromLitersPerHour, toLitersPerHour));
+                        fromLitersPerHour, toLitersPerHour));
     }
 
     @SuppressWarnings("unused")
-    @ShellMethod(value = "Delete", prefix="-")
+    @ShellMethod(value = "Delete", prefix = "-")
     private void delete(boolean all) {
         if (!all)
             System.out.println("Unsupported operation");
@@ -119,16 +122,16 @@ public class AirlineShellController {
     }
 
     @SuppressWarnings("unused")
-    @ShellMethod(value = "Search", prefix="-")
+    @ShellMethod(value = "Search", prefix = "-")
     private String search(// TODO: Valid *
-            @ShellOption(help = "Seating capacity", defaultValue = "-1")
-                    int seatingCapacity,
-            @ShellOption(help = "Carrying capacity (kg)", defaultValue = "-1")
-                    int carryingCapacityKg,
-            @ShellOption(help = "Flight range (km)", defaultValue = "-1")
-                    int flightRangeKm,
-            @ShellOption(help = "Fuel consumption (liters per hour)", defaultValue = "-1")
-                    int fuelConsumptionLitersPerHour) {
+                          @ShellOption(help = "Seating capacity", defaultValue = "-1")
+                                  int seatingCapacity,
+                          @ShellOption(help = "Carrying capacity (kg)", defaultValue = "-1")
+                                  int carryingCapacityKg,
+                          @ShellOption(help = "Flight range (km)", defaultValue = "-1")
+                                  int flightRangeKm,
+                          @ShellOption(help = "Fuel consumption (liters per hour)", defaultValue = "-1")
+                                  int fuelConsumptionLitersPerHour) {
         return aircraftListToASCIITable(
                 aircraftService.search(seatingCapacity, carryingCapacityKg, flightRangeKm, fuelConsumptionLitersPerHour));
     }
@@ -158,5 +161,19 @@ class PromptProvider implements org.springframework.shell.jline.PromptProvider {
     @Override
     public AttributedString getPrompt() {
         return AttributedString.fromAnsi("airline>");
+    }
+}
+
+@Component
+class AircraftTypeEnumConverter implements Converter<String, AircraftType> {
+
+    @Override
+    public AircraftType convert(String s) {
+        try {
+            return AircraftType.valueOf(s.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            System.out.println("Unknown aircraft type. Allowable values " + Arrays.asList(AircraftType.values()));
+        }
+        return null;
     }
 }

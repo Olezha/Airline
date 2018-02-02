@@ -68,6 +68,14 @@ public class AirlineApplicationTests implements ApplicationRunner {
     }
 
     @Test
+    public void addUnknownTypeAircraftTest() {
+        Object firstOut = shell.evaluate(() -> "show");
+        assertThat(shell.evaluate(() -> "show")).isEqualTo(firstOut);
+        assertThat(shell.evaluate(() -> "add qwerty")).isNull();
+        assertThat(shell.evaluate(() -> "show")).isEqualTo(firstOut);
+    }
+
+    @Test
     public void totalCapacityTest() {
         assertThat(shell.evaluate(() -> "tc")).isEqualTo(0);
         shell.evaluate(() -> "mock");
