@@ -25,7 +25,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@ActiveProfiles("test")
 @Import(AirlineApplicationRunner.class)
 public class AirlineApplicationTests implements ApplicationRunner {
 
