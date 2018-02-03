@@ -1,5 +1,6 @@
 package ua.olezha.airline;
 
+import com.thoughtworks.xstream.XStream;
 import org.jline.utils.AttributedString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
@@ -10,17 +11,13 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 import org.springframework.shell.table.*;
 import org.springframework.stereotype.Component;
-import ua.olezha.airline.model.aircraft.Aircraft;
-import ua.olezha.airline.model.aircraft.AircraftType;
+import ua.olezha.airline.model.aircraft.*;
 import ua.olezha.airline.service.AircraftService;
 
-import javax.validation.constraints.Size;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.io.File;
+import java.util.*;
 
-@ShellComponent()
+@ShellComponent
 public class AirlineShellController {
 
     private final AircraftService aircraftService;
@@ -31,6 +28,7 @@ public class AirlineShellController {
         System.out.println("Airline (to display available commands type help)");
     }
 
+    @SuppressWarnings("unused")
     @ShellMethod(value = "Add aircraft", key = "add", prefix = "-")
     private void addAircraft(
             @ShellOption(help = "Type [WIDE_BODY_AIRLINER|COMMUTERLINER|HELICOPTER]")
@@ -102,40 +100,34 @@ public class AirlineShellController {
             aircraftService.deleteAll();
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings({"unused", "unchecked"})
     @ShellMethod("Simulate objects")
     private void mock() {
-        // TODO: move anywhere from here
-        addAircraft(AircraftType.COMMUTERLINER, 10, 2000, 10000, 150);
-        addAircraft(AircraftType.HELICOPTER, 18, 800, 3050, 350);
-        addAircraft(AircraftType.WIDE_BODY_AIRLINER, 200, 18000, 14300, 555);
-        addAircraft(AircraftType.COMMUTERLINER, 150, 5550, 1000, 990);
-        addAircraft(AircraftType.HELICOPTER, 4, 2110, 2300, 120);
-        addAircraft(AircraftType.WIDE_BODY_AIRLINER, 777, 400, 19500, 1150);
-        addAircraft(AircraftType.COMMUTERLINER, 101, 2014, 1675, 350);
-        addAircraft(AircraftType.HELICOPTER, 9, 900, 1900, 120);
-        addAircraft(AircraftType.WIDE_BODY_AIRLINER, 1020, 12000, 10100, 1600);
-        addAircraft(AircraftType.WIDE_BODY_AIRLINER, 555, 14500, 9900, 2500);
-        addAircraft(AircraftType.COMMUTERLINER, 19, 4500, 5675, 1001);
-        addAircraft(AircraftType.HELICOPTER, 24, 2600, 900, 630);
-        addAircraft(AircraftType.WIDE_BODY_AIRLINER, 8, 8950, 12500, 1340);
-        addAircraft(AircraftType.COMMUTERLINER, 189, 1600, 19000, 2250);
+        XStream xstream = new XStream();
+        Class<?>[] classes = new Class[] {Commuterliner.class, Helicopter.class, WideBodyAirliner.class};
+        XStream.setupDefaultSecurity(xstream);
+        xstream.allowTypes(classes);
+        xstream.alias("commuterliner", Commuterliner.class);
+        xstream.alias("helicopter", Helicopter.class);
+        xstream.alias("wideBodyAirliner", WideBodyAirliner.class);
+        File aircraftListXmlFile = new File(Aircraft.class
+                .getResource("/aircraftList.xml")
+                .getFile());
+        for (Aircraft aircraft : (List<Aircraft>)
+                xstream.fromXML(aircraftListXmlFile))
+            aircraftService.addAircraft(aircraft);
     }
 
     @SuppressWarnings("unused")
     @ShellMethod(value = "Search", prefix = "-")
     private String search(
                           @ShellOption(help = "Seating capacity", defaultValue = "-1")
-                          @Size(min = -1)
                           int seatingCapacity,
                           @ShellOption(help = "Carrying capacity (kg)", defaultValue = "-1")
-                          @Size(min = -1)
                           int carryingCapacityKg,
                           @ShellOption(help = "Flight range (km)", defaultValue = "-1")
-                          @Size(min = -1)
                           int flightRangeKm,
                           @ShellOption(help = "Fuel consumption (liters per hour)", defaultValue = "-1")
-                          @Size(min = -1)
                           int fuelConsumptionLitersPerHour) {
         return aircraftListToASCIITable(
                 aircraftService.search(seatingCapacity, carryingCapacityKg, flightRangeKm, fuelConsumptionLitersPerHour));
@@ -149,7 +141,8 @@ public class AirlineShellController {
         headers.put("carryingCapacityKg", "Carrying capacity, Kg");
         headers.put("flightRangeKm", "Flight range, Km");
         headers.put("fuelConsumptionLitersPerHour", "Fuel consumption, L/h");
-        TableBuilder tableBuilder = new TableBuilder(new BeanListTableModel(aircraftList, headers));
+        TableBuilder tableBuilder = new TableBuilder(
+                new BeanListTableModel<>(aircraftList, headers));
         Table table = tableBuilder
                 .addFullBorder(BorderStyle.fancy_light_double_dash)
                 .addHeaderBorder(BorderStyle.fancy_light)

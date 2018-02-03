@@ -101,13 +101,13 @@ public class AircraftServiceImpl implements AircraftService {
             try {
                 Aircraft aircraft = (Aircraft) aircraftType.getAircraftClass().newInstance();
 
-                if (seatingCapacity != -1)
+                if (seatingCapacity >= 0)
                     aircraft.setSeatingCapacity(seatingCapacity);
-                if (carryingCapacityKg != -1)
+                if (carryingCapacityKg >= 0)
                     aircraft.setCarryingCapacityKg(carryingCapacityKg);
-                if (flightRangeKm != -1)
+                if (flightRangeKm >= 0)
                     aircraft.setFlightRangeKm(flightRangeKm);
-                if (fuelConsumptionLitersPerHour != -1)
+                if (fuelConsumptionLitersPerHour >= 0)
                     aircraft.setFuelConsumptionLitersPerHour(fuelConsumptionLitersPerHour);
 
                 Example<Aircraft> aircraftExample = Example.of(aircraft);
