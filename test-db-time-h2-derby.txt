@@ -1,0 +1,45 @@
+Command                 ms      H2  Derby
+airline>show            Time:   29  50
+airline>mock            Time:   185 461
+airline>show            Time:   12  30
+airline>show            Time:   4   11
+airline>sort            Time:   8   26
+airline>sort -desc      Time:   13  30
+airline>tc              Time:   53  81
+airline>cc              Time:   13  45
+airline>tc              Time:   4   17
+airline>cc              Time:   4   18
+airline>tc              Time:   4   11
+airline>cc              Time:   3   15
+airline>show            Time:   2   20
+airline>show            Time:   4   29
+airline>fuel 500 1500   Time:   25  54
+airline>fuel 500 1500   Time:   4   15
+airline>fuel 500 1500   Time:   2   11
+airline>fuel 500 1500   Time:   5   6
+airline>fuel 200 2500   Time:   3   9
+airline>mock            Time:   161 358
+airline>show            Time:   4   21
+airline>mock            Time:   138 328
+airline>sort            Time:   11  31
+airline>cc              Time:   17  25
+airline>cc              Time:   3   24
+airline>tc              Time:   18  16 <<<
+airline>tc              Time:   3   20
+airline>cc              Time:   2   17
+airline>tc              Time:   3   20
+airline>delete -all     Time:   25  49
+airline>show            Time:   4   19
+airline>mock            Time:   68  220
+airline>show            Time:   3   18
+airline>mock            Time:   82  288
+airline>mock            Time:   119 267
+airline>mock            Time:   97  323
+airline>mock            Time:   124 398
+airline>mock            Time:   167 425
+airline>show            Time:   3   26
+airline>tc              Time:   15  15 <<<
+airline>cc              Time:   13  18
+airline>cc              Time:   3   18
+airline>tc              Time:   3   25
+airline>delete -all     Time:   33  63
