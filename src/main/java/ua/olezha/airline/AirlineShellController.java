@@ -1,7 +1,6 @@
 package ua.olezha.airline;
 
 import com.thoughtworks.xstream.XStream;
-import lombok.extern.slf4j.Slf4j;
 import org.jline.utils.AttributedString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
@@ -18,7 +17,6 @@ import ua.olezha.airline.service.AircraftService;
 import java.io.File;
 import java.util.*;
 
-@Slf4j
 @ShellComponent
 public class AirlineShellController {
 
@@ -56,36 +54,26 @@ public class AirlineShellController {
     @SuppressWarnings("unused")
     @ShellMethod(value = "Show all aircraft", key = "show")
     private String showAllAircraft() {
-        long startTime = System.currentTimeMillis();
         List<Aircraft> aircraftList = aircraftService.allAircraftInTheAirline();
-        log.debug("Time: {}", System.currentTimeMillis() - startTime);
         return aircraftListToASCIITable(aircraftList);
     }
 
     @SuppressWarnings("unused")
     @ShellMethod(value = "Total capacity of all the aircraft in the airline", key = "tc")
     private int totalCapacity() {
-        long startTime = System.currentTimeMillis();
-        int totalCapacity = aircraftService.totalCapacityOfAllTheAircraftInTheAirline();
-        log.debug("Time: {}", System.currentTimeMillis() - startTime);
-        return totalCapacity;
+        return aircraftService.totalCapacityOfAllTheAircraftInTheAirline();
     }
 
     @SuppressWarnings("unused")
     @ShellMethod(value = "Carrying capacity of all the aircraft in the airline", key = "cc")
     private int carryingCapacity() {
-        long startTime = System.currentTimeMillis();
-        int carryingCapacity = aircraftService.carryingCapacityOfAllTheAircraftInTheAirline();
-        log.debug("Time: {}", System.currentTimeMillis() - startTime);
-        return carryingCapacity;
+        return aircraftService.carryingCapacityOfAllTheAircraftInTheAirline();
     }
 
     @SuppressWarnings("unused")
     @ShellMethod(value = "List of aircraft of the company sorted by flight range", key = "sort", prefix = "-")
     private String aircraftSortedByFlightRange(boolean desc) {
-        long startTime = System.currentTimeMillis();
         List<Aircraft> aircraftList = aircraftService.sortTheAircraftByFlightRangeFromSmallerToLarger();
-        log.debug("Time: {}", System.currentTimeMillis() - startTime);
         if (desc)
             Collections.reverse(aircraftList);
         return aircraftListToASCIITable(aircraftList);
@@ -98,23 +86,19 @@ public class AirlineShellController {
             int fromLitersPerHour,
             @ShellOption(help = "To (liters per hour)")
             int toLitersPerHour) {
-        long startTime = System.currentTimeMillis();
         List<Aircraft> aircraftList =
                 aircraftService.findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParameters(
                         fromLitersPerHour, toLitersPerHour);
-        log.debug("Time: {}", System.currentTimeMillis() - startTime);
         return aircraftListToASCIITable(aircraftList);
     }
 
     @SuppressWarnings("unused")
     @ShellMethod(value = "Delete", prefix = "-")
     private void delete(boolean all) {
-        long startTime = System.currentTimeMillis();
         if (!all)
             System.out.println("Unsupported operation");
         else
             aircraftService.deleteAll();
-        log.debug("Time: {}", System.currentTimeMillis() - startTime);
     }
 
     @SuppressWarnings({"unused", "unchecked"})
@@ -130,11 +114,9 @@ public class AirlineShellController {
         File aircraftListXmlFile = new File(Aircraft.class
                 .getResource("/aircraftList.xml")
                 .getFile());
-        long startTime = System.currentTimeMillis();
         for (Aircraft aircraft : (List<Aircraft>)
                 xstream.fromXML(aircraftListXmlFile))
             aircraftService.addAircraft(aircraft);
-        log.debug("Time: {}", System.currentTimeMillis() - startTime);
     }
 
     @SuppressWarnings("unused")
@@ -148,9 +130,8 @@ public class AirlineShellController {
                           int flightRangeKm,
                           @ShellOption(help = "Fuel consumption (liters per hour)", defaultValue = "-1")
                           int fuelConsumptionLitersPerHour) {
-        long startTime = System.currentTimeMillis();
-        List<Aircraft> aircraftList = aircraftService.search(seatingCapacity, carryingCapacityKg, flightRangeKm, fuelConsumptionLitersPerHour);
-        log.debug("Time: {}", System.currentTimeMillis() - startTime);
+        List<Aircraft> aircraftList =
+                aircraftService.search(seatingCapacity, carryingCapacityKg, flightRangeKm, fuelConsumptionLitersPerHour);
         return aircraftListToASCIITable(aircraftList);
     }
 
