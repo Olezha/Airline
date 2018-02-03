@@ -1,6 +1,5 @@
 target/
 .idea
 *.iml
-/airline/
-derby.log
+airline.mv.db
 spring-shell.log
