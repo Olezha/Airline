@@ -4,6 +4,7 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ua.olezha.airline.model.aircraft.Aircraft;
 
 import javax.persistence.EntityManagerFactory;
@@ -11,13 +12,6 @@ import java.util.List;
 
 @Repository
 public class AircraftRepositoryImpl implements BetweenExamplesRepository<Aircraft> {
-
-    /**
-     * org.springframework.orm.jpa.JpaSystemException:
-     *     No CurrentSessionContext configured!;
-     * nested exception is org.hibernate.HibernateException:
-     *     No CurrentSessionContext configured!
-     */
 
     private final SessionFactory sessionFactory;
 
@@ -27,6 +21,7 @@ public class AircraftRepositoryImpl implements BetweenExamplesRepository<Aircraf
     }
 
     @Override
+    @Transactional
     public List<Aircraft> findAll(Aircraft fromExampleEntity, Aircraft toExampleEntity) {
         Query query = sessionFactory.getCurrentSession()
                 .createQuery("from Aircraft");
