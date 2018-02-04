@@ -99,7 +99,7 @@ public class AircraftServiceImpl implements AircraftService {
 
         for (AircraftType aircraftType : AircraftType.values()) {
                 Example<Aircraft> aircraftExample = Example.of(
-                        exampleEntityFactory(aircraftType,
+                        exampleAircraftFactory(aircraftType,
                                 seatingCapacity, carryingCapacityKg,
                                 flightRangeKm, fuelConsumptionLitersPerHour));
 
@@ -116,38 +116,40 @@ public class AircraftServiceImpl implements AircraftService {
                                  int toFlightRangeKm, int toFuelConsumptionLitersPerHour) {
         List<Aircraft> aircraftList = new ArrayList<>();
 
-        for (AircraftType aircraftType : AircraftType.values()) {
-            Aircraft fromAircraft =  exampleEntityFactory(aircraftType,
+            Aircraft fromAircraft =  exampleAircraftFactory(null,
                     fromSeatingCapacity, fromCarryingCapacityKg,
                     fromFlightRangeKm, fromFuelConsumptionLitersPerHour);
-            Aircraft toAircraft =  exampleEntityFactory(aircraftType,
+            Aircraft toAircraft =  exampleAircraftFactory(null,
                     toSeatingCapacity, toCarryingCapacityKg,
                     toFlightRangeKm, toFuelConsumptionLitersPerHour);
 
             aircraftList.addAll(aircraftRepository.findAll(fromAircraft, toAircraft));
-        }
 
         return aircraftList;
     }
 
-    private Aircraft exampleEntityFactory(AircraftType aircraftType,
-                                          int seatingCapacity, int carryingCapacityKg,
-                                          int flightRangeKm, int fuelConsumptionLitersPerHour) {
-        Aircraft aircraft = null;
-        try {
-            aircraft = (Aircraft) aircraftType.getAircraftClass().newInstance();
+    private Aircraft exampleAircraftFactory(AircraftType aircraftType,
+                                            int seatingCapacity, int carryingCapacityKg,
+                                            int flightRangeKm, int fuelConsumptionLitersPerHour) {
+        Aircraft aircraft;
+        if (aircraftType != null)
+            aircraft = aircraftFactory(aircraftType);
+        else
+            aircraft = new Aircraft() {
+                @Override
+                public AircraftType getType() {
+                    return null;
+                }
+            };
 
-            if (seatingCapacity >= 0)
-                aircraft.setSeatingCapacity(seatingCapacity);
-            if (carryingCapacityKg >= 0)
-                aircraft.setCarryingCapacityKg(carryingCapacityKg);
-            if (flightRangeKm >= 0)
-                aircraft.setFlightRangeKm(flightRangeKm);
-            if (fuelConsumptionLitersPerHour >= 0)
-                aircraft.setFuelConsumptionLitersPerHour(fuelConsumptionLitersPerHour);
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
+        if (seatingCapacity >= 0)
+            aircraft.setSeatingCapacity(seatingCapacity);
+        if (carryingCapacityKg >= 0)
+            aircraft.setCarryingCapacityKg(carryingCapacityKg);
+        if (flightRangeKm >= 0)
+            aircraft.setFlightRangeKm(flightRangeKm);
+        if (fuelConsumptionLitersPerHour >= 0)
+            aircraft.setFuelConsumptionLitersPerHour(fuelConsumptionLitersPerHour);
 
         return aircraft;
     }

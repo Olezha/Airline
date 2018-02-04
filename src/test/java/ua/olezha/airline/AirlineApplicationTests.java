@@ -175,6 +175,64 @@ public class AirlineApplicationTests implements ApplicationRunner {
             assertThat(aircraft.getType()).isIn(AircraftType.values());
         }
     }
+
+    @Test
+    public void testAircraftServiceRangeSearch() {
+        Object firstOut = shell.evaluate(() -> "show");
+        assertThat(shell.evaluate(() -> "range-search 1 2 3 4 5 6 7 8")).isEqualTo(firstOut);
+        shell.evaluate(() -> "mock");
+        shell.evaluate(() -> "range-search");
+
+        for (int i = 2; i < 10000; i += i / 2) {
+            List<Aircraft> aircraftList = aircraftService.search(i, -1, -1, -1, -1, -1, -1, -1);
+            for (Aircraft aircraft : aircraftList)
+                assertThat(aircraft.getSeatingCapacity()).isGreaterThanOrEqualTo(i);
+
+            aircraftList = aircraftService.search(-1, -1, -1, -1, i, -1, -1, -1);
+            for (Aircraft aircraft : aircraftList)
+                assertThat(aircraft.getSeatingCapacity()).isLessThanOrEqualTo(i);
+
+            aircraftList = aircraftService.search(i / 2, -1, -1, -1, 10000 - i / 2, -1, -1, -1);
+            for (Aircraft aircraft : aircraftList)
+                assertThat(aircraft.getSeatingCapacity()).isBetween(i / 2, 10000 - i / 2);
+
+            aircraftList = aircraftService.search(-1, i, -1, -1, -1, -1, -1, -1);
+            for (Aircraft aircraft : aircraftList)
+                assertThat(aircraft.getCarryingCapacityKg()).isGreaterThanOrEqualTo(i);
+
+            aircraftList = aircraftService.search(-1, -1, -1, -1, -1, i, -1, -1);
+            for (Aircraft aircraft : aircraftList)
+                assertThat(aircraft.getCarryingCapacityKg()).isLessThanOrEqualTo(i);
+
+            aircraftList = aircraftService.search(-1, i / 2, -1, -1, -1, 10000 - i / 2, -1, -1);
+            for (Aircraft aircraft : aircraftList)
+                assertThat(aircraft.getCarryingCapacityKg()).isBetween(i / 2, 10000 - i / 2);
+
+            aircraftList = aircraftService.search(-1, -1, i, -1, -1, -1, -1, -1);
+            for (Aircraft aircraft : aircraftList)
+                assertThat(aircraft.getFlightRangeKm()).isGreaterThanOrEqualTo(i);
+
+            aircraftList = aircraftService.search(-1, -1, -1, -1, -1, -1, i, -1);
+            for (Aircraft aircraft : aircraftList)
+                assertThat(aircraft.getFlightRangeKm()).isLessThanOrEqualTo(i);
+
+            aircraftList = aircraftService.search(-1, -1, i / 2, -1, -1, -1, 10000 - i / 2, -1);
+            for (Aircraft aircraft : aircraftList)
+                assertThat(aircraft.getFlightRangeKm()).isBetween(i / 2, 10000 - i / 2);
+
+            aircraftList = aircraftService.search(-1, -1, -1, i, -1, -1, -1, -1);
+            for (Aircraft aircraft : aircraftList)
+                assertThat(aircraft.getFuelConsumptionLitersPerHour()).isGreaterThanOrEqualTo(i);
+
+            aircraftList = aircraftService.search(-1, -1, -1, -1, -1, -1, -1, i);
+            for (Aircraft aircraft : aircraftList)
+                assertThat(aircraft.getFuelConsumptionLitersPerHour()).isLessThanOrEqualTo(i);
+
+            aircraftList = aircraftService.search(-1, -1, -1, i / 2, -1, -1, -1, 10000 - i / 2);
+            for (Aircraft aircraft : aircraftList)
+                assertThat(aircraft.getFuelConsumptionLitersPerHour()).isBetween(i / 2, 10000 - i / 2);
+        }
+    }
 }
 
 @TestConfiguration
