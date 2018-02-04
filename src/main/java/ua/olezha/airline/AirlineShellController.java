@@ -30,15 +30,15 @@ public class AirlineShellController {
     @ShellMethod(value = "Add aircraft", key = "add", prefix = "-")
     private void addAircraft(
             @ShellOption(help = "Type [WIDE_BODY_AIRLINER|COMMUTERLINER|HELICOPTER]")
-            AircraftType aircraftType,
+                    AircraftType aircraftType,
             @ShellOption(help = "Seating capacity", defaultValue = "0")
-            int seatingCapacity,
+                    int seatingCapacity,
             @ShellOption(help = "Carrying capacity (kg)", defaultValue = "0")
-            int carryingCapacityKg,
+                    int carryingCapacityKg,
             @ShellOption(help = "Flight range (km)", defaultValue = "0")
-            int flightRangeKm,
+                    int flightRangeKm,
             @ShellOption(help = "Fuel consumption (liters per hour)", defaultValue = "0")
-            int fuelConsumptionLitersPerHour) {
+                    int fuelConsumptionLitersPerHour) {
         if (aircraftType == null) {
             System.out.println("Unknown aircraft type. Allowable values " + Arrays.asList(AircraftType.values()));
             return;
@@ -83,9 +83,9 @@ public class AirlineShellController {
     @ShellMethod(value = "Airplanes corresponding to a given range of fuel consumption parameters", key = "fuel", prefix = "-")
     private String airplanesCorrespondingToAGivenRangeOfFuelConsumptionParameters(
             @ShellOption(help = "From (liters per hour)")
-            int fromLitersPerHour,
+                    int fromLitersPerHour,
             @ShellOption(help = "To (liters per hour)")
-            int toLitersPerHour) {
+                    int toLitersPerHour) {
         List<Aircraft> aircraftList =
                 aircraftService.findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParameters(
                         fromLitersPerHour, toLitersPerHour);
@@ -105,7 +105,7 @@ public class AirlineShellController {
     @ShellMethod("Simulate objects")
     private void mock() {
         XStream xstream = new XStream();
-        Class<?>[] classes = new Class[] {Commuterliner.class, Helicopter.class, WideBodyAirliner.class};
+        Class<?>[] classes = new Class[]{Commuterliner.class, Helicopter.class, WideBodyAirliner.class};
         XStream.setupDefaultSecurity(xstream);
         xstream.allowTypes(classes);
         xstream.alias("commuterliner", Commuterliner.class);
@@ -122,36 +122,36 @@ public class AirlineShellController {
     @SuppressWarnings("unused")
     @ShellMethod(value = "Search", prefix = "-")
     private String search(
-                          @ShellOption(help = "Seating capacity", defaultValue = "-1")
-                          int seatingCapacity,
-                          @ShellOption(help = "Carrying capacity (kg)", defaultValue = "-1")
-                          int carryingCapacityKg,
-                          @ShellOption(help = "Flight range (km)", defaultValue = "-1")
-                          int flightRangeKm,
-                          @ShellOption(help = "Fuel consumption (liters per hour)", defaultValue = "-1")
-                          int fuelConsumptionLitersPerHour) {
+            @ShellOption(help = "Seating capacity", defaultValue = "-1")
+                    int seatingCapacity,
+            @ShellOption(help = "Carrying capacity (kg)", defaultValue = "-1")
+                    int carryingCapacityKg,
+            @ShellOption(help = "Flight range (km)", defaultValue = "-1")
+                    int flightRangeKm,
+            @ShellOption(help = "Fuel consumption (liters per hour)", defaultValue = "-1")
+                    int fuelConsumptionLitersPerHour) {
         List<Aircraft> aircraftList =
                 aircraftService.search(seatingCapacity, carryingCapacityKg, flightRangeKm, fuelConsumptionLitersPerHour);
         return aircraftListToASCIITable(aircraftList);
     }
 
     @SuppressWarnings("unused")
-    @ShellMethod(value = "Search", prefix = "-")
+    @ShellMethod(value = "Range search", prefix = "-")
     private String rangeSearch(
             @ShellOption(help = "From seating capacity", defaultValue = "-1")
                     int fromSeatingCapacity,
-            @ShellOption(help = "From carrying capacity (kg)", defaultValue = "-1")
-                    int formCarryingCapacityKg,
-            @ShellOption(help = "From flight range (km)", defaultValue = "-1")
-                    int fromFlightRangeKm,
-            @ShellOption(help = "From fuel consumption (liters per hour)", defaultValue = "-1")
-                    int fromFuelConsumptionLitersPerHour,
             @ShellOption(help = "To seating capacity", defaultValue = "-1")
                     int toSeatingCapacity,
+            @ShellOption(help = "From carrying capacity (kg)", defaultValue = "-1")
+                    int formCarryingCapacityKg,
             @ShellOption(help = "To carrying capacity (kg)", defaultValue = "-1")
                     int toCarryingCapacityKg,
+            @ShellOption(help = "From flight range (km)", defaultValue = "-1")
+                    int fromFlightRangeKm,
             @ShellOption(help = "To flight range (km)", defaultValue = "-1")
                     int toFlightRangeKm,
+            @ShellOption(help = "From fuel consumption (liters per hour)", defaultValue = "-1")
+                    int fromFuelConsumptionLitersPerHour,
             @ShellOption(help = "To fuel consumption (liters per hour)", defaultValue = "-1")
                     int toFuelConsumptionLitersPerHour) {
         List<Aircraft> aircraftList =
