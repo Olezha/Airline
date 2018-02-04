@@ -1,26 +1,21 @@
 package ua.olezha.airline.repository;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ua.olezha.airline.model.aircraft.Aircraft;
 
-import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
-@Slf4j
-@Repository
 public class AircraftRepositoryImpl implements BetweenExamplesRepository<Aircraft> {
 
     private final SessionFactory sessionFactory;
 
     @Autowired
-    public AircraftRepositoryImpl(EntityManagerFactory entityManagerFactory) {
-        sessionFactory = entityManagerFactory.unwrap(SessionFactory.class);
+    public AircraftRepositoryImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     @Override
