@@ -3,8 +3,6 @@ package ua.olezha.airline;
 import com.thoughtworks.xstream.XStream;
 import org.jline.utils.AttributedString;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
@@ -41,8 +39,10 @@ public class AirlineShellController {
             int flightRangeKm,
             @ShellOption(help = "Fuel consumption (liters per hour)", defaultValue = "0")
             int fuelConsumptionLitersPerHour) {
-        if (aircraftType == null)
+        if (aircraftType == null) {
+            System.out.println("Unknown aircraft type. Allowable values " + Arrays.asList(AircraftType.values()));
             return;
+        }
         Aircraft aircraft = aircraftService.aircraftFactory(aircraftType);
         aircraft.setSeatingCapacity(seatingCapacity);
         aircraft.setCarryingCapacityKg(carryingCapacityKg);
@@ -155,7 +155,6 @@ public class AirlineShellController {
 }
 
 @Component
-@Order(Ordered.HIGHEST_PRECEDENCE)
 class PromptProvider implements org.springframework.shell.jline.PromptProvider {
 
     @Override
@@ -172,8 +171,7 @@ class AircraftTypeEnumConverter implements Converter<String, AircraftType> {
         try {
             return AircraftType.valueOf(s.toUpperCase());
         } catch (IllegalArgumentException e) {
-            System.out.println("Unknown aircraft type. Allowable values " + Arrays.asList(AircraftType.values()));
+            return null;
         }
-        return null;
     }
 }

@@ -11,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Import;
 import org.springframework.shell.Shell;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.olezha.airline.model.aircraft.Aircraft;
 import ua.olezha.airline.model.aircraft.AircraftType;
@@ -24,8 +23,8 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
 @Import(AirlineApplicationRunner.class)
+@SpringBootTest
 public class AirlineApplicationTests implements ApplicationRunner {
 
     @Autowired
