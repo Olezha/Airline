@@ -98,25 +98,57 @@ public class AircraftServiceImpl implements AircraftService {
         List<Aircraft> aircraftList = new ArrayList<>();
 
         for (AircraftType aircraftType : AircraftType.values()) {
-            try {
-                Aircraft aircraft = (Aircraft) aircraftType.getAircraftClass().newInstance();
+                Example<Aircraft> aircraftExample = Example.of(
+                        exampleEntityFactory(aircraftType,
+                                seatingCapacity, carryingCapacityKg,
+                                flightRangeKm, fuelConsumptionLitersPerHour));
 
-                if (seatingCapacity >= 0)
-                    aircraft.setSeatingCapacity(seatingCapacity);
-                if (carryingCapacityKg >= 0)
-                    aircraft.setCarryingCapacityKg(carryingCapacityKg);
-                if (flightRangeKm >= 0)
-                    aircraft.setFlightRangeKm(flightRangeKm);
-                if (fuelConsumptionLitersPerHour >= 0)
-                    aircraft.setFuelConsumptionLitersPerHour(fuelConsumptionLitersPerHour);
-
-                Example<Aircraft> aircraftExample = Example.of(aircraft);
                 aircraftList.addAll(aircraftRepository.findAll(aircraftExample));
-            } catch (InstantiationException | IllegalAccessException e) {
-                e.printStackTrace();
-            }
         }
 
         return aircraftList;
+    }
+
+    @Override
+    public List<Aircraft> search(int fromSeatingCapacity, int fromCarryingCapacityKg,
+                                 int fromFlightRangeKm, int fromFuelConsumptionLitersPerHour,
+                                 int toSeatingCapacity, int toCarryingCapacityKg,
+                                 int toFlightRangeKm, int toFuelConsumptionLitersPerHour) {
+        List<Aircraft> aircraftList = new ArrayList<>();
+
+        for (AircraftType aircraftType : AircraftType.values()) {
+            Aircraft fromAircraft =  exampleEntityFactory(aircraftType,
+                    fromSeatingCapacity, fromCarryingCapacityKg,
+                    fromFlightRangeKm, fromFuelConsumptionLitersPerHour);
+            Aircraft toAircraft =  exampleEntityFactory(aircraftType,
+                    toSeatingCapacity, toCarryingCapacityKg,
+                    toFlightRangeKm, toFuelConsumptionLitersPerHour);
+
+            aircraftList.addAll(aircraftRepository.findAll(fromAircraft, toAircraft));
+        }
+
+        return aircraftList;
+    }
+
+    private Aircraft exampleEntityFactory(AircraftType aircraftType,
+                                          int seatingCapacity, int carryingCapacityKg,
+                                          int flightRangeKm, int fuelConsumptionLitersPerHour) {
+        Aircraft aircraft = null;
+        try {
+            aircraft = (Aircraft) aircraftType.getAircraftClass().newInstance();
+
+            if (seatingCapacity >= 0)
+                aircraft.setSeatingCapacity(seatingCapacity);
+            if (carryingCapacityKg >= 0)
+                aircraft.setCarryingCapacityKg(carryingCapacityKg);
+            if (flightRangeKm >= 0)
+                aircraft.setFlightRangeKm(flightRangeKm);
+            if (fuelConsumptionLitersPerHour >= 0)
+                aircraft.setFuelConsumptionLitersPerHour(fuelConsumptionLitersPerHour);
+        } catch (InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        return aircraft;
     }
 }

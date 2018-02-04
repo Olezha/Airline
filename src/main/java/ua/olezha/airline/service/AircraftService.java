@@ -27,4 +27,8 @@ public interface AircraftService {
 
     List<Aircraft> search(
             int seatingCapacity, int carryingCapacityKg, int flightRangeKm, int fuelConsumptionLitersPerHour);
+
+    List<Aircraft> search(
+            int fromSeatingCapacity, int fromCarryingCapacityKg, int fromFlightRangeKm, int fromFuelConsumptionLitersPerHour,
+            int toSeatingCapacity, int toCarryingCapacityKg, int toFlightRangeKm, int toFuelConsumptionLitersPerHour);
 }
