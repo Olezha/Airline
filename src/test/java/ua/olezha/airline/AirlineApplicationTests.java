@@ -60,7 +60,7 @@ public class AirlineApplicationTests implements ApplicationRunner {
         Object firstOut = shell.evaluate(() -> "show");
         assertThat(shell.evaluate(() -> "show")).isEqualTo(firstOut);
         assertThat(shell.evaluate(() -> "add COMMUTERLINER")).isNull();
-        assertThat(shell.evaluate(() -> "show")).isNotEqualTo(firstOut);
+        assertThat(((List) shell.evaluate(() -> "show -raw")).size()).isEqualTo(1);
     }
 
     @Test
@@ -73,38 +73,58 @@ public class AirlineApplicationTests implements ApplicationRunner {
 
     @Test
     public void totalCapacityTest() {
-        assertThat(shell.evaluate(() -> "tc")).isEqualTo(0);
+        assertThat(shell.evaluate(() -> "tc -raw")).isEqualTo(0);
         shell.evaluate(() -> "mock");
-        assertThat(shell.evaluate(() -> "tc")).isEqualTo(3084);
+        assertThat(shell.evaluate(() -> "tc -raw")).isEqualTo(3084);
     }
 
     @Test
     public void carryingCapacityTest() {
-        assertThat(shell.evaluate(() -> "cc")).isEqualTo(0);
+        assertThat(shell.evaluate(() -> "cc -raw")).isEqualTo(0);
         shell.evaluate(() -> "mock");
-        assertThat(shell.evaluate(() -> "cc")).isEqualTo(75924);
+        assertThat(shell.evaluate(() -> "cc -raw")).isEqualTo(75924);
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void aircraftSortedByFlightRangeTest() {
         shell.evaluate(() -> "mock");
         Object firstOut = shell.evaluate(() -> "show");
         assertThat(shell.evaluate(() -> "sort")).isNotEqualTo(firstOut);
+
+        Aircraft lastAircraft = null;
+        for (Aircraft aircraft : (List<Aircraft>) shell.evaluate(() -> "sort -raw")) {
+            if (lastAircraft != null)
+                assertThat(aircraft.getFlightRangeKm()).isGreaterThanOrEqualTo(lastAircraft.getFlightRangeKm());
+            lastAircraft = aircraft;
+        }
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void aircraftSortedByFlightRangeDescTest() {
         shell.evaluate(() -> "mock");
         Object firstOut = shell.evaluate(() -> "show");
         assertThat(shell.evaluate(() -> "sort -desc")).isNotEqualTo(firstOut);
+
+        Aircraft lastAircraft = null;
+        for (Aircraft aircraft : (List<Aircraft>) shell.evaluate(() -> "sort -desc -raw")) {
+            if (lastAircraft != null)
+                assertThat(aircraft.getFlightRangeKm()).isLessThanOrEqualTo(lastAircraft.getFlightRangeKm());
+            lastAircraft = aircraft;
+        }
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void airplanesCorrespondingToAGivenRangeOfFuelConsumptionParametersTest() {
         Object firstOut = shell.evaluate(() -> "show");
         assertThat(shell.evaluate(() -> "fuel 0 999999")).isEqualTo(firstOut);
         shell.evaluate(() -> "add COMMUTERLINER 0 1 2 3");
         assertThat(shell.evaluate(() -> "fuel 3 3")).isNotEqualTo(firstOut);
+
+        for (Aircraft aircraft : (List<Aircraft>) shell.evaluate(() -> "fuel 70 120 -raw"))
+            assertThat(aircraft.getFuelConsumptionLitersPerHour()).isBetween(70, 120);
     }
 
     @Test
@@ -136,6 +156,10 @@ public class AirlineApplicationTests implements ApplicationRunner {
         assertThat(shell.evaluate(() -> "search -carrying-capacity-kg 2")).isEqualTo(firstOut);
         assertThat(shell.evaluate(() -> "search -flight-range-km 3")).isEqualTo(firstOut);
         assertThat(shell.evaluate(() -> "search -fuel-consumption-liters-per-hour 4")).isEqualTo(firstOut);
+
+        assertThat(((List) shell.evaluate(() -> "search -raw")).size()).isEqualTo(6);
+        assertThat(((List) shell.evaluate(() -> "search -fuel-consumption-liters-per-hour 8 -raw")).size())
+                .isEqualTo(1);
     }
 
     @Test
@@ -172,7 +196,7 @@ public class AirlineApplicationTests implements ApplicationRunner {
         List<Aircraft> aircraftList = aircraftService.allAircraftInTheAirline();
         for (Aircraft aircraft : aircraftList) {
             assertThat(aircraft.getType()).isNotNull();
-            assertThat(aircraft.getType()).isIn(AircraftType.values());
+            assertThat(aircraft.getType()).isIn((Object[]) AircraftType.values());
         }
     }
 
@@ -231,6 +255,19 @@ public class AirlineApplicationTests implements ApplicationRunner {
             aircraftList = aircraftService.search(-1, -1, -1, i / 2, -1, -1, -1, 10000 - i / 2);
             for (Aircraft aircraft : aircraftList)
                 assertThat(aircraft.getFuelConsumptionLitersPerHour()).isBetween(i / 2, 10000 - i / 2);
+        }
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testRangeSearch() {
+        shell.evaluate(() -> "mock");
+        List<Aircraft> aircraftList = (List<Aircraft>)
+                shell.evaluate(() -> "range-search 10 90 600 -1 700 -raw");
+        for (Aircraft aircraft : aircraftList) {
+            assertThat(aircraft.getSeatingCapacity()).isBetween(10, 90);
+            assertThat(aircraft.getCarryingCapacityKg()).isGreaterThanOrEqualTo(600);
+            assertThat(aircraft.getFlightRangeKm()).isGreaterThanOrEqualTo(700);
         }
     }
 }

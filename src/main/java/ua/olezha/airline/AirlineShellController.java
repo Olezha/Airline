@@ -52,43 +52,56 @@ public class AirlineShellController {
     }
 
     @SuppressWarnings("unused")
-    @ShellMethod(value = "Show all aircraft", key = "show")
-    private String showAllAircraft() {
+    @ShellMethod(value = "Show all aircraft", key = "show", prefix = "-")
+    private Object showAllAircraft(boolean raw) {
         List<Aircraft> aircraftList = aircraftService.allAircraftInTheAirline();
+        if (raw)
+            return aircraftList;
         return aircraftListToASCIITable(aircraftList);
     }
 
     @SuppressWarnings("unused")
-    @ShellMethod(value = "Total capacity of all the aircraft in the airline", key = "tc")
-    private int totalCapacity() {
-        return aircraftService.totalCapacityOfAllTheAircraftInTheAirline();
+    @ShellMethod(value = "Total capacity of all the aircraft in the airline", key = "tc", prefix = "-")
+    private Object totalCapacity(boolean raw) {
+        int passengerCapacity = aircraftService.totalCapacityOfAllTheAircraftInTheAirline();
+        if (raw)
+            return passengerCapacity;
+        return "Passenger capacity: " + passengerCapacity;
     }
 
     @SuppressWarnings("unused")
-    @ShellMethod(value = "Carrying capacity of all the aircraft in the airline", key = "cc")
-    private int carryingCapacity() {
-        return aircraftService.carryingCapacityOfAllTheAircraftInTheAirline();
+    @ShellMethod(value = "Carrying capacity of all the aircraft in the airline", key = "cc", prefix = "-")
+    private Object carryingCapacity(boolean raw) {
+        int cargoCapacity = aircraftService.carryingCapacityOfAllTheAircraftInTheAirline();
+        if (raw)
+            return cargoCapacity;
+        return "Cargo capacity: "+ cargoCapacity;
     }
 
     @SuppressWarnings("unused")
     @ShellMethod(value = "List of aircraft of the company sorted by flight range", key = "sort", prefix = "-")
-    private String aircraftSortedByFlightRange(boolean desc) {
+    private Object aircraftSortedByFlightRange(boolean desc, boolean raw) {
         List<Aircraft> aircraftList = aircraftService.sortTheAircraftByFlightRangeFromSmallerToLarger();
         if (desc)
             Collections.reverse(aircraftList);
+        if (raw)
+            return aircraftList;
         return aircraftListToASCIITable(aircraftList);
     }
 
     @SuppressWarnings("unused")
     @ShellMethod(value = "Airplanes corresponding to a given range of fuel consumption parameters", key = "fuel", prefix = "-")
-    private String airplanesCorrespondingToAGivenRangeOfFuelConsumptionParameters(
+    private Object airplanesCorrespondingToAGivenRangeOfFuelConsumptionParameters(
             @ShellOption(help = "From (liters per hour)")
                     int fromLitersPerHour,
             @ShellOption(help = "To (liters per hour)")
-                    int toLitersPerHour) {
+                    int toLitersPerHour,
+            boolean raw) {
         List<Aircraft> aircraftList =
                 aircraftService.findAircraftCorrespondingToTheSpecifiedRangeOfFuelConsumptionParameters(
                         fromLitersPerHour, toLitersPerHour);
+        if (raw)
+            return aircraftList;
         return aircraftListToASCIITable(aircraftList);
     }
 
@@ -121,7 +134,7 @@ public class AirlineShellController {
 
     @SuppressWarnings("unused")
     @ShellMethod(value = "Search", prefix = "-")
-    private String search(
+    private Object search(
             @ShellOption(help = "Seating capacity", defaultValue = "-1")
                     int seatingCapacity,
             @ShellOption(help = "Carrying capacity (kg)", defaultValue = "-1")
@@ -129,15 +142,18 @@ public class AirlineShellController {
             @ShellOption(help = "Flight range (km)", defaultValue = "-1")
                     int flightRangeKm,
             @ShellOption(help = "Fuel consumption (liters per hour)", defaultValue = "-1")
-                    int fuelConsumptionLitersPerHour) {
+                    int fuelConsumptionLitersPerHour,
+            boolean raw) {
         List<Aircraft> aircraftList =
                 aircraftService.search(seatingCapacity, carryingCapacityKg, flightRangeKm, fuelConsumptionLitersPerHour);
+        if (raw)
+            return aircraftList;
         return aircraftListToASCIITable(aircraftList);
     }
 
     @SuppressWarnings("unused")
     @ShellMethod(value = "Range search", prefix = "-")
-    private String rangeSearch(
+    private Object rangeSearch(
             @ShellOption(help = "From seating capacity", defaultValue = "-1")
                     int fromSeatingCapacity,
             @ShellOption(help = "To seating capacity", defaultValue = "-1")
@@ -153,12 +169,15 @@ public class AirlineShellController {
             @ShellOption(help = "From fuel consumption (liters per hour)", defaultValue = "-1")
                     int fromFuelConsumptionLitersPerHour,
             @ShellOption(help = "To fuel consumption (liters per hour)", defaultValue = "-1")
-                    int toFuelConsumptionLitersPerHour) {
+                    int toFuelConsumptionLitersPerHour,
+            boolean raw) {
         List<Aircraft> aircraftList =
                 aircraftService.search(fromSeatingCapacity, formCarryingCapacityKg,
                         fromFlightRangeKm, fromFuelConsumptionLitersPerHour,
                         toSeatingCapacity, toCarryingCapacityKg,
                         toFlightRangeKm, toFuelConsumptionLitersPerHour);
+        if (raw)
+            return aircraftList;
         return aircraftListToASCIITable(aircraftList);
     }
 
@@ -182,6 +201,7 @@ public class AirlineShellController {
 }
 
 @Component
+@SuppressWarnings("unused")
 class PromptProvider implements org.springframework.shell.jline.PromptProvider {
 
     @Override
