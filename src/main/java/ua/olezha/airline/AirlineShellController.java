@@ -29,6 +29,8 @@ public class AirlineShellController {
     @SuppressWarnings("unused")
     @ShellMethod(value = "Add aircraft", key = "add", prefix = "-")
     private void addAircraft(
+            @ShellOption(help = "Name")
+                    String name,
             @ShellOption(help = "Type [WIDE_BODY_AIRLINER|COMMUTERLINER|HELICOPTER]")
                     AircraftType aircraftType,
             @ShellOption(help = "Seating capacity", defaultValue = "0")
@@ -44,11 +46,36 @@ public class AirlineShellController {
             return;
         }
         Aircraft aircraft = aircraftService.aircraftFactory(aircraftType);
+        aircraft.setName(name);
         aircraft.setSeatingCapacity(seatingCapacity);
         aircraft.setCarryingCapacityKg(carryingCapacityKg);
         aircraft.setFlightRangeKm(flightRangeKm);
         aircraft.setFuelConsumptionLitersPerHour(fuelConsumptionLitersPerHour);
         aircraftService.addAircraft(aircraft);
+    }
+
+    @SuppressWarnings("unused")
+    @ShellMethod(value = "Delete aircraft", key = "del", prefix = "-")
+    private void deleteAircraft(@ShellOption(help = "ID") int id) {
+        aircraftService.delete(id);
+    }
+
+    @SuppressWarnings("unused")
+    @ShellMethod(value = "Add aircraft", key = "update", prefix = "-")
+    private void updateAircraft(
+            @ShellOption(help = "ID")
+                    int id,
+            @ShellOption(help = "Name", defaultValue = "-1")
+                    String name,
+            @ShellOption(help = "Seating capacity", defaultValue = "-1")
+                    int seatingCapacity,
+            @ShellOption(help = "Carrying capacity (kg)", defaultValue = "-1")
+                    int carryingCapacityKg,
+            @ShellOption(help = "Flight range (km)", defaultValue = "-1")
+                    int flightRangeKm,
+            @ShellOption(help = "Fuel consumption (liters per hour)", defaultValue = "-1")
+                    int fuelConsumptionLitersPerHour) {
+        aircraftService.update(id, name, seatingCapacity, carryingCapacityKg, flightRangeKm, fuelConsumptionLitersPerHour);
     }
 
     @SuppressWarnings("unused")
@@ -184,6 +211,7 @@ public class AirlineShellController {
     private String aircraftListToASCIITable(List<Aircraft> aircraftList) {
         LinkedHashMap<String, Object> headers = new LinkedHashMap<>();
         headers.put("id", "ID");
+        headers.put("name", "Name");
         headers.put("type", "Type");
         headers.put("seatingCapacity", "Seating capacity");
         headers.put("carryingCapacityKg", "Carrying capacity, Kg");

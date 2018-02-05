@@ -59,7 +59,7 @@ public class AirlineApplicationTests implements ApplicationRunner {
     public void addAircraftSuccessfully() {
         Object firstOut = shell.evaluate(() -> "show");
         assertThat(shell.evaluate(() -> "show")).isEqualTo(firstOut);
-        assertThat(shell.evaluate(() -> "add COMMUTERLINER")).isNull();
+        assertThat(shell.evaluate(() -> "add A COMMUTERLINER")).isNull();
         assertThat(((List) shell.evaluate(() -> "show -raw")).size()).isEqualTo(1);
     }
 
@@ -67,7 +67,7 @@ public class AirlineApplicationTests implements ApplicationRunner {
     public void addUnknownTypeAircraftTest() {
         Object firstOut = shell.evaluate(() -> "show");
         assertThat(shell.evaluate(() -> "show")).isEqualTo(firstOut);
-        assertThat(shell.evaluate(() -> "add qwerty")).isNull();
+        assertThat(shell.evaluate(() -> "add A qwerty")).isNull();
         assertThat(shell.evaluate(() -> "show")).isEqualTo(firstOut);
     }
 
@@ -120,7 +120,7 @@ public class AirlineApplicationTests implements ApplicationRunner {
     public void airplanesCorrespondingToAGivenRangeOfFuelConsumptionParametersTest() {
         Object firstOut = shell.evaluate(() -> "show");
         assertThat(shell.evaluate(() -> "fuel 0 999999")).isEqualTo(firstOut);
-        shell.evaluate(() -> "add COMMUTERLINER 0 1 2 3");
+        shell.evaluate(() -> "add A COMMUTERLINER 0 1 2 3");
         assertThat(shell.evaluate(() -> "fuel 3 3")).isNotEqualTo(firstOut);
 
         for (Aircraft aircraft : (List<Aircraft>) shell.evaluate(() -> "fuel 70 120 -raw"))
@@ -138,19 +138,19 @@ public class AirlineApplicationTests implements ApplicationRunner {
     @Test
     public void deleteAllSuccessfully() {
         Object firstOut = shell.evaluate(() -> "show");
-        shell.evaluate(() -> "add COMMUTERLINER 0 1 2 3");
+        shell.evaluate(() -> "add A COMMUTERLINER 0 1 2 3");
         shell.evaluate(() -> "delete -all");
         assertThat(shell.evaluate(() -> "show")).isEqualTo(firstOut);
     }
 
     @Test
     public void searchByAnyParametersSuccessfully() {
-        shell.evaluate(() -> "add COMMUTERLINER 0 1 2 3");
-        shell.evaluate(() -> "add HELICOPTER 1 2 3 4");
-        shell.evaluate(() -> "add WIDE_BODY_AIRLINER 2 3 4 5");
-        shell.evaluate(() -> "add COMMUTERLINER 3 4 5 6");
-        shell.evaluate(() -> "add HELICOPTER 4 5 6 7");
-        shell.evaluate(() -> "add WIDE_BODY_AIRLINER 5 6 7 8");
+        shell.evaluate(() -> "add A COMMUTERLINER 0 1 2 3");
+        shell.evaluate(() -> "add B HELICOPTER 1 2 3 4");
+        shell.evaluate(() -> "add C WIDE_BODY_AIRLINER 2 3 4 5");
+        shell.evaluate(() -> "add D COMMUTERLINER 3 4 5 6");
+        shell.evaluate(() -> "add E HELICOPTER 4 5 6 7");
+        shell.evaluate(() -> "add F WIDE_BODY_AIRLINER 5 6 7 8");
 
         Object firstOut = shell.evaluate(() -> "search -seating-capacity 1");
         assertThat(shell.evaluate(() -> "search -carrying-capacity-kg 2")).isEqualTo(firstOut);

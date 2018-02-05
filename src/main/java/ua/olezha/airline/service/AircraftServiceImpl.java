@@ -128,6 +128,27 @@ public class AircraftServiceImpl implements AircraftService {
         return aircraftList;
     }
 
+    @Override
+    public void delete(int id) {
+        aircraftRepository.delete((long) id);
+    }
+
+    @Override
+    @Transactional
+    public void update(int id, String name, int seatingCapacity, int carryingCapacityKg, int flightRangeKm, int fuelConsumptionLitersPerHour) {
+        Aircraft aircraft = aircraftRepository.getOne((long) id);
+        if (!"-1".equals(name))
+            aircraft.setName(name);
+        if (seatingCapacity >= 0)
+            aircraft.setSeatingCapacity(seatingCapacity);
+        if (carryingCapacityKg >= 0)
+            aircraft.setCarryingCapacityKg(carryingCapacityKg);
+        if (flightRangeKm >= 0)
+            aircraft.setFlightRangeKm(flightRangeKm);
+        if (fuelConsumptionLitersPerHour >= 0)
+            aircraft.setFuelConsumptionLitersPerHour(fuelConsumptionLitersPerHour);
+    }
+
     private Aircraft exampleAircraftFactory(AircraftType aircraftType,
                                             int seatingCapacity, int carryingCapacityKg,
                                             int flightRangeKm, int fuelConsumptionLitersPerHour) {

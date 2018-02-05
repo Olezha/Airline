@@ -1,83 +1,97 @@
 <list>
     <commuterliner>
+        <name>Skyvan SD-330</name>
         <seatingCapacity>10</seatingCapacity>
         <carryingCapacityKg>2000</carryingCapacityKg>
         <flightRangeKm>10000</flightRangeKm>
         <fuelConsumptionLitersPerHour>150</fuelConsumptionLitersPerHour>
     </commuterliner>
     <helicopter>
+        <name>Skyline SL-222</name>
         <seatingCapacity>18</seatingCapacity>
         <carryingCapacityKg>800</carryingCapacityKg>
         <flightRangeKm>3050</flightRangeKm>
         <fuelConsumptionLitersPerHour>350</fuelConsumptionLitersPerHour>
     </helicopter>
     <wideBodyAirliner>
+        <name>Boeing 747</name>
         <seatingCapacity>200</seatingCapacity>
         <carryingCapacityKg>18000</carryingCapacityKg>
         <flightRangeKm>14300</flightRangeKm>
         <fuelConsumptionLitersPerHour>555</fuelConsumptionLitersPerHour>
     </wideBodyAirliner>
     <commuterliner>
+        <name>Shorts SD 3-30</name>
         <seatingCapacity>150</seatingCapacity>
         <carryingCapacityKg>5550</carryingCapacityKg>
         <flightRangeKm>1000</flightRangeKm>
         <fuelConsumptionLitersPerHour>990</fuelConsumptionLitersPerHour>
     </commuterliner>
     <helicopter>
+        <name>КТ-112</name>
         <seatingCapacity>4</seatingCapacity>
         <carryingCapacityKg>2110</carryingCapacityKg>
         <flightRangeKm>2300</flightRangeKm>
         <fuelConsumptionLitersPerHour>120</fuelConsumptionLitersPerHour>
     </helicopter>
     <wideBodyAirliner>
+        <name>Airbus A300</name>
         <seatingCapacity>777</seatingCapacity>
         <carryingCapacityKg>400</carryingCapacityKg>
         <flightRangeKm>19500</flightRangeKm>
         <fuelConsumptionLitersPerHour>1150</fuelConsumptionLitersPerHour>
     </wideBodyAirliner>
     <commuterliner>
+        <name>Beechcraft</name>
         <seatingCapacity>101</seatingCapacity>
         <carryingCapacityKg>2014</carryingCapacityKg>
         <flightRangeKm>1675</flightRangeKm>
         <fuelConsumptionLitersPerHour>350</fuelConsumptionLitersPerHour>
     </commuterliner>
     <helicopter>
+        <name>Sikorsky S-64</name>
         <seatingCapacity>9</seatingCapacity>
         <carryingCapacityKg>900</carryingCapacityKg>
         <flightRangeKm>1900</flightRangeKm>
         <fuelConsumptionLitersPerHour>120</fuelConsumptionLitersPerHour>
     </helicopter>
     <wideBodyAirliner>
+        <name>Airbus A310</name>
         <seatingCapacity>1020</seatingCapacity>
         <carryingCapacityKg>12000</carryingCapacityKg>
         <flightRangeKm>10100</flightRangeKm>
         <fuelConsumptionLitersPerHour>1600</fuelConsumptionLitersPerHour>
     </wideBodyAirliner>
     <wideBodyAirliner>
+        <name>Boeing 777</name>
         <seatingCapacity>555</seatingCapacity>
         <carryingCapacityKg>14500</carryingCapacityKg>
         <flightRangeKm>9900</flightRangeKm>
         <fuelConsumptionLitersPerHour>2500</fuelConsumptionLitersPerHour>
     </wideBodyAirliner>
     <commuterliner>
+        <name>Saunders ST-27</name>
         <seatingCapacity>19</seatingCapacity>
         <carryingCapacityKg>4500</carryingCapacityKg>
         <flightRangeKm>5675</flightRangeKm>
         <fuelConsumptionLitersPerHour>1001</fuelConsumptionLitersPerHour>
     </commuterliner>
     <helicopter>
+        <name>Harbin Z-19</name>
         <seatingCapacity>24</seatingCapacity>
         <carryingCapacityKg>2600</carryingCapacityKg>
         <flightRangeKm>900</flightRangeKm>
         <fuelConsumptionLitersPerHour>630</fuelConsumptionLitersPerHour>
     </helicopter>
     <wideBodyAirliner>
+        <name>Airbus A310 MRTT</name>
         <seatingCapacity>8</seatingCapacity>
         <carryingCapacityKg>8950</carryingCapacityKg>
         <flightRangeKm>12500</flightRangeKm>
         <fuelConsumptionLitersPerHour>1340</fuelConsumptionLitersPerHour>
     </wideBodyAirliner>
     <commuterliner>
+        <name>SAAB 340</name>
         <seatingCapacity>189</seatingCapacity>
         <carryingCapacityKg>1600</carryingCapacityKg>
         <flightRangeKm>19000</flightRangeKm>

@@ -13,6 +13,8 @@ public abstract class Aircraft {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
+    private String name;
+
     private Integer seatingCapacity;
 
     private Integer carryingCapacityKg;

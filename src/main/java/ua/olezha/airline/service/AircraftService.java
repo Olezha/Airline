@@ -31,4 +31,8 @@ public interface AircraftService {
     List<Aircraft> search(
             int fromSeatingCapacity, int fromCarryingCapacityKg, int fromFlightRangeKm, int fromFuelConsumptionLitersPerHour,
             int toSeatingCapacity, int toCarryingCapacityKg, int toFlightRangeKm, int toFuelConsumptionLitersPerHour);
+
+    void delete(int id);
+
+    void update(int id, String name, int seatingCapacity, int carryingCapacityKg, int flightRangeKm, int fuelConsumptionLitersPerHour);
 }
