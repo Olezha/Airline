@@ -27,78 +27,71 @@ public class AircraftRepositoryImpl implements BetweenExamplesRepository<Aircraf
                 .getCurrentSession()
                 .createCriteria(Aircraft.class);
 
-        if (fromExampleEntity.getSeatingCapacity() != null
-                && toExampleEntity.getSeatingCapacity() != null) {
-            criteria.add(Restrictions.between(
-                    "seatingCapacity",
-                    fromExampleEntity.getSeatingCapacity(),
-                    toExampleEntity.getSeatingCapacity()));
-        } else {
-            if (fromExampleEntity.getSeatingCapacity() != null) {
-                criteria.add(Restrictions.ge(
-                        "seatingCapacity",
-                        fromExampleEntity.getSeatingCapacity()));
-            } else if (toExampleEntity.getSeatingCapacity() != null) {
-                criteria.add(Restrictions.le(
-                        "seatingCapacity",
-                        toExampleEntity.getSeatingCapacity()));
-            }
-        }
+        addCriteriaForSeatingCapacity(criteria,
+                fromExampleEntity.getSeatingCapacity(), toExampleEntity.getSeatingCapacity());
 
-        if (fromExampleEntity.getCarryingCapacityKg() != null
-                && toExampleEntity.getCarryingCapacityKg() != null) {
-            criteria.add(Restrictions.between(
-                    "carryingCapacityKg",
-                    fromExampleEntity.getCarryingCapacityKg(),
-                    toExampleEntity.getCarryingCapacityKg()));
-        } else {
-            if (fromExampleEntity.getCarryingCapacityKg() != null) {
-                criteria.add(Restrictions.ge(
-                        "carryingCapacityKg",
-                        fromExampleEntity.getCarryingCapacityKg()));
-            } else if (toExampleEntity.getCarryingCapacityKg() != null) {
-                criteria.add(Restrictions.le(
-                        "carryingCapacityKg",
-                        toExampleEntity.getCarryingCapacityKg()));
-            }
-        }
+        addCriteriaForCarryingCapacityKg(criteria,
+                fromExampleEntity.getCarryingCapacityKg(), toExampleEntity.getCarryingCapacityKg());
 
-        if (fromExampleEntity.getFlightRangeKm() != null
-                && toExampleEntity.getFlightRangeKm() != null) {
-            criteria.add(Restrictions.between(
-                    "flightRangeKm",
-                    fromExampleEntity.getFlightRangeKm(),
-                    toExampleEntity.getFlightRangeKm()));
-        } else {
-            if (fromExampleEntity.getFlightRangeKm() != null) {
-                criteria.add(Restrictions.ge(
-                        "flightRangeKm",
-                        fromExampleEntity.getSeatingCapacity()));
-            } else if (toExampleEntity.getFlightRangeKm() != null) {
-                criteria.add(Restrictions.le(
-                        "flightRangeKm",
-                        toExampleEntity.getFlightRangeKm()));
-            }
-        }
+        addCriteriaForFlightRangeKm(criteria,
+                fromExampleEntity.getFlightRangeKm(), toExampleEntity.getFlightRangeKm());
 
-        if (fromExampleEntity.getFuelConsumptionLitersPerHour() != null
-                && toExampleEntity.getFuelConsumptionLitersPerHour() != null) {
-            criteria.add(Restrictions.between(
-                    "fuelConsumptionLitersPerHour",
-                    fromExampleEntity.getFuelConsumptionLitersPerHour(),
-                    toExampleEntity.getFuelConsumptionLitersPerHour()));
-        } else {
-            if (fromExampleEntity.getFuelConsumptionLitersPerHour() != null) {
-                criteria.add(Restrictions.ge(
-                        "fuelConsumptionLitersPerHour",
-                        fromExampleEntity.getFuelConsumptionLitersPerHour()));
-            } else if (toExampleEntity.getFuelConsumptionLitersPerHour() != null) {
-                criteria.add(Restrictions.le(
-                        "fuelConsumptionLitersPerHour",
-                        toExampleEntity.getFuelConsumptionLitersPerHour()));
-            }
-        }
+        addCriteriaForFuelConsumptionLitersPerHour(criteria,
+                fromExampleEntity.getFuelConsumptionLitersPerHour(),
+                toExampleEntity.getFuelConsumptionLitersPerHour());
 
         return criteria.list();
+    }
+
+    private void addCriteriaForSeatingCapacity(Criteria criteria,
+                                               Integer from, Integer to) {
+        if (from != null && to != null) {
+            criteria.add(Restrictions.between("seatingCapacity", from, to));
+        } else {
+            if (from != null) {
+                criteria.add(Restrictions.ge("seatingCapacity", from));
+            } else if (to != null) {
+                criteria.add(Restrictions.le("seatingCapacity", to));
+            }
+        }
+    }
+
+    private void addCriteriaForCarryingCapacityKg(Criteria criteria,
+                                                  Integer from, Integer to) {
+        if (from != null && to != null) {
+            criteria.add(Restrictions.between("carryingCapacityKg", from, to));
+        } else {
+            if (from != null) {
+                criteria.add(Restrictions.ge("carryingCapacityKg", from));
+            } else if (to != null) {
+                criteria.add(Restrictions.le("carryingCapacityKg", to));
+            }
+        }
+    }
+
+    private void addCriteriaForFlightRangeKm(Criteria criteria,
+                                             Integer from, Integer to) {
+        if (from != null && to != null) {
+            criteria.add(Restrictions.between("flightRangeKm", from, to));
+        } else {
+            if (from != null) {criteria.add(Restrictions.ge("flightRangeKm", from));
+            } else if (to != null) {
+                criteria.add(Restrictions.le("flightRangeKm", to));
+            }
+        }
+    }
+
+    private void addCriteriaForFuelConsumptionLitersPerHour(Criteria criteria,
+                                                       Integer from, Integer to) {
+        if (from != null && to != null) {
+            criteria.add(Restrictions.between(
+                    "fuelConsumptionLitersPerHour", from, to));
+        } else {
+            if (from != null) {
+                criteria.add(Restrictions.ge("fuelConsumptionLitersPerHour", from));
+            } else if (to != null) {
+                criteria.add(Restrictions.le("fuelConsumptionLitersPerHour", to));
+            }
+        }
     }
 }
