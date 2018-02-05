@@ -277,5 +277,6 @@ class AirlineApplicationRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments applicationArguments) throws Exception {
+        // Nothing to run
     }
 }
