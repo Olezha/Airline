@@ -1,4 +1,4 @@
-# Airline [![Build Status](https://travis-ci.org/Olezha/Airline.svg?branch=master)](https://travis-ci.org/Olezha/Airline) [![codecov](https://codecov.io/gh/Olezha/Airline/branch/master/graph/badge.svg)](https://codecov.io/gh/Olezha/Airline) [![Dependency Status](https://www.versioneye.com/user/projects/5a72e8a80fb24f5752c0f584/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5a72e8a80fb24f5752c0f584)
+# Airline [![Build Status](https://travis-ci.org/Olezha/Airline.svg?branch=master)](https://travis-ci.org/Olezha/Airline) [![codecov](https://codecov.io/gh/Olezha/Airline/branch/master/graph/badge.svg)](https://codecov.io/gh/Olezha/Airline) [![Dependency Status](https://www.versioneye.com/user/projects/5a72e8a80fb24f5752c0f584/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5a72e8a80fb24f5752c0f584) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d3e55562ac694966b123600019927b21)](https://www.codacy.com/app/o1ezha/Airline?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Olezha/Airline&amp;utm_campaign=Badge_Grade)
 ## Company that stores airplanes
 ### Instructions for launching
 After cloning the repository,
