@@ -39,9 +39,7 @@ public class AircraftServiceImpl implements AircraftService {
     @Transactional
     public void addAircraft(Aircraft aircraft) {
         aircraftRepository.save(aircraft);
-        Company company = companyRepository.getOne(1L);
-        company.addAircraft(aircraft);
-        companyRepository.save(company);
+        companyRepository.getOne(1L).addAircraft(aircraft);
     }
 
     @Override
