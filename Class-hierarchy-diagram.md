@@ -1,9 +1,11 @@
+######Model
 ```
-                           Aircraft
-                      +----+      +----+
-                      +                +
-               Airplane                Helicopter
-            +--+      +--+
-            +            +
-Commuterliner            WideBodyAirliner
+    Company
+    List<Aircraft> +-----------------------+ Aircraft
+                                             ^      ^
+                                             |      |
+                                 Airplane +--+      +--+ Helicopter
+                                 ^      ^
+                                 |      |
+                Commuterliner +--+      +--+ WideBodyAirliner
 ```
