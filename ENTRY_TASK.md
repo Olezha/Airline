@@ -37,6 +37,8 @@
 * any additional features not specified in the technical requirements, but making the application more functional or convenient,
 * task execution time.
 
+Tasks that do not meet the requirements will not be considered!
+
 ### Refinement of the task:
 By total capacity and carrying capacity of all the aircraft in the airline we mean total passenger capacity and cargo capacity of all the aircrafts in the airline. 
 
