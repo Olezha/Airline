@@ -3,7 +3,6 @@ package ua.olezha.airline.repository;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import ua.olezha.airline.model.aircraft.Aircraft;
 
@@ -14,7 +13,6 @@ public class AircraftRepositoryImpl implements BetweenExamplesRepository<Aircraf
 
     private final EntityManagerFactory entityManagerFactory;
 
-    @Autowired
     public AircraftRepositoryImpl(EntityManagerFactory entityManagerFactory) {
         this.entityManagerFactory = entityManagerFactory;
     }

@@ -1,6 +1,5 @@
 package ua.olezha.airline.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +22,6 @@ public class AircraftServiceImpl implements AircraftService {
 
     private final CompanyRepository companyRepository;
 
-    @Autowired
     public AircraftServiceImpl(AircraftRepository aircraftRepository, CompanyRepository companyRepository) {
         this.aircraftRepository = aircraftRepository;
         this.companyRepository = companyRepository;
