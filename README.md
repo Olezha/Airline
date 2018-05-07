@@ -14,14 +14,12 @@ Add, edit, delete a aircraft
 
 Method | MediaType | URL | Body | Description
 ------ | --------- | --- | ---- | -----------
-POST | APPLICATION_JSON | /commuterliners | | Add aircraft
- | | /helicopters | |
- | | /wideBodyAirliners | |
------- | --------- | --- | ---- | -----------
-PUT | APPLICATION_JSON | /commuterliners | | Edit aircraft
- | | /helicopters | |
- | | /wideBodyAirliners | |
------- | --------- | --- | ---- | -----------
+POST | APPLICATION_JSON | /commuterliners
+/helicopters
+/wideBodyAirliners | | Add aircraft
+PUT | APPLICATION_JSON | /commuterliners
+/helicopters
+/wideBodyAirliners | | Edit aircraft
 DELETE | APPLICATION_JSON | /aircrafts/{id} | | Delete aircraft
 
 ### CLI Usage 
