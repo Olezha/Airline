@@ -6,6 +6,7 @@
 
     <groupId>ua.olezha</groupId>
     <artifactId>airline</artifactId>
+    <!--TODO-->
     <version>1.0</version>
 
     <parent>
