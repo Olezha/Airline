@@ -9,8 +9,20 @@ mvn clean package
 java -jar target/airline-1.0.jar
 ```
 
-### Usage
-http://localhost:8080
+### REST Usage
+Add, edit, delete a aircraft
+
+Method | MediaType | URL | Body | Description
+------ | --------- | --- | ---- | -----------
+POST | APPLICATION_JSON | /commuterliners | | Add aircraft
+ | | /helicopters | |
+ | | /wideBodyAirliners | |
+------ | --------- | --- | ---- | -----------
+PUT | APPLICATION_JSON | /commuterliners | | Edit aircraft
+ | | /helicopters | |
+ | | /wideBodyAirliners | |
+------ | --------- | --- | ---- | -----------
+DELETE | APPLICATION_JSON | /aircrafts/{id} | | Delete aircraft
 
 ### CLI Usage 
 Enter ```help``` to list all commands
