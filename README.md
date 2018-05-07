@@ -14,9 +14,9 @@ Add, edit, delete a aircraft
 
 Method | MediaType | URL | Body | Description
 ------ | --------- | --- | ---- | -----------
-POST | APPLICATION_JSON | /commuterliners /helicopters /wideBodyAirliners | | Add aircraft
-PUT | APPLICATION_JSON | /commuterliners /helicopters /wideBodyAirliners | | Edit aircraft
-DELETE | APPLICATION_JSON | /aircrafts/{id} | | Delete aircraft
+POST | APPLICATION_JSON | /commuterliners /helicopters /wideBodyAirliners | { "name": "Skyvan SD-330", "seatingCapacity": 10, "carryingCapacityKg": 2000, "flightRangeKm": 10000, "fuelConsumptionLitersPerHour": 150 } | Add aircraft
+PUT | APPLICATION_JSON | /commuterliners/{id} /helicopters/{id} /wideBodyAirliners/{id} | { "name": "Skyvan SD-330 2", "seatingCapacity": 20, "carryingCapacityKg": 4000, "flightRangeKm": 10000, "fuelConsumptionLitersPerHour": 150 } | Edit aircraft
+DELETE | | /aircrafts/{id} | | Delete aircraft
 
 ### CLI Usage 
 Enter ```help``` to list all commands
