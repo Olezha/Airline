@@ -14,13 +14,9 @@ Add, edit, delete a aircraft
 
 Method | MediaType | URL | Body | Description
 ------ | --------- | --- | ---- | -----------
-POST | APPLICATION_JSON | ```/commuterliners
-/helicopters
-/wideBodyAirliners``` | | Add aircraft
-PUT | APPLICATION_JSON | ```/commuterliners
-/helicopters
-/wideBodyAirliners``` | | Edit aircraft
-DELETE | APPLICATION_JSON | ```/aircrafts/{id}``` | | Delete aircraft
+POST | APPLICATION_JSON | /commuterliners /helicopters /wideBodyAirliners | | Add aircraft
+PUT | APPLICATION_JSON | /commuterliners /helicopters /wideBodyAirliners | | Edit aircraft
+DELETE | APPLICATION_JSON | /aircrafts/{id} | | Delete aircraft
 
 ### CLI Usage 
 Enter ```help``` to list all commands
