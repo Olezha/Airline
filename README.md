@@ -4,13 +4,15 @@
 After cloning the repository,
 run the following commands on the root folder of the repository
 
->_Optional: to switch to an **entry task stage** run **git checkout [c89cc42](https://github.com/Olezha/Airline/tree/c89cc42dcbb56e653b7e9fd9db0a72b4b08f07c2)**_
 ```sh
-mvn clean install
+mvn clean package
 java -jar target/airline-1.0.jar
 ```
 
-### Usage 
+### Usage
+http://localhost:8080
+
+### CLI Usage 
 Enter ```help``` to list all commands
 ```sh
 Airline (to display available commands type help)

@@ -128,7 +128,7 @@ public class AircraftServiceImpl implements AircraftService {
 
     @Override
     public void delete(int id) {
-        aircraftRepository.delete((long) id);
+        aircraftRepository.deleteById((long) id);
     }
 
     @Override

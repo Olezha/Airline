@@ -7,23 +7,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import ua.olezha.airline.model.aircraft.Aircraft;
 
+import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
 public class AircraftRepositoryImpl implements BetweenExamplesRepository<Aircraft> {
 
-    private final SessionFactory sessionFactory;
+    private final EntityManagerFactory entityManagerFactory;
 
     @Autowired
-    public AircraftRepositoryImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public AircraftRepositoryImpl(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
     }
 
+    // TODO
     @Override
     @Transactional
     @SuppressWarnings("unchecked")
     public List<Aircraft> findAll(Aircraft fromExampleEntity,
                                   Aircraft toExampleEntity) {
-        Criteria criteria = sessionFactory
+        Criteria criteria = entityManagerFactory.unwrap(SessionFactory.class)
                 .getCurrentSession()
                 .createCriteria(Aircraft.class);
 

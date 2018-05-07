@@ -1,3 +1,15 @@
+## GL Java ProCamp 2018 Final task
+
+### Develop application with Spring Core (or Boot) and REST WS. Use any DB
+* Make RESTful web services for:
+    * Add, edit, delete a aircraft,
+    * Get calculated total passenger capacity and cargo capacity of all the aircrafts in the airline,
+    * Get sorted list of all aircrafts in the airline. Sort the aircrafts by flight range (from smaller to larger),
+    * Find aircraft corresponding to the specified range of fuel consumption parameters (liters per hour),
+    * Find aircraft which corresponding to the specified passenger capacity and the flight range (strict conformity).
+* Unit test coverage more then 65%.
+
+
 ## GL Java ProCamp 2018 Entry task
 
 ### Create console application “Airline”:
@@ -43,6 +55,8 @@ Tasks that do not meet the requirements will not be considered!
 By total capacity and carrying capacity of all the aircraft in the airline we mean total passenger capacity and cargo capacity of all the aircrafts in the airline. 
 
 ### Rewiew comments & feedback:
+>_To switch to an **entry task stage** run **git checkout [c89cc42](https://github.com/Olezha/Airline/tree/c89cc42dcbb56e653b7e9fd9db0a72b4b08f07c2)**_
+
 Score | functional correctness (1-5) | application usability (1-5) | OOP and SOLID (1-5) | documentation (1-5) | unit tests (1-5) | non-standard technical solutions (y/n) | additional features (y/n) | fast completion time (y/n)
 ----- | ---------------------------- | -------------------------- | ------------------- | ------------------- | --------------- | ------------------------------------- | ------------------------- | -------------------------
 **4.11** | 5 | 3 | 2 | 3 | 4 | y | n | y

@@ -5,6 +5,5 @@ import org.springframework.stereotype.Repository;
 import ua.olezha.airline.model.company.Company;
 
 @Repository
-public interface CompanyRepository
-        extends JpaRepository<Company, Long> {
+public interface CompanyRepository extends JpaRepository<Company, Long> {
 }

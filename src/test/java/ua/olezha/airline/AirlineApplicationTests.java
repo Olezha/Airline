@@ -52,7 +52,7 @@ public class AirlineApplicationTests implements ApplicationRunner {
 
     @Test
     public void companyExistenceTest() {
-        Assert.assertNotNull(companyRepository.findOne(1L));
+        Assert.assertNotNull(companyRepository.findById(1L));
     }
 
     @Test
