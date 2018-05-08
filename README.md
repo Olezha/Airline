@@ -10,13 +10,44 @@ java -jar target/airline-1.0.jar
 ```
 
 ### REST Usage
+
 Add, edit, delete a aircraft
 
 Method | MediaType | URL | Body | Description
 ------ | --------- | --- | ---- | -----------
-POST | APPLICATION_JSON | /commuterliners /helicopters /wideBodyAirliners | { "name": "Skyvan SD-330", "seatingCapacity": 10, "carryingCapacityKg": 2000, "flightRangeKm": 10000, "fuelConsumptionLitersPerHour": 150 } | Add aircraft
-PUT | APPLICATION_JSON | /commuterliners/{id} /helicopters/{id} /wideBodyAirliners/{id} | { "name": "Skyvan SD-330 2", "seatingCapacity": 20, "carryingCapacityKg": 4000, "flightRangeKm": 10000, "fuelConsumptionLitersPerHour": 150 } | Edit aircraft
+POST | APPLICATION_JSON | /commuterliners <br> /helicopters <br> /wideBodyAirliners | { "name": "Skyvan SD-330", "seatingCapacity": 10, "carryingCapacityKg": 2000, "flightRangeKm": 10000, "fuelConsumptionLitersPerHour": 150 } | Add aircraft
+PUT | APPLICATION_JSON | /aircrafts/{id} | { "name": "Skyvan SD-330 2", "seatingCapacity": 20, "carryingCapacityKg": 4000, "flightRangeKm": 10000, "fuelConsumptionLitersPerHour": 150 } | Edit aircraft
 DELETE | | /aircrafts/{id} | | Delete aircraft
+
+
+Get calculated total passenger capacity and cargo capacity of all the aircrafts in the airline
+
+Method | MediaType | URL | Body | Description
+------ | --------- | --- | ---- | -----------
+GET | | /total-passenger-capacity | | Get calculated total passenger capacity
+GET | | /total-cargo-capacity | | Get calculated total cargo capacity
+
+
+Get sorted list of all aircrafts in the airline. Sort the aircrafts by flight range (from smaller to larger)
+
+Method | MediaType | URL | Body | Description
+------ | --------- | --- | ---- | -----------
+GET | | /aircraft-sorted-by-flight-range <br> /aircrafts?sort=flightrangekm | | Get sorted list of aircrafts by flight range
+
+
+Find aircraft corresponding to the specified range of fuel consumption parameters (liters per hour)
+
+Method | MediaType | URL | Body | Description
+------ | --------- | --- | ---- | -----------
+GET | | /aircraft-in-fuel-range?from={fromLitersPerHour}&to={toLitersPerHour} | | Find aircraft corresponding to the specified range of fuel consumption
+
+
+Find aircraft which corresponding to the specified passenger capacity and the flight range (strict conformity)
+
+Method | MediaType | URL | Body | Description
+------ | --------- | --- | ---- | -----------
+GET | | /aircraft-corresponding-to?seating-capacity={seatingCapacity}&flight-range={flightRange} | | Find aircraft corresponding to the specified passenger capacity and the flight range
+
 
 ### CLI Usage 
 Enter ```help``` to list all commands

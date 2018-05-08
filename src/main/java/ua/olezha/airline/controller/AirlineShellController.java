@@ -1,4 +1,4 @@
-package ua.olezha.airline;
+package ua.olezha.airline.controller;
 
 import com.thoughtworks.xstream.XStream;
 import org.jline.utils.AttributedString;
@@ -20,10 +20,9 @@ public class AirlineShellController {
 
     private final AircraftService aircraftService;
 
-    @Autowired
     public AirlineShellController(AircraftService aircraftService) {
         this.aircraftService = aircraftService;
-        System.out.println("Airline (to display available commands type help)");
+        System.out.println("Airline (to display available shell commands type help)");
     }
 
     @SuppressWarnings("unused")
