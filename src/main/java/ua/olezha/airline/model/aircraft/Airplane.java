@@ -9,5 +9,4 @@ import javax.persistence.Entity;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 public abstract class Airplane extends Aircraft {
-    // TODO
 }

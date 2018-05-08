@@ -11,7 +11,7 @@ java -jar target/airline-2.0.jar
 
 ### REST Usage
 
-Add, edit, delete a aircraft
+Add, edit, delete a aircraft:
 
 Method | MediaType | URL | Body example | Description
 ------ | --------- | --- | ------------ | -----------
@@ -20,7 +20,7 @@ PUT | application_json | /aircrafts/{id} | {<br> "name": "Skyvan SD-330 2",<br> 
 DELETE | | /aircrafts/{id} | | Delete aircraft
 
 
-Get calculated total passenger capacity and cargo capacity of all the aircrafts in the airline
+Get calculated total passenger capacity and cargo capacity of all the aircrafts in the airline:
 
 Method | URL | Description
 ------ | --- | -----------
@@ -28,25 +28,25 @@ GET | /total-passenger-capacity | Get calculated total passenger capacity
 GET | /total-cargo-capacity | Get calculated total cargo capacity
 
 
-Get sorted list of all aircrafts in the airline. Sort the aircrafts by flight range (from smaller to larger)
+Get sorted list of all aircrafts in the airline. Sort the aircrafts by flight range (from smaller to larger):
 
 Method | URL | Description
 ------ | --- | -----------
 GET | /aircraft-sorted-by-flight-range<br> /aircrafts?sort=flightrangekm | Get sorted list of aircrafts by flight range
 
 
-Find aircraft corresponding to the specified range of fuel consumption parameters (liters per hour)
+Find aircraft corresponding to the specified range of fuel consumption parameters (liters per hour):
 
 Method | URL | Description
 ------ | --- | -----------
 GET | /aircraft-in-fuel-range?from={fromLitersPerHour}&to={toLitersPerHour} | Find aircraft corresponding to the specified range of fuel consumption
 
 
-Find aircraft which corresponding to the specified passenger capacity and the flight range (strict conformity)
+Find aircraft which corresponding to the specified passenger capacity and the flight range (strict conformity):
 
 Method | URL | Description
 ------ | --- | -----------
-GET | /aircraft-corresponding-to?seating-capacity={seatingCapacity}&flight-range={flightRange} | Find aircraft corresponding to the specified passenger<br> capacity and the flight range (strict conformity)
+GET | /aircraft-corresponding-to?seating-capacity={seatingCapacity}&flight-range={flightRange} | Find aircraft corresponding to the specified passenger capacity and the flight range (strict conformity)
 
 
 ### CLI Usage 
