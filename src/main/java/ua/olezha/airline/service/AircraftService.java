@@ -5,7 +5,6 @@ import ua.olezha.airline.model.aircraft.AircraftType;
 
 import java.util.List;
 
-// TODO: javadoc
 public interface AircraftService {
 
     void addAircraft(Aircraft aircraft);

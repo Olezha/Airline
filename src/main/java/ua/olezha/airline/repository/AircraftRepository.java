@@ -9,7 +9,7 @@ import java.util.List;
 public interface AircraftRepository
         extends JpaRepository<Aircraft, Long>, BetweenExamplesRepository<Aircraft> {
 
-    // TODO
+    // TODO: move sql to separate source
     @Query(value =
             "SELECT COALESCE(a, 0) + COALESCE(b, 0) + COALESCE(c, 0) " +
                     "FROM " +
