@@ -1,6 +1,6 @@
 ## GL Java ProCamp 2018 Final task
 
-### Develop application based on 'Entry task' project with Spring Core (or Boot) and REST WS. Use any DB
+### Develop application (based on 'Entry task' project) with Spring Core (or Boot) and REST WS. Use any DB
 * Make RESTful web services for:
     * Add, edit, delete a aircraft,
     * Get calculated total passenger capacity and cargo capacity of all the aircrafts in the airline,
