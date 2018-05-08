@@ -6,7 +6,7 @@ run the following commands on the root folder of the repository
 
 ```sh
 mvn clean package
-java -jar target/airline-1.0.jar
+java -jar target/airline-2.0.jar
 ```
 
 ### REST Usage
