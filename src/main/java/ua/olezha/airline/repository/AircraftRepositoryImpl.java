@@ -17,7 +17,7 @@ public class AircraftRepositoryImpl implements BetweenExamplesRepository<Aircraf
         this.entityManagerFactory = entityManagerFactory;
     }
 
-    // TODO: deprecated
+    // TODO: deprecated, use the JPA Criteria
     @Override
     @Transactional
     @SuppressWarnings("unchecked")

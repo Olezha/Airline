@@ -10,6 +10,7 @@ java -jar target/airline-2.0.jar
 ```
 
 ### REST Usage
+API should be available under http://localhost:8080 
 
 Add, edit, delete a aircraft:
 
