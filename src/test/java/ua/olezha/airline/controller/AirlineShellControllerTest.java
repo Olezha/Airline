@@ -87,7 +87,7 @@ public class AirlineShellControllerTest {
     @Test
     public void mockTest() {
         airlineShellController.mock();
-        verify(aircraftServiceMock).addAircraft(any());
+        verify(aircraftServiceMock, atLeast(1)).addAircraft(any());
     }
 
     @Test
