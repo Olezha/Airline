@@ -31,7 +31,7 @@ public class AirlineShellController {
     }
 
     @ShellMethod(value = "Add aircraft", key = "add", prefix = "-")
-    void addAircraft(
+    protected void addAircraft(
             @ShellOption(help = "Name")
                     String name,
             @ShellOption(help = "Type [WIDE_BODY_AIRLINER|COMMUTERLINER|HELICOPTER]")
@@ -58,12 +58,12 @@ public class AirlineShellController {
     }
 
     @ShellMethod(value = "Delete aircraft", key = "del", prefix = "-")
-    void deleteAircraft(@ShellOption(help = "ID") int id) {
+    protected void deleteAircraft(@ShellOption(help = "ID") int id) {
         aircraftService.delete(id);
     }
 
     @ShellMethod(value = "Add aircraft", key = "update", prefix = "-")
-    void updateAircraft(
+    protected void updateAircraft(
             @ShellOption(help = "ID")
                     int id,
             @ShellOption(help = "Name", defaultValue = "-1")
@@ -80,7 +80,7 @@ public class AirlineShellController {
     }
 
     @ShellMethod(value = "Show all aircraft", key = "show", prefix = "-")
-    Object showAllAircraft(boolean raw) {
+    protected Object showAllAircraft(boolean raw) {
         List<Aircraft> aircraftList = aircraftService.allAircraftInTheAirline();
         if (raw)
             return aircraftList;
@@ -88,7 +88,7 @@ public class AirlineShellController {
     }
 
     @ShellMethod(value = "Total capacity of all the aircraft in the airline", key = "tc", prefix = "-")
-    Object totalCapacity(boolean raw) {
+    protected Object totalCapacity(boolean raw) {
         int passengerCapacity = aircraftService.totalCapacityOfAllTheAircraftInTheAirline();
         if (raw)
             return passengerCapacity;
@@ -96,7 +96,7 @@ public class AirlineShellController {
     }
 
     @ShellMethod(value = "Carrying capacity of all the aircraft in the airline", key = "cc", prefix = "-")
-    Object carryingCapacity(boolean raw) {
+    protected Object carryingCapacity(boolean raw) {
         int cargoCapacity = aircraftService.carryingCapacityOfAllTheAircraftInTheAirline();
         if (raw)
             return cargoCapacity;
@@ -104,7 +104,7 @@ public class AirlineShellController {
     }
 
     @ShellMethod(value = "List of aircraft of the company sorted by flight range", key = "sort", prefix = "-")
-    Object aircraftSortedByFlightRange(boolean desc, boolean raw) {
+    protected Object aircraftSortedByFlightRange(boolean desc, boolean raw) {
         List<Aircraft> aircraftList = aircraftService.sortTheAircraftByFlightRangeFromSmallerToLarger();
         if (desc)
             Collections.reverse(aircraftList);
@@ -114,7 +114,7 @@ public class AirlineShellController {
     }
 
     @ShellMethod(value = "Airplanes corresponding to a given range of fuel consumption parameters", key = "fuel", prefix = "-")
-    Object airplanesCorrespondingToAGivenRangeOfFuelConsumptionParameters(
+    protected Object airplanesCorrespondingToAGivenRangeOfFuelConsumptionParameters(
             @ShellOption(help = "From (liters per hour)")
                     int fromLitersPerHour,
             @ShellOption(help = "To (liters per hour)")
@@ -129,7 +129,7 @@ public class AirlineShellController {
     }
 
     @ShellMethod(value = "Delete", prefix = "-")
-    void delete(boolean all) {
+    protected void delete(boolean all) {
         if (!all)
             System.out.println("Unsupported operation");
         else
@@ -137,7 +137,7 @@ public class AirlineShellController {
     }
 
     @ShellMethod("Simulate objects")
-    void mock() {
+    protected void mock() {
         XStream xstream = new XStream();
         Class<?>[] classes = new Class[]{Commuterliner.class, Helicopter.class, WideBodyAirliner.class};
         XStream.setupDefaultSecurity(xstream);
@@ -154,7 +154,7 @@ public class AirlineShellController {
     }
 
     @ShellMethod(value = "Search", prefix = "-")
-    Object search(
+    protected Object search(
             @ShellOption(help = "Seating capacity", defaultValue = "-1")
                     int seatingCapacity,
             @ShellOption(help = "Carrying capacity (kg)", defaultValue = "-1")
@@ -172,7 +172,7 @@ public class AirlineShellController {
     }
 
     @ShellMethod(value = "Range search", prefix = "-")
-    Object rangeSearch(
+    protected Object rangeSearch(
             @ShellOption(help = "From seating capacity", defaultValue = "-1")
                     int fromSeatingCapacity,
             @ShellOption(help = "To seating capacity", defaultValue = "-1")
@@ -200,7 +200,7 @@ public class AirlineShellController {
         return aircraftListToASCIITable(aircraftList);
     }
 
-    String aircraftListToASCIITable(List<Aircraft> aircraftList) {
+    protected String aircraftListToASCIITable(List<Aircraft> aircraftList) {
         LinkedHashMap<String, Object> headers = new LinkedHashMap<>();
         headers.put("id", "ID");
         headers.put("name", "Name");

@@ -159,6 +159,7 @@ public class AircraftServiceImplTests {
     @Test
     public void updateTest() {
         aircraftService.update(1, "-1", -1, -1, -1, -1);
+        verify(aircraftRepositoryMock).getOne(1L);
     }
 
     @Test
