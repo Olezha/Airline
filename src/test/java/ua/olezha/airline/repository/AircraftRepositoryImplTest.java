@@ -10,6 +10,7 @@ import ua.olezha.airline.model.aircraft.Aircraft;
 import javax.persistence.EntityManagerFactory;
 
 import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
 
 public class AircraftRepositoryImplTest {
 
@@ -29,6 +30,6 @@ public class AircraftRepositoryImplTest {
 
     @Test
     public void findAllTest() {
-        betweenExamplesRepository.findAll(mock(Aircraft.class), mock(Aircraft.class));
+        assertNotNull(betweenExamplesRepository.findAll(mock(Aircraft.class), mock(Aircraft.class)));
     }
 }

@@ -30,7 +30,6 @@ public class AirlineShellController {
         System.out.println("Airline (to display available shell commands type help)");
     }
 
-    @SuppressWarnings("unused")
     @ShellMethod(value = "Add aircraft", key = "add", prefix = "-")
     void addAircraft(
             @ShellOption(help = "Name")
@@ -145,7 +144,7 @@ public class AirlineShellController {
             aircraftService.deleteAll();
     }
 
-    @SuppressWarnings({"unused", "unchecked"})
+    @SuppressWarnings("unchecked")
     @ShellMethod("Simulate objects")
     void mock() {
         XStream xstream = new XStream();

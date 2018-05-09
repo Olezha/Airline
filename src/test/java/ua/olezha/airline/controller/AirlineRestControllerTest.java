@@ -5,6 +5,7 @@ import org.junit.Test;
 import ua.olezha.airline.service.AircraftService;
 
 import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
 
 public class AirlineRestControllerTest {
 
@@ -17,26 +18,26 @@ public class AirlineRestControllerTest {
 
     @Test
     public void totalCapacityOfAllTheAircraftInTheAirlineTest() {
-        airlineRestController.totalCapacityOfAllTheAircraftInTheAirline();
+        assertNotNull(airlineRestController.totalCapacityOfAllTheAircraftInTheAirline());
     }
 
     @Test
     public void carryingCapacityOfAllTheAircraftInTheAirlineTest() {
-        airlineRestController.carryingCapacityOfAllTheAircraftInTheAirline();
+        assertNotNull(airlineRestController.carryingCapacityOfAllTheAircraftInTheAirline());
     }
 
     @Test
     public void aircraftSortedByFlightRangeTest() {
-        airlineRestController.aircraftSortedByFlightRange();
+        assertNotNull(airlineRestController.aircraftSortedByFlightRange());
     }
 
     @Test
     public void airplanesCorrespondingToAGivenRangeOfFuelConsumptionParametersTest() {
-        airlineRestController.airplanesCorrespondingToAGivenRangeOfFuelConsumptionParameters(1, 1);
+        assertNotNull(airlineRestController.airplanesCorrespondingToAGivenRangeOfFuelConsumptionParameters(1, 1));
     }
 
     @Test
     public void aircraftCorrespondingToSpecifiedPassengerCapacityAndFlightRangeTest() {
-        airlineRestController.aircraftCorrespondingToSpecifiedPassengerCapacityAndFlightRange(1, 1);
+        assertNotNull(airlineRestController.aircraftCorrespondingToSpecifiedPassengerCapacityAndFlightRange(1, 1));
     }
 }

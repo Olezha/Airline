@@ -163,6 +163,6 @@ public class AircraftServiceImplTests {
 
     @Test
     public void searchTest() {
-        aircraftService.search(1, 1, 1, 1);
+        assertNotNull(aircraftService.search(1, 1, 1, 1));
     }
 }
