@@ -10,6 +10,9 @@ java -jar target/airline-2.0.jar
 ```
 
 ### REST Usage
+
+>_To simulate objects call CLI command ```mock```_
+
 API should be available under http://localhost:8080 
 
 Add, edit, delete a aircraft:

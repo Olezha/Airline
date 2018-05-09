@@ -6,8 +6,7 @@ import ua.olezha.airline.model.aircraft.Aircraft;
 
 import java.util.List;
 
-public interface AircraftRepository
-        extends JpaRepository<Aircraft, Long>, BetweenExamplesRepository<Aircraft> {
+public interface AircraftRepository extends JpaRepository<Aircraft, Long> {
 
     @Query(name = "aircraft.totalCapacityOfAllTheAircraftInTheAirline",
             nativeQuery = true)

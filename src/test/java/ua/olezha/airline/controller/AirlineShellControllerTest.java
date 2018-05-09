@@ -97,12 +97,6 @@ public class AirlineShellControllerTest {
     }
 
     @Test
-    public void rangeSearchTest() {
-        assertNotNull(airlineShellController.rangeSearch(1, 1, 1, 1, 1, 1, 1, 1, false));
-        assertNotNull(airlineShellController.rangeSearch(1, 1, 1, 1, 1, 1, 1, 1, true));
-    }
-
-    @Test
     public void aircraftListToASCIITableTest() {
         assertNotNull(airlineShellController.aircraftListToASCIITable(new ArrayList<>()));
     }

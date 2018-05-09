@@ -171,35 +171,6 @@ public class AirlineShellController {
         return aircraftListToASCIITable(aircraftList);
     }
 
-    @ShellMethod(value = "Range search", prefix = "-")
-    protected Object rangeSearch(
-            @ShellOption(help = "From seating capacity", defaultValue = "-1")
-                    int fromSeatingCapacity,
-            @ShellOption(help = "To seating capacity", defaultValue = "-1")
-                    int toSeatingCapacity,
-            @ShellOption(help = "From carrying capacity (kg)", defaultValue = "-1")
-                    int formCarryingCapacityKg,
-            @ShellOption(help = "To carrying capacity (kg)", defaultValue = "-1")
-                    int toCarryingCapacityKg,
-            @ShellOption(help = "From flight range (km)", defaultValue = "-1")
-                    int fromFlightRangeKm,
-            @ShellOption(help = "To flight range (km)", defaultValue = "-1")
-                    int toFlightRangeKm,
-            @ShellOption(help = "From fuel consumption (liters per hour)", defaultValue = "-1")
-                    int fromFuelConsumptionLitersPerHour,
-            @ShellOption(help = "To fuel consumption (liters per hour)", defaultValue = "-1")
-                    int toFuelConsumptionLitersPerHour,
-            boolean raw) {
-        List<Aircraft> aircraftList =
-                aircraftService.search(fromSeatingCapacity, formCarryingCapacityKg,
-                        fromFlightRangeKm, fromFuelConsumptionLitersPerHour,
-                        toSeatingCapacity, toCarryingCapacityKg,
-                        toFlightRangeKm, toFuelConsumptionLitersPerHour);
-        if (raw)
-            return aircraftList;
-        return aircraftListToASCIITable(aircraftList);
-    }
-
     protected String aircraftListToASCIITable(List<Aircraft> aircraftList) {
         LinkedHashMap<String, Object> headers = new LinkedHashMap<>();
         headers.put("id", "ID");

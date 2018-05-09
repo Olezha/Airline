@@ -106,25 +106,6 @@ public class AircraftServiceImpl implements AircraftService {
     }
 
     @Override
-    public List<Aircraft> search(int fromSeatingCapacity, int fromCarryingCapacityKg,
-                                 int fromFlightRangeKm, int fromFuelConsumptionLitersPerHour,
-                                 int toSeatingCapacity, int toCarryingCapacityKg,
-                                 int toFlightRangeKm, int toFuelConsumptionLitersPerHour) {
-        List<Aircraft> aircraftList = new ArrayList<>();
-
-            Aircraft fromAircraft =  exampleAircraftFactory(null,
-                    fromSeatingCapacity, fromCarryingCapacityKg,
-                    fromFlightRangeKm, fromFuelConsumptionLitersPerHour);
-            Aircraft toAircraft =  exampleAircraftFactory(null,
-                    toSeatingCapacity, toCarryingCapacityKg,
-                    toFlightRangeKm, toFuelConsumptionLitersPerHour);
-
-            aircraftList.addAll(aircraftRepository.findAll(fromAircraft, toAircraft));
-
-        return aircraftList;
-    }
-
-    @Override
     public void delete(int id) {
         aircraftRepository.deleteById((long) id);
     }
