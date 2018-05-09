@@ -155,4 +155,14 @@ public class AircraftServiceImplTests {
         assertThat(aircraftService.aircraftFactory(AircraftType.HELICOPTER),
                 instanceOf(Helicopter.class));
     }
+
+    @Test
+    public void updateTest() {
+        aircraftService.update(1, "-1", -1, -1, -1, -1);
+    }
+
+    @Test
+    public void searchTest() {
+        aircraftService.search(1, 1, 1, 1);
+    }
 }

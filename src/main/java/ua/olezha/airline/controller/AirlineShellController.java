@@ -6,13 +6,19 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
-import org.springframework.shell.table.*;
+import org.springframework.shell.table.BeanListTableModel;
+import org.springframework.shell.table.BorderStyle;
+import org.springframework.shell.table.Table;
+import org.springframework.shell.table.TableBuilder;
 import org.springframework.stereotype.Component;
 import ua.olezha.airline.model.aircraft.*;
 import ua.olezha.airline.service.AircraftService;
 
 import java.io.File;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 @ShellComponent
 public class AirlineShellController {
@@ -26,7 +32,7 @@ public class AirlineShellController {
 
     @SuppressWarnings("unused")
     @ShellMethod(value = "Add aircraft", key = "add", prefix = "-")
-    private void addAircraft(
+    void addAircraft(
             @ShellOption(help = "Name")
                     String name,
             @ShellOption(help = "Type [WIDE_BODY_AIRLINER|COMMUTERLINER|HELICOPTER]")
@@ -54,13 +60,13 @@ public class AirlineShellController {
 
     @SuppressWarnings("unused")
     @ShellMethod(value = "Delete aircraft", key = "del", prefix = "-")
-    private void deleteAircraft(@ShellOption(help = "ID") int id) {
+    void deleteAircraft(@ShellOption(help = "ID") int id) {
         aircraftService.delete(id);
     }
 
     @SuppressWarnings("unused")
     @ShellMethod(value = "Add aircraft", key = "update", prefix = "-")
-    private void updateAircraft(
+    void updateAircraft(
             @ShellOption(help = "ID")
                     int id,
             @ShellOption(help = "Name", defaultValue = "-1")
@@ -78,7 +84,7 @@ public class AirlineShellController {
 
     @SuppressWarnings("unused")
     @ShellMethod(value = "Show all aircraft", key = "show", prefix = "-")
-    private Object showAllAircraft(boolean raw) {
+    Object showAllAircraft(boolean raw) {
         List<Aircraft> aircraftList = aircraftService.allAircraftInTheAirline();
         if (raw)
             return aircraftList;
@@ -87,7 +93,7 @@ public class AirlineShellController {
 
     @SuppressWarnings("unused")
     @ShellMethod(value = "Total capacity of all the aircraft in the airline", key = "tc", prefix = "-")
-    private Object totalCapacity(boolean raw) {
+    Object totalCapacity(boolean raw) {
         int passengerCapacity = aircraftService.totalCapacityOfAllTheAircraftInTheAirline();
         if (raw)
             return passengerCapacity;
@@ -96,16 +102,16 @@ public class AirlineShellController {
 
     @SuppressWarnings("unused")
     @ShellMethod(value = "Carrying capacity of all the aircraft in the airline", key = "cc", prefix = "-")
-    private Object carryingCapacity(boolean raw) {
+    Object carryingCapacity(boolean raw) {
         int cargoCapacity = aircraftService.carryingCapacityOfAllTheAircraftInTheAirline();
         if (raw)
             return cargoCapacity;
-        return "Cargo capacity: "+ cargoCapacity;
+        return "Cargo capacity: " + cargoCapacity;
     }
 
     @SuppressWarnings("unused")
     @ShellMethod(value = "List of aircraft of the company sorted by flight range", key = "sort", prefix = "-")
-    private Object aircraftSortedByFlightRange(boolean desc, boolean raw) {
+    Object aircraftSortedByFlightRange(boolean desc, boolean raw) {
         List<Aircraft> aircraftList = aircraftService.sortTheAircraftByFlightRangeFromSmallerToLarger();
         if (desc)
             Collections.reverse(aircraftList);
@@ -116,7 +122,7 @@ public class AirlineShellController {
 
     @SuppressWarnings("unused")
     @ShellMethod(value = "Airplanes corresponding to a given range of fuel consumption parameters", key = "fuel", prefix = "-")
-    private Object airplanesCorrespondingToAGivenRangeOfFuelConsumptionParameters(
+    Object airplanesCorrespondingToAGivenRangeOfFuelConsumptionParameters(
             @ShellOption(help = "From (liters per hour)")
                     int fromLitersPerHour,
             @ShellOption(help = "To (liters per hour)")
@@ -132,7 +138,7 @@ public class AirlineShellController {
 
     @SuppressWarnings("unused")
     @ShellMethod(value = "Delete", prefix = "-")
-    private void delete(boolean all) {
+    void delete(boolean all) {
         if (!all)
             System.out.println("Unsupported operation");
         else
@@ -141,7 +147,7 @@ public class AirlineShellController {
 
     @SuppressWarnings({"unused", "unchecked"})
     @ShellMethod("Simulate objects")
-    private void mock() {
+    void mock() {
         XStream xstream = new XStream();
         Class<?>[] classes = new Class[]{Commuterliner.class, Helicopter.class, WideBodyAirliner.class};
         XStream.setupDefaultSecurity(xstream);
@@ -159,7 +165,7 @@ public class AirlineShellController {
 
     @SuppressWarnings("unused")
     @ShellMethod(value = "Search", prefix = "-")
-    private Object search(
+    Object search(
             @ShellOption(help = "Seating capacity", defaultValue = "-1")
                     int seatingCapacity,
             @ShellOption(help = "Carrying capacity (kg)", defaultValue = "-1")
@@ -178,7 +184,7 @@ public class AirlineShellController {
 
     @SuppressWarnings("unused")
     @ShellMethod(value = "Range search", prefix = "-")
-    private Object rangeSearch(
+    Object rangeSearch(
             @ShellOption(help = "From seating capacity", defaultValue = "-1")
                     int fromSeatingCapacity,
             @ShellOption(help = "To seating capacity", defaultValue = "-1")
@@ -206,7 +212,7 @@ public class AirlineShellController {
         return aircraftListToASCIITable(aircraftList);
     }
 
-    private String aircraftListToASCIITable(List<Aircraft> aircraftList) {
+    String aircraftListToASCIITable(List<Aircraft> aircraftList) {
         LinkedHashMap<String, Object> headers = new LinkedHashMap<>();
         headers.put("id", "ID");
         headers.put("name", "Name");
