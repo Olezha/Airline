@@ -9,32 +9,11 @@ import java.util.List;
 public interface AircraftRepository
         extends JpaRepository<Aircraft, Long>, BetweenExamplesRepository<Aircraft> {
 
-    // TODO: move sql to separate source
-    @Query(value =
-            "SELECT COALESCE(a, 0) + COALESCE(b, 0) + COALESCE(c, 0) " +
-                    "FROM " +
-                    " ( SELECT SUM(SEATING_CAPACITY) a FROM  COMMUTERLINER b " +
-                    "   RIGHT JOIN COMPANY_AIRCRAFT_LIST c ON b.ID = c.AIRCRAFT_ID ) a " +
-                    "CROSS JOIN " +
-                    " ( SELECT SUM(SEATING_CAPACITY) b FROM  WIDE_BODY_AIRLINER b " +
-                    "   RIGHT JOIN COMPANY_AIRCRAFT_LIST c ON b.ID = c.AIRCRAFT_ID ) a " +
-                    "CROSS JOIN " +
-                    " ( SELECT SUM(SEATING_CAPACITY) c FROM  HELICOPTER b " +
-                    "   RIGHT JOIN COMPANY_AIRCRAFT_LIST c ON b.ID = c.AIRCRAFT_ID ) a",
+    @Query(name = "aircraft.totalCapacityOfAllTheAircraftInTheAirline",
             nativeQuery = true)
     int totalCapacityOfAllTheAircraftInTheAirline();
 
-    @Query(value =
-            "SELECT COALESCE(a, 0) + COALESCE(b, 0) + COALESCE(c, 0) " +
-                    "FROM " +
-                    " ( SELECT SUM(CARRYING_CAPACITY_KG) a FROM  COMMUTERLINER b " +
-                    "   RIGHT JOIN COMPANY_AIRCRAFT_LIST c ON b.ID = c.AIRCRAFT_ID ) a " +
-                    "CROSS JOIN " +
-                    " ( SELECT SUM(CARRYING_CAPACITY_KG) b FROM  WIDE_BODY_AIRLINER b " +
-                    "   RIGHT JOIN COMPANY_AIRCRAFT_LIST c ON b.ID = c.AIRCRAFT_ID ) a " +
-                    "CROSS JOIN " +
-                    " ( SELECT SUM(CARRYING_CAPACITY_KG) c FROM  HELICOPTER b " +
-                    "   RIGHT JOIN COMPANY_AIRCRAFT_LIST c ON b.ID = c.AIRCRAFT_ID ) a",
+    @Query(name = "aircraft.carryingCapacityOfAllTheAircraftInTheAirline",
             nativeQuery = true)
     int carryingCapacityOfAllTheAircraftInTheAirline();
 
