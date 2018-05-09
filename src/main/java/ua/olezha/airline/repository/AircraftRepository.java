@@ -8,12 +8,10 @@ import java.util.List;
 
 public interface AircraftRepository extends JpaRepository<Aircraft, Long> {
 
-    @Query(name = "aircraft.totalCapacityOfAllTheAircraftInTheAirline",
-            nativeQuery = true)
+    @Query(name = "aircraft.totalCapacityOfAllTheAircraftInTheAirline", nativeQuery = true)
     int totalCapacityOfAllTheAircraftInTheAirline();
 
-    @Query(name = "aircraft.carryingCapacityOfAllTheAircraftInTheAirline",
-            nativeQuery = true)
+    @Query(name = "aircraft.carryingCapacityOfAllTheAircraftInTheAirline", nativeQuery = true)
     int carryingCapacityOfAllTheAircraftInTheAirline();
 
     List<Aircraft> findByFuelConsumptionLitersPerHourBetween(int fromLitersPerHour, int toLitersPerHour);

@@ -25,8 +25,7 @@ public interface AircraftService {
 
     void deleteAll();
 
-    List<Aircraft> search(
-            int seatingCapacity, int carryingCapacityKg, int flightRangeKm, int fuelConsumptionLitersPerHour);
+    List<Aircraft> search(int seatingCapacity, int carryingCapacityKg, int flightRangeKm, int fuelConsumptionLitersPerHour);
 
     void delete(int id);
 

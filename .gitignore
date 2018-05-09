@@ -1,5 +1,5 @@
-target/
+target
 .idea
 *.iml
-airline.mv.db
-spring-shell.log
+*.db
+*.log
