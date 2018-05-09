@@ -57,13 +57,11 @@ public class AirlineShellController {
         aircraftService.addAircraft(aircraft);
     }
 
-    @SuppressWarnings("unused")
     @ShellMethod(value = "Delete aircraft", key = "del", prefix = "-")
     void deleteAircraft(@ShellOption(help = "ID") int id) {
         aircraftService.delete(id);
     }
 
-    @SuppressWarnings("unused")
     @ShellMethod(value = "Add aircraft", key = "update", prefix = "-")
     void updateAircraft(
             @ShellOption(help = "ID")
@@ -81,7 +79,6 @@ public class AirlineShellController {
         aircraftService.update(id, name, seatingCapacity, carryingCapacityKg, flightRangeKm, fuelConsumptionLitersPerHour);
     }
 
-    @SuppressWarnings("unused")
     @ShellMethod(value = "Show all aircraft", key = "show", prefix = "-")
     Object showAllAircraft(boolean raw) {
         List<Aircraft> aircraftList = aircraftService.allAircraftInTheAirline();
@@ -90,7 +87,6 @@ public class AirlineShellController {
         return aircraftListToASCIITable(aircraftList);
     }
 
-    @SuppressWarnings("unused")
     @ShellMethod(value = "Total capacity of all the aircraft in the airline", key = "tc", prefix = "-")
     Object totalCapacity(boolean raw) {
         int passengerCapacity = aircraftService.totalCapacityOfAllTheAircraftInTheAirline();
@@ -99,7 +95,6 @@ public class AirlineShellController {
         return "Passenger capacity: " + passengerCapacity;
     }
 
-    @SuppressWarnings("unused")
     @ShellMethod(value = "Carrying capacity of all the aircraft in the airline", key = "cc", prefix = "-")
     Object carryingCapacity(boolean raw) {
         int cargoCapacity = aircraftService.carryingCapacityOfAllTheAircraftInTheAirline();
@@ -108,7 +103,6 @@ public class AirlineShellController {
         return "Cargo capacity: " + cargoCapacity;
     }
 
-    @SuppressWarnings("unused")
     @ShellMethod(value = "List of aircraft of the company sorted by flight range", key = "sort", prefix = "-")
     Object aircraftSortedByFlightRange(boolean desc, boolean raw) {
         List<Aircraft> aircraftList = aircraftService.sortTheAircraftByFlightRangeFromSmallerToLarger();
@@ -119,7 +113,6 @@ public class AirlineShellController {
         return aircraftListToASCIITable(aircraftList);
     }
 
-    @SuppressWarnings("unused")
     @ShellMethod(value = "Airplanes corresponding to a given range of fuel consumption parameters", key = "fuel", prefix = "-")
     Object airplanesCorrespondingToAGivenRangeOfFuelConsumptionParameters(
             @ShellOption(help = "From (liters per hour)")
@@ -135,7 +128,6 @@ public class AirlineShellController {
         return aircraftListToASCIITable(aircraftList);
     }
 
-    @SuppressWarnings("unused")
     @ShellMethod(value = "Delete", prefix = "-")
     void delete(boolean all) {
         if (!all)
@@ -144,7 +136,6 @@ public class AirlineShellController {
             aircraftService.deleteAll();
     }
 
-    @SuppressWarnings("unchecked")
     @ShellMethod("Simulate objects")
     void mock() {
         XStream xstream = new XStream();
@@ -162,7 +153,6 @@ public class AirlineShellController {
             aircraftService.addAircraft(aircraft);
     }
 
-    @SuppressWarnings("unused")
     @ShellMethod(value = "Search", prefix = "-")
     Object search(
             @ShellOption(help = "Seating capacity", defaultValue = "-1")
@@ -181,7 +171,6 @@ public class AirlineShellController {
         return aircraftListToASCIITable(aircraftList);
     }
 
-    @SuppressWarnings("unused")
     @ShellMethod(value = "Range search", prefix = "-")
     Object rangeSearch(
             @ShellOption(help = "From seating capacity", defaultValue = "-1")

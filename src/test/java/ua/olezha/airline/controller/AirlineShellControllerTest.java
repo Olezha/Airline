@@ -16,10 +16,11 @@ import static org.junit.Assert.*;
 public class AirlineShellControllerTest {
 
     private AirlineShellController airlineShellController;
+    private AircraftService aircraftServiceMock;
 
     @Before
     public void setUp() {
-        AircraftService aircraftServiceMock = mock(AircraftService.class);
+        aircraftServiceMock = mock(AircraftService.class);
         when(aircraftServiceMock.aircraftFactory(AircraftType.WIDE_BODY_AIRLINER)).thenReturn(new WideBodyAirliner());
         when(aircraftServiceMock.aircraftFactory(AircraftType.COMMUTERLINER)).thenReturn(new Commuterliner());
         when(aircraftServiceMock.aircraftFactory(AircraftType.HELICOPTER)).thenReturn(new Helicopter());
@@ -29,16 +30,19 @@ public class AirlineShellControllerTest {
     @Test
     public void addAircraftTest() {
         airlineShellController.addAircraft("", AircraftType.WIDE_BODY_AIRLINER, 1, 1, 1, 1);
+        verify(aircraftServiceMock).addAircraft(any());
     }
 
     @Test
     public void deleteAircraftTest() {
         airlineShellController.deleteAircraft(1);
+        verify(aircraftServiceMock).delete(1);
     }
 
     @Test
     public void updateAircraftTest() {
         airlineShellController.updateAircraft(1, "", 1, 1, 1, 1);
+        verify(aircraftServiceMock).update(1, "", 1, 1, 1, 1);
     }
 
     @Test
@@ -77,11 +81,13 @@ public class AirlineShellControllerTest {
     public void deleteTest() {
         airlineShellController.delete(false);
         airlineShellController.delete(true);
+        verify(aircraftServiceMock).deleteAll();
     }
 
     @Test
     public void mockTest() {
         airlineShellController.mock();
+        verify(aircraftServiceMock).addAircraft(any());
     }
 
     @Test
