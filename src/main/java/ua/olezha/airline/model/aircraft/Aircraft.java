@@ -1,8 +1,10 @@
 package ua.olezha.airline.model.aircraft;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -22,6 +24,9 @@ public abstract class Aircraft {
     private Integer flightRangeKm;
 
     private Integer fuelConsumptionLitersPerHour;
+
+    @JsonFormat(pattern = "MM/dd/yyyy")
+    private LocalDate created = LocalDate.now();
 
     public abstract AircraftType getType();
 }
