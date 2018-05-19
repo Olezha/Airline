@@ -17,6 +17,11 @@ public class AirlineRestController {
         this.aircraftService = aircraftService;
     }
 
+    @GetMapping("/api/aircraft-list")
+    public List<Aircraft> getAircraftList() {
+        return aircraftService.allAircraftInTheAirline();
+    }
+
     @GetMapping("/total-passenger-capacity")
     public int totalCapacityOfAllTheAircraftInTheAirline() {
         return aircraftService.totalCapacityOfAllTheAircraftInTheAirline();
