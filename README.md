@@ -1,5 +1,10 @@
 # Airline [![Build Status](https://travis-ci.org/Olezha/Airline.svg?branch=master)](https://travis-ci.org/Olezha/Airline) [![codecov](https://codecov.io/gh/Olezha/Airline/branch/master/graph/badge.svg)](https://codecov.io/gh/Olezha/Airline) [![Dependency Status](https://www.versioneye.com/user/projects/5a72e8a80fb24f5752c0f584/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5a72e8a80fb24f5752c0f584) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d3e55562ac694966b123600019927b21)](https://www.codacy.com/app/o1ezha/Airline?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Olezha/Airline&amp;utm_campaign=Badge_Grade)
-## Company that stores airplanes
+## Company that stores airplanes (rest api & cli app)
+
+### Requirements
+- [JDK 8](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html)
+- [Maven](https://maven.apache.org/install.html)
+
 ### Instructions for launching
 After cloning the repository,
 run the following commands on the root folder of the repository
