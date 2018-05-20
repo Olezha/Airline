@@ -2,12 +2,14 @@ package ua.olezha.airline.controller;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.core.io.ResourceLoader;
 import ua.olezha.airline.model.aircraft.AircraftType;
 import ua.olezha.airline.model.aircraft.Commuterliner;
 import ua.olezha.airline.model.aircraft.Helicopter;
 import ua.olezha.airline.model.aircraft.WideBodyAirliner;
 import ua.olezha.airline.service.AircraftService;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.mockito.Mockito.*;
@@ -24,7 +26,7 @@ public class AirlineShellControllerTest {
         when(aircraftServiceMock.aircraftFactory(AircraftType.WIDE_BODY_AIRLINER)).thenReturn(new WideBodyAirliner());
         when(aircraftServiceMock.aircraftFactory(AircraftType.COMMUTERLINER)).thenReturn(new Commuterliner());
         when(aircraftServiceMock.aircraftFactory(AircraftType.HELICOPTER)).thenReturn(new Helicopter());
-        airlineShellController = new AirlineShellController(aircraftServiceMock);
+        airlineShellController = new AirlineShellController(aircraftServiceMock, mock(ResourceLoader.class));
     }
 
     @Test
@@ -82,12 +84,6 @@ public class AirlineShellControllerTest {
         airlineShellController.delete(false);
         airlineShellController.delete(true);
         verify(aircraftServiceMock).deleteAll();
-    }
-
-    @Test
-    public void mockTest() {
-        airlineShellController.mock();
-        verify(aircraftServiceMock, atLeast(1)).addAircraft(any());
     }
 
     @Test

@@ -3,6 +3,8 @@ package ua.olezha.airline.controller;
 import com.thoughtworks.xstream.XStream;
 import org.jline.utils.AttributedString;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
@@ -15,6 +17,8 @@ import ua.olezha.airline.model.aircraft.*;
 import ua.olezha.airline.service.AircraftService;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -24,9 +28,12 @@ import java.util.List;
 public class AirlineShellController {
 
     private final AircraftService aircraftService;
+    private final ResourceLoader resourceLoader;
 
-    public AirlineShellController(AircraftService aircraftService) {
+    public AirlineShellController(AircraftService aircraftService,
+                                  ResourceLoader resourceLoader) {
         this.aircraftService = aircraftService;
+        this.resourceLoader = resourceLoader;
         System.out.println("Airline (to display available shell commands type help)");
     }
 
@@ -137,7 +144,7 @@ public class AirlineShellController {
     }
 
     @ShellMethod("Simulate objects")
-    protected void mock() {
+    protected void mock() throws IOException {
         XStream xstream = new XStream();
         Class<?>[] classes = new Class[]{Commuterliner.class, Helicopter.class, WideBodyAirliner.class};
         XStream.setupDefaultSecurity(xstream);
@@ -145,11 +152,9 @@ public class AirlineShellController {
         xstream.alias("commuterliner", Commuterliner.class);
         xstream.alias("helicopter", Helicopter.class);
         xstream.alias("wideBodyAirliner", WideBodyAirliner.class);
-        File aircraftListXmlFile = new File(Aircraft.class
-                .getResource("/aircraftList.xml")
-                .getFile());
+        InputStream aircraftListXmlInputStream = resourceLoader.getResource("classpath:aircraftList.xml").getInputStream();
         for (Aircraft aircraft : (List<Aircraft>)
-                xstream.fromXML(aircraftListXmlFile))
+                xstream.fromXML(aircraftListXmlInputStream))
             aircraftService.addAircraft(aircraft);
     }
 
