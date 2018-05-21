@@ -2,8 +2,8 @@
 ## Company that stores airplanes (rest api & cli app)
 
 ### Requirements
-- [JDK 8](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html)
-- [Maven](https://maven.apache.org/install.html)
+- [JDK 8](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html) *(check* ```java -version```*)*
+- [Maven](https://maven.apache.org/install.html) *(check* ```mvn -v```*)*
 
 ### Instructions for launching
 After cloning the repository,
