@@ -116,14 +116,7 @@ public class AircraftServiceImpl implements AircraftService {
         Aircraft aircraft = aircraftRepository.getOne((long) id);
         if (!"-1".equals(name))
             aircraft.setName(name);
-        if (seatingCapacity >= 0)
-            aircraft.setSeatingCapacity(seatingCapacity);
-        if (carryingCapacityKg >= 0)
-            aircraft.setCarryingCapacityKg(carryingCapacityKg);
-        if (flightRangeKm >= 0)
-            aircraft.setFlightRangeKm(flightRangeKm);
-        if (fuelConsumptionLitersPerHour >= 0)
-            aircraft.setFuelConsumptionLitersPerHour(fuelConsumptionLitersPerHour);
+        setProperties(aircraft, seatingCapacity, carryingCapacityKg, flightRangeKm, fuelConsumptionLitersPerHour);
     }
 
     private Aircraft exampleAircraftFactory(AircraftType aircraftType,
@@ -140,6 +133,14 @@ public class AircraftServiceImpl implements AircraftService {
                 }
             };
 
+        setProperties(aircraft, seatingCapacity, carryingCapacityKg, flightRangeKm, fuelConsumptionLitersPerHour);
+
+        return aircraft;
+    }
+
+    private void setProperties(Aircraft aircraft,
+                               int seatingCapacity, int carryingCapacityKg,
+                               int flightRangeKm, int fuelConsumptionLitersPerHour) {
         if (seatingCapacity >= 0)
             aircraft.setSeatingCapacity(seatingCapacity);
         if (carryingCapacityKg >= 0)
@@ -148,7 +149,5 @@ public class AircraftServiceImpl implements AircraftService {
             aircraft.setFlightRangeKm(flightRangeKm);
         if (fuelConsumptionLitersPerHour >= 0)
             aircraft.setFuelConsumptionLitersPerHour(fuelConsumptionLitersPerHour);
-
-        return aircraft;
     }
 }
