@@ -132,6 +132,7 @@ public class AircraftServiceImpl implements AircraftService {
                     return null;
                 }
             };
+        aircraft.setCreated(null);
 
         setProperties(aircraft, seatingCapacity, carryingCapacityKg, flightRangeKm, fuelConsumptionLitersPerHour);
 
