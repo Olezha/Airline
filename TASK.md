@@ -9,6 +9,9 @@
     * Find aircraft which corresponding to the specified passenger capacity and the flight range (strict conformity).
 * Unit test coverage more then 65%.
 
+### Rewiew
+All ok. But [some code duplication](https://github.com/Olezha/Airline/blob/301717739b696b08d316b60872ac1f171fb76237/src/main/java/ua/olezha/airline/service/AircraftServiceImpl.java#L143) ([fixed](https://github.com/Olezha/Airline/commit/6f46dca39843d97740375425fc888e9e4ed4e014))
+
 
 ## GL Java ProCamp 2018 Entry task
 
