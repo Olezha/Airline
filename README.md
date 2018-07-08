@@ -14,6 +14,11 @@ mvn clean package
 java -jar target/airline-2.0.jar
 ```
 
+##### in case JDK 9+
+```sh
+mvn clean package -Dmaven.test.skip=true
+```
+
 ### REST Usage
 
 >_To simulate objects call CLI command ```mock```_
